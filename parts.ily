@@ -9,7 +9,7 @@ violinOne = \new Voice \relative c'' {
     \appoggiatura g,8 <g d'>8 <g d'>8
   \bar ":|."
   
-  \arrow 44 "t" ##f
+  \arrow \beginningLen "50\" – 1'" ##f
 }
 
 violinTwo = \new Voice \relative c'' {
@@ -37,7 +37,7 @@ violinTwo = \new Voice \relative c'' {
     \grace s8 <af, ef'>8 <af ef'>8
   \bar ":|."  
   
-  \arrow 32 "t" ##f
+  \arrow #(beginningArrow 3) "35\" – 45\"" ##f
   
   
 }
@@ -68,7 +68,7 @@ viola = \new Voice \relative c' {
     \appoggiatura c,8 <c g'>8 <c g'>8
   \bar ":|."
   
-  \arrow 42 "t" ##f
+  \arrow #(beginningArrow 2) "40\" – 50\"" ##f
 
 }
 
@@ -111,7 +111,7 @@ cello = \new Voice
   
   \time 1/8
   
-  \arrow 8 "t" ##t
+  \arrow 8 "1\" – 5\"" ##t
   
   \bar ".|:"
     \time 1/8
@@ -122,6 +122,6 @@ cello = \new Voice
   s4
   \bar ":|]"
   
-  \arrow 12 "t" ##f
+  \arrow #(- (beginningArrow 4) 12) "30\" – 40\"" ##f
 
 }

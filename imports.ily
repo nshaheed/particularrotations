@@ -10,11 +10,31 @@ tg  = ##f
 
 % other
 beginningMult = 3
+beginningLen  = 40
+#(define (beginningArrow n) (- beginningLen (* beginningMult n)))
+% #(define (varRest n) (ly:make-duration 3 0 n))
+% varRest = 
+%     #(define (varRest num)
+%        (
+%          make-music
+%         'SkipEvent
+%         'duration
+%         (ly:make-duration 3 0 num)))
+varRest = 
+#(define-music-function
+  (parser location n)
+  (integer?)
+   make-music
+      'SkipEvent
+      'duration
+      (ly:make-duration 3 0 n)
+  )
+
 %% %%
 
 %% Global %%
 global= {
-
+s8*42 \break s8
 }
 %% %%
 
@@ -177,6 +197,8 @@ arrow =
       
       \override Staff.Clef.transparent = ##f
       
+    <<
+      {
        % sets time signature to dur / 8
        #(make-music
         'TimeSignatureMusic
@@ -200,9 +222,13 @@ arrow =
                         'span-direction
                         -1)
                        (make-music
-                        'NoteGroupingEvent
-                        'span-direction
-                        -1))
+                        'TextScriptEvent
+                        'direction
+                        1
+                        'text
+                        (markup #:line (#:left-align str))
+                        )                  
+                  )
                 'duration
                 (ly:make-duration 3 0 1)
                 )
@@ -218,7 +244,6 @@ arrow =
         'SkipEvent
         'duration
         (ly:make-duration 3 0 (- dur 2)))
-
       
       \override Score.BarLine.stencil = ##f 
       
@@ -237,15 +262,71 @@ arrow =
                         'TextSpanEvent
                         'span-direction
                         1)
-                       (make-music
-                        'NoteGroupingEvent
-                        'span-direction
-                        1))
+                       )
                 'duration
                 (ly:make-duration 3 0 1)
               )
         )
       )
+      
+      }
+%       {
+%        \once \hide MultiMeasureRest
+%        %\once \override MultiMeasureRestText #'extra-offset = #'(0 . -2.4)
+%        %\once \override HorizontalBracket.shorten-pair = #'(-3 . 0)
+%        % \once \override NoteColumn #'force-hshift = #100
+%        % \override MultiMeasureRest   #'spacing-pair = #'(clef . staff-bar)
+%        
+%        % generates full measure rest that have a fermatamarkup and str above it
+%       #(make-music
+%         'MultiMeasureRestMusic
+%         'duration
+%         (ly:make-duration 3 0 dur)
+%         'articulations
+%         (list (make-music
+%                 'MultiMeasureTextEvent
+%                 'tweaks
+%                 (list (cons (quote outside-staff-priority) 40)
+%                       (cons (quote outside-staff-padding) 0))
+%                 )
+%               (make-music
+%                 'MultiMeasureTextEvent
+%                 'direction
+%                 1
+%                 'text
+%                 (markup
+%                     #:line
+%                     (#:hspace 0.7
+%                     (#:center-column
+%                     (#:vspace -1.3 #:halign 20 #:simple str)))))))
+%       }
+%       {
+%         \hide Rest
+%         
+%        %% Makes the \startGroup rests
+%        #(make-music
+%           'RestEvent
+%           'articulations
+%           (list (make-music
+%                   'NoteGroupingEvent
+%                   'span-direction
+%                   -1))
+%           'duration
+%           (ly:make-duration 3 0 (- dur 1)))
+%        
+%        
+%       %%  Makes the \stopGroup rest
+%        #(make-music
+%           'RestEvent
+%           'articulations
+%           (list (make-music
+%                   'NoteGroupingEvent
+%                   'span-direction
+%                   1))
+%           'duration
+%           (ly:make-duration 3 0 1))        
+%       }
+    >>
       
       \startstaff #end
             
