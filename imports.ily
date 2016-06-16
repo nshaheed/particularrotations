@@ -148,11 +148,11 @@ startstaff =
 )
 
 % hides bar line and makes an arrow
-% arrow :: begLength -> endLength -> end?
+% arrow :: length -> timeStr -> endofstaff?
 arrow = 
 #(define-music-function
-  (parser location head tail end)
-  (ly:duration? ly:duration? boolean?)
+  (parser location dur str end)
+  (integer? string? boolean?)
   #{
       % Set up text spanner to display arrow
       \override TextSpanner.bound-details.left.stencil-align-dir-y = #CENTER
@@ -176,6 +176,16 @@ arrow =
       \stopStaff 
       
       \override Staff.Clef.transparent = ##f
+      
+       % sets time signature to dur / 8
+       #(make-music
+        'TimeSignatureMusic
+        'beat-structure
+        '()
+        'denominator
+        8
+        'numerator
+        dur)
 
 
       % invisible rests of length tail that start text span
@@ -194,7 +204,7 @@ arrow =
                         'span-direction
                         -1))
                 'duration
-                tail
+                (ly:make-duration 3 0 1)
                 )
         )
       )
@@ -207,7 +217,7 @@ arrow =
       #(make-music
         'SkipEvent
         'duration
-        head)
+        (ly:make-duration 3 0 (- dur 2)))
 
       
       \override Score.BarLine.stencil = ##f 
@@ -232,7 +242,7 @@ arrow =
                         'span-direction
                         1))
                 'duration
-                tail
+                (ly:make-duration 3 0 1)
               )
         )
       )

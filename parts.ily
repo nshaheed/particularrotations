@@ -1,7 +1,7 @@
 violinOne = \new Voice \relative c'' {
   \set Staff.instrumentName = #"Violin 1 "
   
-  \once \override Staff.TimeSignature #'stencil = ##f 
+  \override Staff.TimeSignature #'stencil = ##f 
   \time 1/4
   
   
@@ -9,7 +9,7 @@ violinOne = \new Voice \relative c'' {
     \appoggiatura g,8 <g d'>8 <g d'>8
   \bar ":|."
   
-  \arrow 8*40 4 ##f
+  \arrow 44 "t" ##f
 }
 
 violinTwo = \new Voice \relative c'' {
@@ -37,7 +37,7 @@ violinTwo = \new Voice \relative c'' {
     \grace s8 <af, ef'>8 <af ef'>8
   \bar ":|."  
   
-  \arrow 8*30 8 ##f
+  \arrow 32 "t" ##f
   
   
 }
@@ -68,7 +68,7 @@ viola = \new Voice \relative c' {
     \appoggiatura c,8 <c g'>8 <c g'>8
   \bar ":|."
   
-  \arrow 8*40 8 ##f
+  \arrow 42 "t" ##f
 
 }
 
@@ -111,7 +111,7 @@ cello = \new Voice
   
   \time 1/8
   
-  \arrow 8*4 8 ##t
+  \arrow 8 "t" ##t
   
   \bar ".|:"
     \time 1/8
@@ -122,6 +122,6 @@ cello = \new Voice
   s4
   \bar ":|]"
   
-  \arrow 8*8 8 ##f
+  \arrow 12 "t" ##f
 
 }
