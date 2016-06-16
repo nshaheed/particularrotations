@@ -10,58 +10,15 @@ tg  = ##f
 
 % other
 beginningMult = 3
-%%
+%% %%
 
-
-% because using \stopStaff for extended periods of time doesn't allow for staffgroup brackets
-% on that one, you need to set the StaffSymbol and BarLine to transparent
-invs = 
-#(define-music-function
-    (parser location)
-    ()
-    #{
-      \stopStaff
-      \override Staff.StaffSymbol.transparent = ##t
-      \override Staff.BarLine.transparent = ##t 
-%       \override Staff.Clef.transparent = ##t
-      
-      \startStaff
-
-    #}
-    
- )
-
-notinvs = 
-#(define-music-function
-    (parser location)
-    ()
-    #{
-      \stopStaff
-      \override Staff.StaffSymbol.transparent = ##f
-      \override Staff.BarLine.transparent = ##f 
-      \startStaff
-    #}
-    
- )
-
+%% Global %%
 global= {
 
 }
+%% %%
 
-startstaff = 
-#(define-music-function
-  (parser location end)
-  (boolean?)
-  (if end
-    #{
-%       \startStaff
-      \notinvs
-    #}
-    #{
-      
-    #}
-  )
-)
+%% In-Score Functions %% 
 
 beginning = 
 #(define-music-function
@@ -141,7 +98,57 @@ beginning =
   #}
 )
 
+% \stopStaff and \startStaff are for changing staff properties, not turning the staff off,
+% The StaffSymbol and Barline Transparencies are for that
+invs = 
+#(define-music-function
+    (parser location)
+    ()
+    #{
+      \stopStaff
+      \override Staff.StaffSymbol.transparent = ##t
+      \override Staff.BarLine.transparent = ##t 
+%       \override Staff.Clef.transparent = ##t
+      
+      \startStaff
+
+    #}
+    
+ )
+
+% make the barline and staffsymbol visible again
+notinvs = 
+#(define-music-function
+    (parser location)
+    ()
+    #{
+      \stopStaff
+      \override Staff.StaffSymbol.transparent = ##f
+      \override Staff.BarLine.transparent = ##f 
+      \startStaff
+    #}
+    
+ )
+
+
+
+% turns transparencies off if needed
+startstaff = 
+#(define-music-function
+  (parser location end)
+  (boolean?)
+  (if end
+    #{
+      \notinvs
+    #}
+    #{
+      
+    #}
+  )
+)
+
 % hides bar line and makes an arrow
+% arrow :: begLength -> endLength -> end?
 arrow = 
 #(define-music-function
   (parser location head tail end)
@@ -171,6 +178,7 @@ arrow =
       \override Staff.Clef.transparent = ##f
 
 
+      % invisible rests of length tail that start text span
       #(make-music
         'SequentialMusic
         'elements
@@ -179,6 +187,10 @@ arrow =
                 'articulations
                 (list (make-music
                         'TextSpanEvent
+                        'span-direction
+                        -1)
+                       (make-music
+                        'NoteGroupingEvent
                         'span-direction
                         -1))
                 'duration
@@ -191,7 +203,7 @@ arrow =
       
       \invs
 
-      
+      % invisible rests of length head
       #(make-music
         'SkipEvent
         'duration
@@ -204,6 +216,7 @@ arrow =
       \override Staff.Clef.transparent = ##f
       \startStaff
       
+      % invisible rest of length tail that end text spanner
       #(make-music
         'SequentialMusic
         'elements
@@ -212,6 +225,10 @@ arrow =
                 'articulations
                 (list (make-music
                         'TextSpanEvent
+                        'span-direction
+                        1)
+                       (make-music
+                        'NoteGroupingEvent
                         'span-direction
                         1))
                 'duration

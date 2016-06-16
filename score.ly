@@ -57,5 +57,5 @@
     \override HorizontalBracket.direction = #UP
   }
   }
-  \midi { }
+  % \midi { }
 }
