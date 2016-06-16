@@ -24,8 +24,8 @@
 
 \score {
   
-  \new ChoirStaff <<
-    \override ChoirStaff.SystemStartBracket.collapse-height = #5
+  \new StaffGroup <<
+    \override StaffGroup.SystemStartBracket.collapse-height = #5
     \override Score.SystemStartBar.collapse-height = #5
     \new Staff << \global \violinOne >>
     \new Staff << \global \violinTwo >>
@@ -36,16 +36,19 @@
     \context {
     \Score
     \remove "Timing_translator"
-    \remove "Default_bar_line_engraver"
+    % \remove "Default_bar_line_engraver"
     
   }
   \context {
     \Staff
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
+    \remove "Forbid_line_break_engraver"
+    
+
   }
   \context {
-    \ChoirStaff
+    \StaffGroup
     systemStartDelimiter = #'SystemStartBracket	
     \override SystemStartBracket.collapse-height = #0.0
     %\override SystemStartSquare.X-offset = #-15 

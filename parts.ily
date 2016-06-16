@@ -10,6 +10,9 @@ violinOne = \new Voice \relative c'' {
   \bar ":|."
   
   \arrow \beginningLen "50\" – 1'" ##f
+  s8
+  \notinvs
+  s8
 }
 
 violinTwo = \new Voice \relative c'' {
@@ -38,6 +41,10 @@ violinTwo = \new Voice \relative c'' {
   \bar ":|."  
   
   \arrow #(beginningArrow 3) "35\" – 45\"" ##f
+  
+  s8
+  \notinvs
+  s8
   
   
 }
@@ -69,6 +76,12 @@ viola = \new Voice \relative c' {
   \bar ":|."
   
   \arrow #(beginningArrow 2) "40\" – 50\"" ##f
+
+  s8
+  \notinvs
+  s8
+  
+  % a4 b c
 
 }
 
@@ -123,5 +136,20 @@ cello = \new Voice
   \bar ":|]"
   
   \arrow #(- (beginningArrow 4) 12) "30\" – 40\"" ##f
-
+  
+  \time 1/8
+  s8
+  \notinvs
+  \bar "[|:"
+    \grace {\slashI {c16 ef c d c d} } 
+    %\grace { \slashI {c16} }
+    c8->  
+    
+    \bar ".|:"
+      \time 1/4
+      <g' d'>8 <g d'>8
+    \bar ":|."
+  \bar ":|]"
+  
+  
 }
