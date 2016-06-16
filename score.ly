@@ -5,15 +5,21 @@
 \include "parts.ily"
 
 \paper {
-  #(set-paper-size "a4landscape")
-  % #(set-paper-size "a4")
-
+  #(set-paper-size scorePaperSize)
   
   system-separator-markup = \slashSeparator
+  
+  margin = .75\in 
+  left-margin = \margin
+  right-margin = \margin
+  top-margin = .5\in
+  bottom-margin = \margin
 }
 
 \header {
- tagline = ##f 
+  title = \ttl
+  composer = \cmp
+  tagline = \tg
 }
 
 \score {

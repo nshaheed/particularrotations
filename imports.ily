@@ -1,3 +1,18 @@
+%% Header, Footer, and Various Formatting Values
+
+% paper
+scorePaperSize = "a4landscape"
+
+% header
+ttl = "italy quartet"
+cmp = "Nicholas Shaheed"
+tg  = ##f
+
+% other
+beginningMult = 3
+%%
+
+
 % because using \stopStaff for extended periods of time doesn't allow for staffgroup brackets
 % on that one, you need to set the StaffSymbol and BarLine to transparent
 invs = 

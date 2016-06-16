@@ -24,7 +24,7 @@ violinTwo = \new Voice \relative c'' {
 
   \grace s8
   
-  \beginning 12 "15\""
+  \beginning #(* beginningMult 3) "15\""
 
   \notinvs
   
@@ -56,7 +56,7 @@ viola = \new Voice \relative c' {
   \grace s8 
 
 
-  \beginning 8 "10\""
+  \beginning #(* beginningMult 2) "10\""
 
   \notinvs
   
@@ -92,7 +92,7 @@ cello = \new Voice
   
   \grace s8
   
-  \beginning 16 "20\""
+  \beginning #(* beginningMult 4) "20\""
   
   \notinvs
   
