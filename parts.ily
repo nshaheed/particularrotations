@@ -10,6 +10,13 @@ violinOne = \new Voice \relative c'' {
   \bar ":|."
   
   \arrow \beginningLen "50\" – 1'" ##f
+  
+  <<
+    \asect
+    \arrowGrace 7 "" ##f
+  >>
+  
+  \notinvs
   s8
   \notinvs
   s8
@@ -42,6 +49,10 @@ violinTwo = \new Voice \relative c'' {
   
   \arrow #(beginningArrow 3) "35\" – 45\"" ##f
   
+  <<
+    \asect
+    \arrowGrace 7 "" ##f
+  >>  
   s8
   \notinvs
   s8
@@ -77,6 +88,12 @@ viola = \new Voice \relative c' {
   
   \arrow #(beginningArrow 2) "40\" – 50\"" ##f
 
+  <<
+    \asect
+    \arrowGrace 3 "" ##f
+    {s8 s8 s8}
+  >>
+  
   s8
   \notinvs
   s8
@@ -97,7 +114,7 @@ cello = \new Voice
   }
   
   \override Staff.TimeSignature #'stencil = ##f 
-  \time 2/8
+  %\time 2/8
   
   \once \omit Staff.Clef
   
@@ -128,7 +145,8 @@ cello = \new Voice
   
   \bar ".|:"
     \time 1/8
-    \grace {\slashI {c,16 ef c d c d} } c8->\breathe
+    \grace {\slashI {c,16 ef c d c d} } 
+    c8->\breathe
   \bar ":|."
   
   \time 1/4
@@ -137,19 +155,33 @@ cello = \new Voice
   
   \arrow #(- (beginningArrow 4) 12) "30\" – 40\"" ##f
   
-  \time 1/8
-  s8
+  %\notinvs
+  
+  %\time 1/8
+  \undo \omit Staff.Clef
   \notinvs
-  \bar "[|:"
+%   s8 \notinvs
+  %\notinvs
+%   \bar "[|:"
+%     \override Staff.Clef.full-size-change = ##t
+%     \set Staff.forceClef = ##t 
+    % \break
+    \break
+    \bar ".|:-end"
+
+    \time 1/8
+    \clef bass
     \grace {\slashI {c16 ef c d c d} } 
     %\grace { \slashI {c16} }
     c8->  
     
-    \bar ".|:"
+    \bar ".|:-mixed"
       \time 1/4
       <g' d'>8 <g d'>8
+    \bar ":|.-small"
+    
+    \arrow #(- alen 3) "" ##f
     \bar ":|."
-  \bar ":|]"
   
   
 }

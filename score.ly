@@ -25,8 +25,8 @@
 \score {
   
   \new StaffGroup <<
-    \override StaffGroup.SystemStartBracket.collapse-height = #5
-    \override Score.SystemStartBar.collapse-height = #5
+%     \override StaffGroup.SystemStartBracket.collapse-height = #5
+%     \override Score.SystemStartBar.collapse-height = #5
     \new Staff << \global \violinOne >>
     \new Staff << \global \violinTwo >>
     \new Staff << \global \viola >>

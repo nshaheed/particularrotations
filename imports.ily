@@ -11,9 +11,15 @@ tg  = ##f
 % other
 beginningMult = 3
 beginningLen  = 40
+alen = 7
 #(define (beginningArrow n) (- beginningLen (* beginningMult n)))
 \defineBarLine "|-dashedSpan" #'("||" "" "!!")
 \defineBarLine ".|:-end" #'("" ".|:" "")
+\defineBarLine ".|:-small" #'(".|:" "" "")
+\defineBarLine ":|.-small" #'(":|." "" "")
+\defineBarLine ".|:-mixed" #'(".|:" "" "|")
+\defineBarLine ":|.-mixed" #'(":|." "" "|")
+
 
 varRest = 
 #(define-music-function
@@ -29,13 +35,19 @@ varRest =
 
 %% Global %%
 global= {
-s8*42 \break 
-\set Staff.whichBar = "test"
-\stopStaff
-      \once \override Staff.BarLine.transparent = ##f 
-\startStaff
+s8*42 
 
-\bar ".|:-end"
+% \break 
+
+\once \omit Staff.Clef
+% \stopStaff
+%       \once \override Staff.BarLine.transparent = ##f 
+% \startStaff
+
+% \bar ".|:-end"
+%\grace {\slashI {c16 ef c d c d} } s8
+
+
 % s8 a b c d e d c b
 }
 %% %%
@@ -240,6 +252,130 @@ arrow =
       \startStaff
       
       \invs
+      \override Staff.BarLine.transparent = ##f
+
+      % invisible rests of length head
+      #(make-music
+        'SkipEvent
+        'duration
+        (ly:make-duration 3 0 (- dur 2)))
+      
+      \override Score.BarLine.stencil = ##f 
+      
+      \stopStaff
+      \override Staff.Clef.transparent = ##f
+      \startStaff
+      
+      % invisible rest of length tail that end text spanner
+      #(make-music
+        'SequentialMusic
+        'elements
+        (list (make-music
+                'SkipEvent
+                'articulations
+                (list (make-music
+                        'TextSpanEvent
+                        'span-direction
+                        1)
+                       )
+                'duration
+                (ly:make-duration 3 0 1)
+              )
+        )
+      )
+      
+      }
+    >>
+      
+      \startstaff #end
+            
+      \revert TextSpanner.bound-details.left.stencil-align-dir-y
+      \revert TextSpanner.style
+      \revert TextSpanner.extra-offset
+      \revert TextSpanner.bound-details.right.text
+      
+      \revert Score.BarLine.stencil       
+  #}
+  )
+
+arrowGrace = 
+#(define-music-function
+  (parser location dur str end)
+  (integer? string? boolean?)
+  #{
+      % Set up text spanner to display arrow
+      \override TextSpanner.bound-details.left.stencil-align-dir-y = #CENTER
+      \override TextSpanner.style = #'line
+      % put in in the middle of the staff
+      % TODO: get height of staff and use that?
+      \override TextSpanner.extra-offset = #'(0 . -3.1)
+      \override TextSpanner.bound-details.right.text = \markup { 
+        \column {
+        \scale #'( 1 . 1)
+        \arrow #"long" ##f #X #UP #1 #0.0
+        }
+      }
+      \override TextSpanner.thickness = #2   
+       
+      % in order to keep the right hand barline to appear, need to \stopStaff, put a small 
+      % hidden rest, and \startStaff
+      
+      % after that, use invis (it does page breaks with the staff bracket) for the the bulk
+      % of the spacing
+      %\stopStaff 
+      
+      \override Staff.Clef.transparent = ##f
+      
+    <<
+      {
+       % sets time signature to dur / 8
+       #(make-music
+        'TimeSignatureMusic
+        'beat-structure
+        '()
+        'denominator
+        8
+        'numerator
+        dur)
+
+
+      % crappy hack that puts the \startTextSpanner in the grace notes
+      \grace { 
+      #(make-music
+        'SequentialMusic
+        'elements
+        (list (make-music
+                'SkipEvent
+                'articulations
+                (list (make-music
+                        'TextSpanEvent
+                        'span-direction
+                        -1)
+                       (make-music
+                        'TextScriptEvent
+                        'direction
+                        1
+                        'text
+                        (markup #:line (#:left-align str))
+                        )                  
+                  )
+                'duration
+                (ly:make-duration 4 0 1)
+                )
+        )
+      )
+      s16 s s s s
+      }
+%       
+      #(make-music
+        'SkipEvent
+        'duration
+        (ly:make-duration 3 0 1)
+        )
+      
+      %\startStaff
+      
+      % \invs
 
       % invisible rests of length head
       #(make-music
@@ -304,3 +440,12 @@ blank =
       \revert Score.BarLine.stencil       
   #}
   )
+
+asect =
+{
+  \once \omit Staff.Clef
+  \once \override Staff.BarLine.transparent = ##f
+  \bar ".|:-end"
+  \grace {s16 s s s s s}
+  s8 \bar "|" s8 s8
+}
