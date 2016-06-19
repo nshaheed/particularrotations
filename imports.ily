@@ -48,12 +48,11 @@ global= {
   s8 s8 s8 
   
   \override Score.RehearsalMark.self-alignment-X = #CENTER
-  %\override Score.RehearsalMark #'break-visibility = #end-of-line-visible
+  \override Score.RehearsalMark #'break-visibility = #end-of-line-visible
   \mark \markup {2 - 4x}
   
   \grace {s16 s s s s s}
-  s8
-  s8
+  s8 * 16 \mark \markup {2 - 4x}
 
 % \break 
 

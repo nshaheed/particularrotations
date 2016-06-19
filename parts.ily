@@ -13,7 +13,9 @@ violinOne = \new Voice \relative c'' {
   
   <<
     \asect
-    { \arrowGrace 1 "" ##f \arrow #(- alen 1) "" ##f }
+    { \arrowGrace \alen "" ##f
+      %\arrow #(- alen 1) "" ##f 
+    }
   >>
 
   \bar ":|.|:"
@@ -37,6 +39,7 @@ violinOne = \new Voice \relative c'' {
     }
    >>
    
+    \bar ":|."
 
   % \notinvs
 %   s8
@@ -72,7 +75,9 @@ violinTwo = \new Voice \relative c'' {
   
   <<
     \asect
-    { \arrowGrace 1 "" ##f \arrow #(- alen 1) "" ##f }
+    { \arrowGrace \alen "" ##f 
+      %\arrow #(- alen 1) "" ##f 
+    }
   >>  
   
   \bar ":|.|:"
@@ -82,7 +87,8 @@ violinTwo = \new Voice \relative c'' {
     { \arrowGrace \blen "" ##f }
   >> 
   
-  
+  \bar ":|."
+
 }
 
 
@@ -115,8 +121,8 @@ viola = \new Voice \relative c' {
   <<
     \asect
     { 
-      \arrowGrace 1 "" ##f 
-      \arrow 3 "5\", decrease time each repetition" ##t 
+      \arrowGrace 4 "" ##t
+      % \arrow 3 "5\", decrease time each repetition" ##t 
     }
     % {s8 s4^\markup { \hspace #10 \musicglyph #"scripts.ufermata" } }
    
@@ -145,6 +151,8 @@ viola = \new Voice \relative c' {
   % \break
   
   % \bar ".|:-left"
+%   \once \override Staff.BarLine.bar-extent = #'(-14 . 7)
+
   \bar ":|.|:"
  
   <<
@@ -171,7 +179,7 @@ viola = \new Voice \relative c' {
     % {s8 s4^\markup { \hspace #10 \musicglyph #"scripts.ufermata" } }
    
   >>
-  
+  \bar ":|."
   
   % a4 b c
 
@@ -257,6 +265,8 @@ cello = \new Voice
        % \notinvs
       }
     >>
+         %\once \override Staff.BarLine.bar-extent = #'(0 . 10)
+
 
     %\notinvs
     %\time 1/8
@@ -271,24 +281,43 @@ cello = \new Voice
 
     
     %\bar ".|:-left"
+        %\once \override Staff.BarLine.bar-extent = #'(0 . 10)
+
     \bar ":|.|:"
     \time 1/8
     
-    \notinvs
+    %\notinvs
     
     %\once \set Staff.forceClef = ##t 
     
     %\clef bass
-    \grace {\slashI {c,16 ef c d c d} } 
+    \grace {\slashI {c,16 \notinvs 
+                     
+                     ef c d c d} } 
     c8->  
    
     \bar ".|:-mixed"
       \time 1/4
+%       \stopStaff
+%       \override Staff.BarLine.extra-spacing-height = #'(10.0 . 10.0)
+%       \startStaff
+%     \once \override Staff.BarLine.bar-extent = #'(2.5 . 20)
+    %\once \override Staff.BarLine.Y-extent = #'(2.5 . 20)
+
       <g' d'>8 <g d'>8
+      \stopStaff
+                     \once \override Staff.StaffSymbol.width = #0.1
+                     %\override Staff.StaffSymbol.Y-extent = #'(3 . 3)
+                     \startStaff
     \bar ":|.-small"
+    
     
     \arrow #(- blen 3) "" ##f
 
+    \bar ":|."
+    \notinvs
+    \grace {\slashI {c,16 ef c d c d} } 
+    c8-> \breathe 
   
 }
 
