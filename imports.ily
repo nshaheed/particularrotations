@@ -13,6 +13,7 @@ beginningMult = 3
 beginningLen  = 40
 alen = 12
 blen = 16
+clen = 8
 #(define (beginningArrow n) (- beginningLen (* beginningMult n)))
 \defineBarLine "|-dashedSpan" #'("||" "" "!!")
 \defineBarLine ".|:-end" #'("" ".|:" "")
@@ -25,28 +26,27 @@ blen = 16
 \defineBarLine ":|.-left"  #'("" ":|." "||")
 
 % supposed to make a rest of length n, but it doens't work
-varRest = 
-#(define-music-function
-  (parser location n)
-  (integer?)
-   make-music
-      'SkipEvent
-      'duration
-      (ly:make-duration 3 0 n)
-  )
+% varRest = 
+% #(define-music-function
+%   (parser location n)
+%   (integer?)
+%    make-music
+%       'SkipEvent
+%       'duration
+%       (ly:make-duration 3 0 n)
+%   )
 
 varRest = 
 #(define-music-function
-  (parser location count)
+  (parser location counter)
   (integer?)
-  if (> count 0)
-  (
-    make-music
-      'SkipEvent
-      'duration
-      (ly:make-duration 3 0 1)
-  )
-  (
+  (if (> counter 0)
+    
+      #{
+        s8 % ^\markup { #(number->string counter) }
+        \varRest #(- counter 1)
+      #}
+      #{ #}
     
   )
  )
@@ -70,12 +70,25 @@ global = {
   \once \override Score.RehearsalMark #'break-visibility = #end-of-line-visible
   \mark \markup {2 - 4x}
   
+  \once \omit Staff.Clef
+  
+  
   \grace {s16 s s s s s}
   s8 * 16 \mark \markup {2 - 4x}
+  s8 * 3
+  \once \set Staff.forceClef = ##t
+  
+  \bar ".|:-small"
+    \grace {s16 s s s s s}
+    s8
+  \bar ":|.-small"
+  
+  %\varRest 20
 
-  \grace{s16 s s s s s}
-  \once \omit Staff.Clef
-  s8^"t"
+  % \breathe
+%   \grace{s16 s s s s s}
+%   \once \omit Staff.Clef
+  s8
   %s8 s % s % s s s s s 
   % s  s s s s s s s 
   %\once \set Staff.forceClef = ##t 

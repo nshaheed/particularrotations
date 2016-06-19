@@ -33,15 +33,26 @@ violinOne = \new Voice \relative c'' {
   <g d'>8[  <g d'>8]
   \bar ":|.-small"
   
-  \arrow #(- blen 7) "" ##t
-   
+  \arrow #(- blen 7) "" ##f
+     
    % C Section
-  \bar ":|.|:"
+  \bar ":|."
   
   \time 1/8
   % \grace { g16 g g g g g}
+  
+  \arrow 3 "0\" - 2\"" ##t
   \grace {\slashI {g16 bf g a g a } }
   g8-> \breathe
+  
+  \arrow 3 "" ##t
+  
+  \time 1/4
+  \bar ".|:"
+    \appoggiatura g8 <g d'>8 <g d'>8
+  \bar ":|."
+  
+  \arrow #(- clen 5) "" ##t
 }
 
 violinTwo = \new Voice \relative c'' {
@@ -82,15 +93,19 @@ violinTwo = \new Voice \relative c'' {
   \bar ":|.|:"
 
   %% B Section
-  { \arrowGrace \blen "" ##t }
+  { \arrowGrace \blen "" ##f }
   
-  \bar ":|.|:"
+  \bar ":|."
   
   %% C Section
-  
+  \arrow 3 "0\" - 2\"" ##t
   \clef treble
   \grace {\slashI { af16 cf af bf af bf } }
   af8-> \breathe
+  
+  \arrow \clen "" ##t
+  
+  
 
 
 }
@@ -167,14 +182,18 @@ viola = \new Voice \relative c' {
     <c g'>8[  <c g'>8]
   \bar ":|.-small"
       
-  \arrow #(- blen 11) "" ##t
+  \arrow #(- blen 11) "" ##f
 
-  \bar ":|.|:"
+  \bar ":|."
   
   %% C Section
+  \arrow 3 "0\" - 2\"" ##t
+
   \time 1/8
   \grace {\slashI {c16 ef c d c d} } 
   c8->  \breathe
+
+  \arrow \clen "" ##t
 
 
 }
@@ -253,6 +272,8 @@ cello = \new Voice
   
   %% B Section
 
+  \undo \omit Staff.Clef
+
   \bar ":|.|:"
   \time 1/8
   \grace {\slashI {c,16 \notinvs 
@@ -271,12 +292,14 @@ cello = \new Voice
     
   \arrow #(- blen 3) "" ##f
 
-  \bar ":|.|:"
+  \bar ":|."
     
   %% C Section
-  \notinvs
+  \arrow 3 "0\" - 2\"" ##t
   
   \time 1/8
   \grace {\slashI {c,16 ef c d c d} } 
   c8-> \breathe 
+  
+  \arrow \clen "" ##t
 }
