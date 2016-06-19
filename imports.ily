@@ -35,10 +35,25 @@ varRest =
       (ly:make-duration 3 0 n)
   )
 
+varRest = 
+#(define-music-function
+  (parser location count)
+  (integer?)
+  if (> count 0)
+  (
+    make-music
+      'SkipEvent
+      'duration
+      (ly:make-duration 3 0 1)
+  )
+  (
+    
+  )
+ )
 %% %%
 
 %% Global %%
-global= {
+global = {
   \set Score.markFormatter = #format-mark-box-alphabet
   \override Staff.Clef.full-size-change = ##t
   
@@ -52,13 +67,18 @@ global= {
   s8 s8 s8 
   
   \override Score.RehearsalMark.self-alignment-X = #CENTER
-  \override Score.RehearsalMark #'break-visibility = #end-of-line-visible
+  \once \override Score.RehearsalMark #'break-visibility = #end-of-line-visible
   \mark \markup {2 - 4x}
   
   \grace {s16 s s s s s}
   s8 * 16 \mark \markup {2 - 4x}
 
-\once \omit Staff.Clef
+  \grace{s16 s s s s s}
+  \once \omit Staff.Clef
+  s8^"t"
+  %s8 s % s % s s s s s 
+  % s  s s s s s s s 
+  %\once \set Staff.forceClef = ##t 
 }
 %% %%
 

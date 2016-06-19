@@ -63,4 +63,5 @@
     \override HorizontalBracket.direction = #UP
   }
   }
+  % \midi { }
 }
