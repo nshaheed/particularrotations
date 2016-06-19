@@ -8,6 +8,8 @@
   #(set-paper-size scorePaperSize)
   
   system-separator-markup = \slashSeparator
+  ragged-bottom = ##f
+
   
   margin = .75\in 
   left-margin = \margin
@@ -30,9 +32,12 @@
     \new Staff << \global \violinOne >>
     \new Staff << \global \violinTwo >>
     \new Staff << \global \viola >>
-    \new Staff << \global \cello >>
+    \new Staff << \global \cello  >>
+                    
+                  
   >>
   \layout {
+    ragged-right = ##f
     \context {
     \Score
     \remove "Timing_translator"
@@ -44,7 +49,7 @@
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
     \remove "Forbid_line_break_engraver"
-    
+    % \RemoveEmptyStaves
 
   }
   \context {

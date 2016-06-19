@@ -13,13 +13,35 @@ violinOne = \new Voice \relative c'' {
   
   <<
     \asect
-    \arrowGrace 7 "" ##f
+    { \arrowGrace 1 "" ##f \arrow #(- alen 1) "" ##f }
   >>
+
+  \bar ":|.|:"
   
-  \notinvs
-  s8
-  \notinvs
-  s8
+   <<
+    % \asect
+    { 
+      \arrowGrace 4 "" ##t
+      
+      \clef treble
+      \time 1/8
+      \grace {\slashI {g16 bf g a g a } } 
+      g8->
+      
+      \bar ".|:-small"
+      \time 1/4
+      <g d'>8[  <g d'>8]
+      \bar ":|.-small"
+  
+      \arrow #(- blen 7) "" ##f
+    }
+   >>
+   
+
+  % \notinvs
+%   s8
+%   \notinvs
+%   s8
 }
 
 violinTwo = \new Voice \relative c'' {
@@ -38,7 +60,6 @@ violinTwo = \new Voice \relative c'' {
 
   \notinvs
   
-  \once \override Staff.Clef #'font-size = 2
   \clef treble
 
   
@@ -51,11 +72,15 @@ violinTwo = \new Voice \relative c'' {
   
   <<
     \asect
-    \arrowGrace 7 "" ##f
+    { \arrowGrace 1 "" ##f \arrow #(- alen 1) "" ##f }
   >>  
-  s8
-  \notinvs
-  s8
+  
+  \bar ":|.|:"
+
+  <<
+    % \asect
+    { \arrowGrace \blen "" ##f }
+  >> 
   
   
 }
@@ -78,7 +103,6 @@ viola = \new Voice \relative c' {
 
   \notinvs
   
-  \once \override Staff.Clef #'font-size = 2
   \clef alto
   
   \time 1/4
@@ -90,13 +114,64 @@ viola = \new Voice \relative c' {
 
   <<
     \asect
-    \arrowGrace 3 "" ##f
-    {s8 s8 s8}
+    { 
+      \arrowGrace 1 "" ##f 
+      \arrow 3 "5\", decrease time each repetition" ##t 
+    }
+    % {s8 s4^\markup { \hspace #10 \musicglyph #"scripts.ufermata" } }
+   
   >>
   
-  s8
-  \notinvs
-  s8
+  \bar "|"
+  \override Staff.Clef.full-size-change = ##t
+  \set Staff.forceClef = ##t 
+  
+  \time 1/8
+  \grace {\slashI {c16 ef c d c d} } 
+  c8->  
+  
+  \bar ".|:-small"
+    \time 1/4
+    <c g'>8[  <c g'>8]
+  \bar ":|.-small"
+  
+  \arrow #(- alen 7) "" ##f
+  
+  
+  %\bar ":|."
+  % \time 1/8
+  % s8
+  %\invs
+  % \break
+  
+  % \bar ".|:-left"
+  \bar ":|.|:"
+ 
+  <<
+    % \asect
+    { 
+      \arrowGrace 8 "" ##t
+      % \arrow 7 "" ##t 
+      
+      \time 1/8
+      
+      \once \set Staff.forceClef = ##t 
+
+      \clef alto
+      \grace {\slashI {c16 ef c d c d} } 
+      c8->  
+      
+      \bar ".|:-small"
+        \time 1/4
+        <c g'>8[  <c g'>8]
+      \bar ":|.-small"
+      
+      \arrow #(- blen 11) "" ##t
+    }
+    % {s8 s4^\markup { \hspace #10 \musicglyph #"scripts.ufermata" } }
+   
+  >>
+  
   
   % a4 b c
 
@@ -131,7 +206,6 @@ cello = \new Voice
   s8
   \time 1/4
   
-  \once \override Staff.Clef #'font-size = 2
   \clef bass
   
   \bar ".|:"
@@ -147,6 +221,7 @@ cello = \new Voice
     \time 1/8
     \grace {\slashI {c,16 ef c d c d} } 
     c8->\breathe
+  \once \override Score.BarLine.stencil = ##f 
   \bar ":|."
   
   \time 1/4
@@ -160,19 +235,13 @@ cello = \new Voice
   %\time 1/8
   \undo \omit Staff.Clef
   \notinvs
-%   s8 \notinvs
-  %\notinvs
-%   \bar "[|:"
-%     \override Staff.Clef.full-size-change = ##t
-%     \set Staff.forceClef = ##t 
-    % \break
+
     \break
     \bar ".|:-end"
 
     \time 1/8
     \clef bass
     \grace {\slashI {c16 ef c d c d} } 
-    %\grace { \slashI {c16} }
     c8->  
     
     \bar ".|:-mixed"
@@ -180,8 +249,63 @@ cello = \new Voice
       <g' d'>8 <g d'>8
     \bar ":|.-small"
     
-    \arrow #(- alen 3) "" ##f
+    %\override Staff.StaffSymbol.transparent = ##t
+    % \arrow #(- alen 3) "5\" after viola grace notes, decrease time each repetition" ##f
+    <<
+      \arrow #(- alen 3) "" ##f
+      {s8 s8^\markup {"5\" after Viola grace notes, decrease time each repetition"} 
+       % \notinvs
+      }
+    >>
+
+    %\notinvs
+    %\time 1/8
     \bar ":|."
+    % \break
+%     s8
+    %\invs
+%     \break
+    % \arrowGrace 1 "" ##f
+    
+    %\notinvs
+
+    
+    %\bar ".|:-left"
+    \bar ":|.|:"
+    \time 1/8
+    
+    \notinvs
+    
+    %\once \set Staff.forceClef = ##t 
+    
+    %\clef bass
+    \grace {\slashI {c,16 ef c d c d} } 
+    c8->  
+   
+    \bar ".|:-mixed"
+      \time 1/4
+      <g' d'>8 <g d'>8
+    \bar ":|.-small"
+    
+    \arrow #(- blen 3) "" ##f
+
   
-  
+}
+
+celloTwo = \new Voice
+\relative c' {
+    \bar ".|:-left"
+    \time 1/8
+    
+    \notinvs
+    
+    \clef bass
+    \grace {\slashI {c,16 ef c d c d} } 
+    c8->  
+   
+    \bar ".|:-mixed"
+      \time 1/4
+      <g' d'>8 <g d'>8
+    \bar ":|.-small"
+ 
 }

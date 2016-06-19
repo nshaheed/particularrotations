@@ -11,7 +11,8 @@ tg  = ##f
 % other
 beginningMult = 3
 beginningLen  = 40
-alen = 7
+alen = 12
+blen = 16
 #(define (beginningArrow n) (- beginningLen (* beginningMult n)))
 \defineBarLine "|-dashedSpan" #'("||" "" "!!")
 \defineBarLine ".|:-end" #'("" ".|:" "")
@@ -19,6 +20,9 @@ alen = 7
 \defineBarLine ":|.-small" #'(":|." "" "")
 \defineBarLine ".|:-mixed" #'(".|:" "" "|")
 \defineBarLine ":|.-mixed" #'(":|." "" "|")
+\defineBarLine ":|:-split" #'(":|." ".|:" "||")
+\defineBarLine ".|:-left"  #'("" ".|:" "||")
+\defineBarLine ":|.-left"  #'("" ":|." "||")
 
 
 varRest = 
@@ -35,7 +39,21 @@ varRest =
 
 %% Global %%
 global= {
-s8*42 
+  \set Score.markFormatter = #format-mark-box-alphabet
+  \override Staff.Clef.full-size-change = ##t
+
+  s8*40 s8 s8 
+  
+  s8 s8 s8 s8 s8 s8 s8 s8 s8 
+  s8 s8 s8 
+  
+  \override Score.RehearsalMark.self-alignment-X = #CENTER
+  %\override Score.RehearsalMark #'break-visibility = #end-of-line-visible
+  \mark \markup {2 - 4x}
+  
+  \grace {s16 s s s s s}
+  s8
+  s8
 
 % \break 
 
@@ -186,7 +204,7 @@ startstaff =
 arrow = 
 #(define-music-function
   (parser location dur str end)
-  (integer? string? boolean?)
+  (integer? markup? boolean?)
   #{
       % Set up text spanner to display arrow
       \override TextSpanner.bound-details.left.stencil-align-dir-y = #CENTER
@@ -260,7 +278,7 @@ arrow =
         'duration
         (ly:make-duration 3 0 (- dur 2)))
       
-      \override Score.BarLine.stencil = ##f 
+      %\override Score.BarLine.stencil = ##f 
       
       \stopStaff
       \override Staff.Clef.transparent = ##f
@@ -301,7 +319,7 @@ arrow =
 arrowGrace = 
 #(define-music-function
   (parser location dur str end)
-  (integer? string? boolean?)
+  (integer? markup? boolean?)
   #{
       % Set up text spanner to display arrow
       \override TextSpanner.bound-details.left.stencil-align-dir-y = #CENTER
@@ -367,11 +385,11 @@ arrowGrace =
       s16 s s s s
       }
 %       
-      #(make-music
-        'SkipEvent
-        'duration
-        (ly:make-duration 3 0 1)
-        )
+%       #(make-music
+%         'SkipEvent
+%         'duration
+%         (ly:make-duration 3 0 1)
+%         )
       
       %\startStaff
       
@@ -381,9 +399,9 @@ arrowGrace =
       #(make-music
         'SkipEvent
         'duration
-        (ly:make-duration 3 0 (- dur 2)))
+        (ly:make-duration 3 0 (- dur 1)))
       
-      \override Score.BarLine.stencil = ##f 
+      %\override Score.BarLine.stencil = ##f 
       
       \stopStaff
       \override Staff.Clef.transparent = ##f
@@ -447,5 +465,5 @@ asect =
   \once \override Staff.BarLine.transparent = ##f
   \bar ".|:-end"
   \grace {s16 s s s s s}
-  s8 \bar "|" s8 s8
+  %s8 \bar "|"
 }
