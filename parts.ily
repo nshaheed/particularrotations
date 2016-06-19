@@ -5,49 +5,43 @@ violinOne = \new Voice \relative c'' {
   \time 1/4
   
   
+  %% Beginning Section
   \bar ".|:"
     \appoggiatura g,8 <g d'>8 <g d'>8
   \bar ":|."
   
   \arrow \beginningLen "50\" – 1'" ##f
   
+  %% A section
   <<
     \asect
-    { \arrowGrace \alen "" ##f
-      %\arrow #(- alen 1) "" ##f 
-    }
+    \arrowGrace \alen "" ##f
   >>
 
   \bar ":|.|:"
   
-   <<
-    % \asect
-    { 
-      \arrowGrace 4 "" ##t
+  %% B section
+  \arrowGrace 4 "" ##t
       
-      \clef treble
-      \time 1/8
-      \grace {\slashI {g16 bf g a g a } } 
-      g8->
+  \clef treble
+  \time 1/8
+  \grace {\slashI {g16 bf g a g a } } 
+  g8->
       
-      \bar ".|:-small"
-      \time 1/4
-      <g d'>8[  <g d'>8]
-      \bar ":|.-small"
+  \bar ".|:-small"
+  \time 1/4
+  <g d'>8[  <g d'>8]
+  \bar ":|.-small"
   
-      \arrow #(- blen 7) "" ##f
-    }
-   >>
+  \arrow #(- blen 7) "" ##f
    
-    \bar ":|."
-
-  % \notinvs
-%   s8
-%   \notinvs
-%   s8
+   % C Section
+  \bar ":|."
 }
 
 violinTwo = \new Voice \relative c'' {
+  
+  %% Beginning
   \set Staff.instrumentName = #"Violin 2 " 
   
   \override Staff.TimeSignature #'stencil = ##f 
@@ -73,21 +67,21 @@ violinTwo = \new Voice \relative c'' {
   
   \arrow #(beginningArrow 3) "35\" – 45\"" ##f
   
+  %% A section
   <<
     \asect
     { \arrowGrace \alen "" ##f 
-      %\arrow #(- alen 1) "" ##f 
     }
   >>  
   
   \bar ":|.|:"
 
-  <<
-    % \asect
-    { \arrowGrace \blen "" ##f }
-  >> 
+  %% B Section
+  { \arrowGrace \blen "" ##f }
   
   \bar ":|."
+  
+  %% C Section
 
 }
 
@@ -95,6 +89,7 @@ violinTwo = \new Voice \relative c'' {
 viola = \new Voice \relative c' {
   \set Staff.instrumentName = #"Viola "
   
+  %% Beginning
   \override Staff.TimeSignature #'stencil = ##f 
   \time 4/4
   
@@ -118,15 +113,15 @@ viola = \new Voice \relative c' {
   
   \arrow #(beginningArrow 2) "40\" – 50\"" ##f
 
+  %% A Section
   <<
     \asect
     { 
       \arrowGrace 4 "" ##t
-      % \arrow 3 "5\", decrease time each repetition" ##t 
-    }
-    % {s8 s4^\markup { \hspace #10 \musicglyph #"scripts.ufermata" } }
-   
+    }   
   >>
+  
+  %% B Section
   
   \bar "|"
   \override Staff.Clef.full-size-change = ##t
@@ -143,45 +138,30 @@ viola = \new Voice \relative c' {
   
   \arrow #(- alen 7) "" ##f
   
-  
-  %\bar ":|."
-  % \time 1/8
-  % s8
-  %\invs
-  % \break
-  
-  % \bar ".|:-left"
-%   \once \override Staff.BarLine.bar-extent = #'(-14 . 7)
-
   \bar ":|.|:"
  
-  <<
-    % \asect
-    { 
-      \arrowGrace 8 "" ##t
-      % \arrow 7 "" ##t 
-      
-      \time 1/8
-      
-      \once \set Staff.forceClef = ##t 
+  %% B Section
 
-      \clef alto
-      \grace {\slashI {c16 ef c d c d} } 
-      c8->  
+  \arrowGrace 8 "" ##t
       
-      \bar ".|:-small"
-        \time 1/4
-        <c g'>8[  <c g'>8]
-      \bar ":|.-small"
+  \time 1/8
       
-      \arrow #(- blen 11) "" ##t
-    }
-    % {s8 s4^\markup { \hspace #10 \musicglyph #"scripts.ufermata" } }
-   
-  >>
+  \once \set Staff.forceClef = ##t 
+
+  \clef alto
+  \grace {\slashI {c16 ef c d c d} } 
+  c8->  
+      
+  \bar ".|:-small"
+    \time 1/4
+    <c g'>8[  <c g'>8]
+  \bar ":|.-small"
+      
+  \arrow #(- blen 11) "" ##t
+
   \bar ":|."
   
-  % a4 b c
+  %% C Section
 
 }
 
@@ -192,15 +172,10 @@ cello = \new Voice
 \relative c' {
   \set Staff.instrumentName = #"Cello "
   
-  \override BreathingSign.text = \markup {
-    \musicglyph #"scripts.caesura.straight"
-  }
-  
-  \override Staff.TimeSignature #'stencil = ##f 
-  %\time 2/8
-  
+  \override Staff.TimeSignature #'stencil = ##f   
   \once \omit Staff.Clef
   
+  %% Beginning
   \invs
   
   \grace s8
@@ -238,103 +213,54 @@ cello = \new Voice
   
   \arrow #(- (beginningArrow 4) 12) "30\" – 40\"" ##f
   
-  %\notinvs
-  
-  %\time 1/8
+  %% A Section
   \undo \omit Staff.Clef
   \notinvs
 
-    \break
-    \bar ".|:-end"
+  \break
+  \bar ".|:-end"
 
-    \time 1/8
-    \clef bass
-    \grace {\slashI {c16 ef c d c d} } 
-    c8->  
+  \time 1/8
+  \clef bass
+  \grace {\slashI {c16 ef c d c d} } 
+  c8->  
     
-    \bar ".|:-mixed"
-      \time 1/4
-      <g' d'>8 <g d'>8
-    \bar ":|.-small"
+  \bar ".|:-mixed"
+    \time 1/4
+    <g' d'>8 <g d'>8
+  \bar ":|.-small"
     
-    %\override Staff.StaffSymbol.transparent = ##t
-    % \arrow #(- alen 3) "5\" after viola grace notes, decrease time each repetition" ##f
-    <<
-      \arrow #(- alen 3) "" ##f
-      {s8 s8^\markup {"5\" after Viola grace notes, decrease time each repetition"} 
-       % \notinvs
-      }
-    >>
-         %\once \override Staff.BarLine.bar-extent = #'(0 . 10)
-
-
-    %\notinvs
-    %\time 1/8
-    \bar ":|."
-    % \break
-%     s8
-    %\invs
-%     \break
-    % \arrowGrace 1 "" ##f
-    
-    %\notinvs
-
-    
-    %\bar ".|:-left"
-        %\once \override Staff.BarLine.bar-extent = #'(0 . 10)
-
-    \bar ":|.|:"
-    \time 1/8
-    
-    %\notinvs
-    
-    %\once \set Staff.forceClef = ##t 
-    
-    %\clef bass
-    \grace {\slashI {c,16 \notinvs 
-                     
-                     ef c d c d} } 
-    c8->  
-   
-    \bar ".|:-mixed"
-      \time 1/4
-%       \stopStaff
-%       \override Staff.BarLine.extra-spacing-height = #'(10.0 . 10.0)
-%       \startStaff
-%     \once \override Staff.BarLine.bar-extent = #'(2.5 . 20)
-    %\once \override Staff.BarLine.Y-extent = #'(2.5 . 20)
-
-      <g' d'>8 <g d'>8
-      \stopStaff
-                     \once \override Staff.StaffSymbol.width = #0.1
-                     %\override Staff.StaffSymbol.Y-extent = #'(3 . 3)
-                     \startStaff
-    \bar ":|.-small"
-    
-    
-    \arrow #(- blen 3) "" ##f
-
-    \bar ":|."
-    \notinvs
-    \grace {\slashI {c,16 ef c d c d} } 
-    c8-> \breathe 
+  <<
+    \arrow #(- alen 3) "" ##f
+    {s8 s8^\markup {"5\" after Viola grace notes, decrease time each repetition"} 
+    }
+  >>
+  \bar ":|."
   
-}
+  %% B Section
 
-celloTwo = \new Voice
-\relative c' {
-    \bar ".|:-left"
-    \time 1/8
-    
-    \notinvs
-    
-    \clef bass
-    \grace {\slashI {c,16 ef c d c d} } 
-    c8->  
+  \bar ":|.|:"
+  \time 1/8
+  \grace {\slashI {c,16 \notinvs 
+                   ef c d c d} } 
+  c8->  
    
-    \bar ".|:-mixed"
-      \time 1/4
-      <g' d'>8 <g d'>8
-    \bar ":|.-small"
- 
+  \bar ".|:-mixed"
+    \time 1/4
+
+    <g' d'>8 <g d'>8
+    \stopStaff
+    \once \override Staff.StaffSymbol.width = #0.1
+    \startStaff
+  \bar ":|.-small"
+    
+    
+  \arrow #(- blen 3) "" ##f
+
+  \bar ":|."
+    
+  %% C Section
+  \notinvs
+  \grace {\slashI {c,16 ef c d c d} } 
+  c8-> \breathe 
 }

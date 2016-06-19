@@ -24,7 +24,7 @@ blen = 16
 \defineBarLine ".|:-left"  #'("" ".|:" "||")
 \defineBarLine ":|.-left"  #'("" ":|." "||")
 
-
+% supposed to make a rest of length n, but it doens't work
 varRest = 
 #(define-music-function
   (parser location n)
@@ -41,6 +41,10 @@ varRest =
 global= {
   \set Score.markFormatter = #format-mark-box-alphabet
   \override Staff.Clef.full-size-change = ##t
+  
+  \override BreathingSign.text = \markup {
+    \musicglyph #"scripts.caesura.straight"
+  }
 
   s8*40 s8 s8 
   
@@ -54,18 +58,7 @@ global= {
   \grace {s16 s s s s s}
   s8 * 16 \mark \markup {2 - 4x}
 
-% \break 
-
 \once \omit Staff.Clef
-% \stopStaff
-%       \once \override Staff.BarLine.transparent = ##f 
-% \startStaff
-
-% \bar ".|:-end"
-%\grace {\slashI {c16 ef c d c d} } s8
-
-
-% s8 a b c d e d c b
 }
 %% %%
 
@@ -82,8 +75,6 @@ beginning =
        \once \hide MultiMeasureRest
        \once \override MultiMeasureRestText #'extra-offset = #'(0 . -2.4)
        \once \override HorizontalBracket.shorten-pair = #'(-3 . 0)
-       % \once \override NoteColumn #'force-hshift = #100
-       % \override MultiMeasureRest   #'spacing-pair = #'(clef . staff-bar)
        
        % sets time signature to dur / 8
        #(make-music
@@ -339,7 +330,6 @@ arrowGrace =
       
       % after that, use invis (it does page breaks with the staff bracket) for the the bulk
       % of the spacing
-      %\stopStaff 
       
       \override Staff.Clef.transparent = ##f
       
@@ -383,16 +373,6 @@ arrowGrace =
       )
       s16 s s s s
       }
-%       
-%       #(make-music
-%         'SkipEvent
-%         'duration
-%         (ly:make-duration 3 0 1)
-%         )
-      
-      %\startStaff
-      
-      % \invs
 
       % invisible rests of length head
       #(make-music
@@ -464,5 +444,4 @@ asect =
   \once \override Staff.BarLine.transparent = ##f
   \bar ".|:-end"
   \grace {s16 s s s s s}
-  %s8 \bar "|"
 }
