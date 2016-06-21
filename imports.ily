@@ -4,7 +4,7 @@
 scorePaperSize = "a4landscape"
 
 % header
-ttl = "italy quartet"
+ttl = "Particular Rotations"
 cmp = "Nicholas Shaheed"
 tg  = ##f
 
@@ -14,6 +14,19 @@ beginningLen  = 40
 alen = 12
 blen = 16
 clen = 8
+dlen = 5
+elen = 8
+flen = 5
+glen = 3
+hlen = 8
+ilen = 14
+ialen = 3
+jlen = 14
+klen = 13
+llen = 12
+mlen = 12
+nlen = 12
+olen = 8
 #(define (beginningArrow n) (- beginningLen (* beginningMult n)))
 \defineBarLine "|-dashedSpan" #'("||" "" "!!")
 \defineBarLine ".|:-end" #'("" ".|:" "")
@@ -24,6 +37,8 @@ clen = 8
 \defineBarLine ":|:-split" #'(":|." ".|:" "||")
 \defineBarLine ".|:-left"  #'("" ".|:" "||")
 \defineBarLine ":|.-left"  #'("" ":|." "||")
+\defineBarLine "[|:-small" #'("[|:" "" "")
+\defineBarLine ":|]-small" #'(":|]" "" "")
 
 % supposed to make a rest of length n, but it doens't work
 % varRest = 
@@ -43,13 +58,42 @@ varRest =
   (if (> counter 0)
     
       #{
-        s8 % ^\markup { #(number->string counter) }
+        s16 % ^\markup { #(number->string counter) }
         \varRest #(- counter 1)
       #}
       #{ #}
     
   )
  )
+
+varRestEighth =
+#(define-music-function
+  (parser location counter)
+  (integer?)
+  (if (> counter 0)
+    
+      #{
+        s8 % ^\markup { #(number->string counter) }
+        \varRestEighth #(- counter 1)
+      #}
+      #{ #}
+    
+  )
+ )
+
+timeSig =
+#(define-music-function
+  (parser location num)
+  (integer?)
+       (make-music
+        'TimeSignatureMusic
+        'beat-structure
+        '()
+        'denominator
+        8
+        'numerator
+        num)
+  )
 %% %%
 
 %% Global %%
@@ -64,7 +108,9 @@ global = {
   s8*40 s8 s8 
   
   s8 s8 s8 s8 s8 s8 s8 s8 s8 
-  s8 s8 s8 
+  s8 s8 s8
+  
+  \break
   
   \override Score.RehearsalMark.self-alignment-X = #CENTER
   \once \override Score.RehearsalMark #'break-visibility = #end-of-line-visible
@@ -83,12 +129,76 @@ global = {
     s8
   \bar ":|.-small"
   
-  %\varRest 20
+  \varRestEighth \clen 
+  
+  s8 s8 
+  
+  \varRestEighth \dlen 
+  
+  \bar ".|:-small"
+    \grace {s16 s s s s s}
+    s8
+  \bar ":|.-small"
+  
+  \varRestEighth \elen
+  
+  \bar ".|:"
+    \grace {s8}
+    s8 s8
+  \bar ":|."
+  
+  \varRestEighth \flen
+  
+  \revert Staff.TimeSignature.stencil
+  
+  \bar "||"
+  \grace {\varRest 6}
+  
+  \varRestEighth 5
+  
+  \revert BreathingSign.text
+  \breathe
+  
+  \override Staff.TimeSignature #'stencil = ##f 
+  \grace {s8}
+  s8 s8
+  
+  \varRestEighth \glen
+  
+  \bar ""
+  
+  \override BreathingSign.text = \markup {
+    \musicglyph #"scripts.caesura.straight"
+  }
+    
+  \breathe
+  
+  s8 \bar ""
+  
+  %   \beginning #(+ hlen ilen ialen ilen klen llen) ""
+  \varRestEighth \hlen
+  \varRestEighth \ilen
+  \varRestEighth \ialen
+  \varRestEighth \ilen
+  \varRestEighth \klen
+  \varRestEighth \llen
+  \varRestEighth \mlen
+  
+  \revert Staff.TimeSignature.stencil
+  \bar "||"
+  s8*5
+  \bar "||"
+  \override Staff.TimeSignature.stencil = ##f
+  
+  s8
+  
+  \bar ".|:-small"
+  
+%\varRest 20
 
   % \breathe
 %   \grace{s16 s s s s s}
 %   \once \omit Staff.Clef
-  s8
   %s8 s % s % s s s s s 
   % s  s s s s s s s 
   %\once \set Staff.forceClef = ##t 
@@ -145,7 +255,7 @@ beginning =
       }
       %% generates rests needed to make a group (hoizontal bracket)
       {
-        \hide Rest
+        \once \hide Rest
         
         %% Makes the \startGroup rests
        #(make-music
@@ -158,6 +268,7 @@ beginning =
           'duration
           (ly:make-duration 3 0 (- dur 1)))
        
+       \once \hide Rest
        %% Makes the \stopGroup rest
        #(make-music
           'RestEvent
@@ -168,10 +279,13 @@ beginning =
                   1))
           'duration
           (ly:make-duration 3 0 1))
+       
+       % \override NoteHead.transparent = ##f
       }
     >>
   #}
 )
+
 
 % \stopStaff and \startStaff are for changing staff properties, not turning the staff off,
 % The StaffSymbol and Barline Transparencies are for that
@@ -341,8 +455,8 @@ arrow =
 
 arrowGrace = 
 #(define-music-function
-  (parser location dur str end)
-  (integer? markup? boolean?)
+  (parser location dur grc str end)
+  (integer? integer? markup? boolean?)
   #{
       % Set up text spanner to display arrow
       \override TextSpanner.bound-details.left.stencil-align-dir-y = #CENTER
@@ -404,7 +518,7 @@ arrowGrace =
                 )
         )
       )
-      s16 s s s s
+      \varRest #( - grc 1)
       }
 
       % invisible rests of length head
