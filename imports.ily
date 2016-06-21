@@ -9,6 +9,8 @@ cmp = "Nicholas Shaheed"
 tg  = ##f
 
 % other
+
+%% section lengths (eighth notes)
 beginningMult = 3
 beginningLen  = 40
 alen = 12
@@ -27,7 +29,10 @@ llen = 12
 mlen = 12
 nlen = 12
 olen = 8
+
 #(define (beginningArrow n) (- beginningLen (* beginningMult n)))
+
+%% bar lines
 \defineBarLine "|-dashedSpan" #'("||" "" "!!")
 \defineBarLine ".|:-end" #'("" ".|:" "")
 \defineBarLine ".|:-small" #'(".|:" "" "")
@@ -39,6 +44,11 @@ olen = 8
 \defineBarLine ":|.-left"  #'("" ":|." "||")
 \defineBarLine "[|:-small" #'("[|:" "" "")
 \defineBarLine ":|]-small" #'(":|]" "" "")
+
+%% Notation
+sulp	= ^\markup { \italic s.p. }
+norm	= ^\markup { \italic norm }
+
 
 % supposed to make a rest of length n, but it doens't work
 % varRest = 

@@ -176,7 +176,16 @@ violinOne = \new Voice \relative c'' {
   
   \bar ":|.-small"
   
-  \arrow #(- olen 3) "" ##f
+  \arrow #(- olen 3) "" ##t
+  
+  \time 8/4
+  <<
+    \new Voice { \voiceOne c'4\fermata~ c }
+    \new Voice { \voiceTwo \once \hideNotes c4 b4}
+  >>
+
+  \appoggiatura {\slashI { c16\sulp ef c df c df } }
+  c1*6/4\fermata
 }
 
 violinTwo = \new Voice \relative c'' {
@@ -344,6 +353,13 @@ d8
   \bar ":|.-small"
   
   \arrow #(- olen 2) "" ##f
+  
+  \beginning 7 ""
+  \notinvs
+  
+  \time 4/4
+  \appoggiatura { \slashI { b''16\sulp df b c b c df c b c } }
+  b1\fermata
 
 
 }
@@ -536,6 +552,21 @@ viola = \new Voice \relative c' {
   \bar ":|.-small"
   
   \arrow #(- olen 1) "" ##f
+  
+  \beginning 4 "" 
+  \notinvs
+  
+  \time 5/4
+  
+  \grace { \slashI { af'16(\sulp cf af bf af bf af cf a af cf bf cf a cf af a} }
+  
+  <<
+    \new Voice { \voiceOne af4~ af1\fermata }
+     { \voiceTwo \once \hideNotes af4 g1)}
+  >>
+  
+  \voiceNeutralStyle
+
 }
 
 
@@ -732,5 +763,29 @@ cello = \new Voice
   
   \arrow \olen "" ##f
 
+  \beginning 5 ""
+  \notinvs
+  
+  \time 4/4
+  \clef treble
+  \appoggiatura {d'''8*5}
+  d2\fermata 
+  \bar ".|:-small"
+  \grace{ \slashI { d16(\sulp f d e d e) \breathe } }
+  \bar ":|.-small"
+
+  <<
+    \new Voice { \voiceOne d4~ d4 }
+    \new Voice { \voiceTwo \once \hideNotes d4( cs) }
+  >>
+  
+  \revert Staff.TimeSignature.stencil
+  \time 4/4
+  
+ %  <<
+%     \new Voice { \voiceOne d4~ d4 }
+%     \new Voice { \voiceTwo \once \hideNotes d4( cs) }
+%   >>
+  
 
 }
