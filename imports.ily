@@ -29,6 +29,7 @@ llen = 12
 mlen = 12
 nlen = 12
 olen = 8
+plen = 7
 
 #(define (beginningArrow n) (- beginningLen (* beginningMult n)))
 
@@ -44,6 +45,7 @@ olen = 8
 \defineBarLine ":|.-left"  #'("" ":|." "||")
 \defineBarLine "[|:-small" #'("[|:" "" "")
 \defineBarLine ":|]-small" #'(":|]" "" "")
+\defineBarLine ":|.|:-small" #'(":|.|:-small" "" "")
 
 %% Notation
 sulp	= ^\markup { \italic s.p. }
@@ -108,6 +110,7 @@ timeSig =
 
 %% Global %%
 global = {
+  \numericTimeSignature
   \set Score.markFormatter = #format-mark-box-alphabet
   \override Staff.Clef.full-size-change = ##t
   
@@ -203,6 +206,26 @@ global = {
   s8
   
   \bar ".|:-small"
+  
+  \varRestEighth 5
+  \bar ":|.-small"
+  \varRestEighth \olen
+  \varRestEighth 5
+  \varRestEighth 8 \breathe
+  
+  \revert Staff.TimeSignature.stencil
+  \bar "||"
+  \time 4/4
+  s1\norm
+  
+  s1 s1 s1
+  \override Staff.TimeSignature.stencil = ##f
+  \varRestEighth \plen
+  
+  \breathe
+  \revert Staff.TimeSignature.stencil
+  \bar "||"
+  \time 2/4
   
 %\varRest 20
 

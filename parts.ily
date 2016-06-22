@@ -173,9 +173,7 @@ violinOne = \new Voice \relative c'' {
 
   df8
   \breathe
-  
-  \bar ":|.-small"
-  
+    
   \arrow #(- olen 3) "" ##t
   
   \time 8/4
@@ -186,6 +184,46 @@ violinOne = \new Voice \relative c'' {
 
   \appoggiatura {\slashI { c16\sulp ef c df c df } }
   c1*6/4\fermata
+  
+  <<
+    \new Voice { \voiceOne cs4~ cs2.}
+     { \voiceTwo \once \hideNotes cs4( bs2.) \voiceNeutralStyle}
+  >>
+  
+  \voiceNeutralStyle
+  \new Voice { \appoggiatura { \slashI { cs16\sulp e! cs ds cs ds } } cs1 }
+  
+  <<
+    \new Voice { \voiceOne c!4\norm~ c2.}
+     { \voiceTwo \once \hideNotes c4( b!2.) \voiceNeutralStyle}
+  >>
+  
+  \voiceNeutralStyle
+  \new Voice { \appoggiatura { \slashI { c16\sulp ef c d! c d } } c1 }
+  
+  \breathe
+  
+  \override Staff.TimeSignature.stencil = ##f
+  \bar ".|:-small"
+    \time 1/4
+     <f, c'>8 <f c'>8
+  \bar ":|.-small"
+  
+  \arrow #(- plen 2) "" ##t
+  
+  \new Voice {
+    \afterGrace R2 { \slashI {c'16( ef c d c d } }
+    
+    c2)
+    
+    r4
+    
+    <<
+      \new Voice { \voiceOne b4~ b }
+      \new Voice { \voiceTwo \once \hideNotes b4( as4)}
+    >>
+  }
+
 }
 
 violinTwo = \new Voice \relative c'' {
@@ -347,11 +385,9 @@ violinTwo = \new Voice \relative c'' {
     \new Voice { \voiceTwo \once \hideNotes df4( c4)}
   >>
 
-d8
+  d8
   \breathe
-  
-  \bar ":|.-small"
-  
+    
   \arrow #(- olen 2) "" ##f
   
   \beginning 7 ""
@@ -361,7 +397,63 @@ d8
   \appoggiatura { \slashI { b''16\sulp df b c b c df c b c } }
   b1\fermata
 
+  <<
+    \new Voice { \voiceOne c4~ c2.}
+     { \voiceTwo \once \hideNotes c4( b2.)}
+  >>
+  
+  \bar ".|:-small"
+  \grace {s16*6}
+  \new Voice { 	
+        \override NoteHead.font-size = #-4
+	\override Accidental.font-size = #-4
+        \slashI {c16*8/3\sulp^\markup{ \italic { repeat as many times as possible } }
+                 ([ d c df c df]) } 
+  }
+  \bar ":|.|:"
+  
+  \grace {s16*6}
+  \new Voice { 	
+        \override NoteHead.font-size = #-4
+	\override Accidental.font-size = #-4
+        \slashI {c16*8/3^\markup{ \italic { sim. } }
+                 ([ d c df c df]) } 
+  }
+  \bar ":|.|:"
+  
+  \time 3/4
 
+  \grace {s16*6}
+  \new Voice { 	
+        \override NoteHead.font-size = #-4
+	\override Accidental.font-size = #-4
+        \slashI {c16*2^\markup{ \italic { sim. } }
+                 ([ d c df c df]) } 
+  }
+  
+  \override Staff.TimeSignature.stencil = ##f
+  \bar ":|.|:-small"
+    \notinvs
+    \time 1/4
+     <b fs'>8 <b fs'>8
+  \bar ":|.-small"
+  
+  \arrow \plen "" ##t
+  
+  \new Voice {
+    \once \override MultiMeasureRest.staff-position = #0
+
+    \afterGrace R2 { \slashI { c,16( ef c df c df } }
+    
+    c2)
+    
+    r4
+    
+    <<
+      \new Voice { \voiceOne b4~ b }
+      \new Voice { \voiceTwo \once \hideNotes b4( as4)}
+    >>
+  }
 }
 
 
@@ -548,9 +640,7 @@ viola = \new Voice \relative c' {
 
   ds8
   \breathe
-  
-  \bar ":|.-small"
-  
+    
   \arrow #(- olen 1) "" ##f
   
   \beginning 4 "" 
@@ -561,12 +651,53 @@ viola = \new Voice \relative c' {
   \grace { \slashI { af'16(\sulp cf af bf af bf af cf a af cf bf cf a cf af a} }
   
   <<
-    \new Voice { \voiceOne af4~ af1\fermata }
+    \new Voice { \voiceOne af4~ af1\fermata \voiceNeutralStyle }
      { \voiceTwo \once \hideNotes af4 g1)}
   >>
   
-  \voiceNeutralStyle
+  <<
+    \new Voice { \voiceOne a!4~ a2.}
+     { \voiceTwo \once \hideNotes a4( gs2.)}
+  >>
+  
+  <<
+    \new Voice { \voiceTwo as4~ as2.}
+     { \voiceOne \once \hideNotes as4( b2.)}
+  >>
+  
+  
+  <<
+    \new Voice { \voiceOne af4~ af2.}
+     { \voiceTwo \once \hideNotes af4( g!2.)}
+  >>
+  
+  \grace {s16*6}
+  <<
+    \new Voice { \voiceTwo a!4~ a2.}
+     { \voiceOne \once \hideNotes a4( bf2.)}
+  >>
+  
+  \breathe
+  
+  \override Staff.TimeSignature.stencil = ##f
+  \bar ".|:-small"
+    \time 1/4
+    <f c'>8 <f c'>8
+  \bar ":|.-small"
+  
+  \arrow #(- plen 2) "" ##t
+  
+  <<
+    \new Voice { \voiceOne c'4~ c4 }
+    \new Voice { \voiceTwo \once \hideNotes c4( b) }
+  >>
+  
+  \new Voice {
+    \afterGrace R2 { \slashI { df16( ff df e df ef ff ef df ef } }
 
+  
+    df2)
+  }
 }
 
 
@@ -758,9 +889,7 @@ cello = \new Voice
 
   ds,8
   \breathe
-  
-  \bar ":|.-small"
-  
+    
   \arrow \olen "" ##f
 
   \beginning 5 ""
@@ -779,13 +908,59 @@ cello = \new Voice
     \new Voice { \voiceTwo \once \hideNotes d4( cs) }
   >>
   
-  \revert Staff.TimeSignature.stencil
-  \time 4/4
   
- %  <<
-%     \new Voice { \voiceOne d4~ d4 }
-%     \new Voice { \voiceTwo \once \hideNotes d4( cs) }
-%   >>
+  <<
+    \new Voice { \voiceOne ef4~ ef2. }
+    \new Voice { \voiceTwo \once \hideNotes ef4( d2.) }
+  >>
   
+  \clef bass
+  \grace {s16*6}
+  <<
+    \new Voice { \voiceTwo ef,,,4~ ef2. }
+    \new Voice { \voiceOne \once \hideNotes ef4( d'2.) }
+  >>
 
+  \clef treble
+  
+  <<
+    \new Voice { \voiceOne d''4~ d2. }
+    \new Voice { \voiceTwo \once \hideNotes d4( cs2.) }
+  >>
+  
+  \clef bass
+    
+  \grace {s16*6}
+  <<
+    \new Voice { \voiceTwo ef,,,4~ ef2. }
+    \new Voice { \voiceOne \once \hideNotes ef4( d'2.) }
+  >>
+  
+  \breathe
+  
+  \override Staff.TimeSignature.stencil = ##f
+  \bar ".|:-small"
+    \time 1/4
+    <d ef'>8 <d ef'>8
+  \bar ":|.-small"
+  
+  \arrow #(- plen 2) "" ##t
+  <<
+    \new Voice { \voiceOne d'4~ d4 }
+    \new Voice { \voiceTwo \once \hideNotes d4( cs) }
+  >>
+  
+  \new Voice {
+    \afterGrace R2 { \slashI { bf16( df bf c bf cf df cf bf cf  } }
+
+    <<
+      \new Voice { \voiceOne bf4~ bf4~ bf4. af8~ af8~ af4. }
+      { \stemDown \once \hideNotes bf4 a_~ a4.) 
+        \hideNotes af8_( s8  
+        \unHideNotes g4.) 
+        \stemNeutral
+      }
+    >>
+    
+  }
 }
