@@ -34,6 +34,7 @@ qlen = 9
 rlen = 14
 slen = 5
 tlen = 9
+ulen = 5
 
 #(define (beginningArrow n) (- beginningLen (* beginningMult n)))
 
@@ -251,6 +252,14 @@ global = {
   \revert Staff.TimeSignature.stencil
   \time 6/8
   \grace { s16*6 }
+  
+  \override Staff.TimeSignature.stencil = ##f
+  
+  s2.
+  
+  \varRestEighth \ulen
+  \breathe
+  
 
   
 %\varRest 20

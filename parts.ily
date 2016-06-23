@@ -265,6 +265,61 @@ violinOne = \new Voice \relative c'' {
     
     \ottava #0
     
+    \grace {s16*6}
+    r4. 
+    \grace { \slashI {g,,,16 bf g a g a } }
+    g4.->
+    
+    \time 1/4
+    \bar ".|:"
+      \appoggiatura g8 
+      <g d'>8 <g d'>8
+    \bar ":|."
+    
+    \arrow #(- ulen 2) "" ##f
+    
+    \time 2/4
+    \hideNotes
+    <g d'>4. \glissando <g' d'>8
+    \unHideNotes
+    \notinvs
+    
+    \time 1/4
+    \bar ".|:"
+      \appoggiatura d8 
+      <d a'>8 <d a'>8
+    \bar ":|."
+    
+    \arrow #(- ulen 2) "" ##f
+    
+    \time 2/4
+    \hideNotes
+    <d a'>4. \glissando <d' a'>8
+    \unHideNotes
+    \notinvs
+    
+    \time 1/4
+    \bar ".|:"
+      \appoggiatura a8 
+      <a e'>8 <a e'>8
+    \bar ":|."
+    
+    \arrow #(- ulen 2) "" ##f
+    
+    \time 2/4
+    \hideNotes
+    <a e'>4. \glissando <a' e'>8
+    \unHideNotes
+    
+    \time 4/4
+    \hideNotes
+    <a e'>4 \glissando s2 <a e'>4
+    \unHideNotes
+    \notinvs
+    
+    \time 1/8
+    \grace {s16 * 6}
+    <g,, d'>8-^
   }
 
 }
@@ -534,6 +589,57 @@ violinTwo = \new Voice \relative c'' {
     \bar ":|.-small"
     
     \arrowPost #(- tlen 2) "" ##t 4 5 10
+    
+    \grace {s16 * 6}
+    r4. r8
+    \grace {af,,16 cf af bf af bf}
+    af4->
+    
+    \time 1/4
+    \bar ".|:"
+      \grace s8 <af ef'>8 <af ef'>8
+    \bar ":|."
+    
+    \arrow #(- ulen 2) "" ##f
+    
+    \time 2/4
+    \hideNotes
+    <a e'>4. \glissando <a' e'>8
+    \unHideNotes
+    \notinvs
+    
+    \time 1/4
+    \bar ".|:"
+      \grace s8 <ef bf'>8 <ef bf'>8
+    \bar ":|."
+    
+    \arrow #(- ulen 2) "" ##f
+    
+    \time 2/4
+    \hideNotes
+    <e b'>4. \glissando <e' b'>8
+    \unHideNotes
+    \notinvs
+    
+    \time 1/4
+    \bar ".|:"
+      \grace s8 <bf f'>8 <bf f'>8
+    \bar ":|."
+    
+    \arrow #(- ulen 2) "" ##f
+    
+    \time 2/4
+    \hideNotes
+    <b f'>4. \glissando <b' f'>8
+    
+    \time 4/4
+    <b f'>4 \glissando s2 <b f'>4
+    \unHideNotes
+    \notinvs
+    
+    \time 1/8
+    \grace {s16*6}
+    <af,, ef'>8-^
   }
 
 }
@@ -850,15 +956,67 @@ viola = \new Voice \relative c' {
   \new Voice {
     \override NoteHead.font-size = #-4
     \override Accidental.font-size = #-4
-
+    
+    \time 1/8
     \stemUp
     \slashI { bf16*1/5([ df bf c bf cf df cf bf cf])}
   }
   
-  \grace { \stemUp \slashI { b!16_([ d b c b c])} }
-  r4
-  \grace {\slashI {c,,16 ef c d c d} } 
-  c8->~ c4.
+  \new Voice {
+%     \time 6/8
+    \grace { \stemUp \slashI { b!16_([ d b c b c])} }
+    r4
+    \grace {\slashI {c,,16 ef c d c d} } 
+    c8->~ c4.
+    
+   \bar ".|:"
+    \time 1/4
+    \grace s8 <c g'>8[  <c g'>8]
+   \bar ":|."
+    
+   \arrow #(- ulen 2) "" ##f
+    
+   \time 2/4
+   \hideNotes
+   <c g'>4. \glissando <c' g'>8
+   \unHideNotes
+   
+   \notinvs
+   
+   \bar ".|:"
+    \time 1/4
+    \grace s8 <g d'>8[  <g d'>8]
+   \bar ":|."
+    
+   \arrow #(- ulen 2) "" ##f
+   
+   \time 2/4
+   \hideNotes
+   <g d'>4. \glissando <g' d'>8
+   \unHideNotes
+   \notinvs
+   
+   \bar ".|:"
+    \time 1/4
+    \grace s8 <d a'>8[  <d a'>8]
+   \bar ":|."
+    
+   \arrow #(- ulen 2) "" ##f
+   
+   \time 2/4
+   \hideNotes
+   <d a'>4. \glissando <d' a'>8
+   
+   \time 4/4
+   <d a'>4 \glissando s2 <d a'>4
+   \unHideNotes
+   \notinvs
+   
+   \time 1/8
+   \grace {s16 * 6}
+   <c,, g'>8-^
+
+  }
 }
 
 
@@ -1176,8 +1334,69 @@ cello = \new Voice
     \override Accidental.font-size = #-4
 
     \stemUp
+    \time 1/8
     \slashI { a16*1/5[(c a b a bf c bf a bf]) }
+    \slashI { c,,16*1/3[ ef c d c d] }
   }
-  r8 \grace { \slashI { c,,16 ef c d c d } }
   c4->~ c4.
+  
+  \bar ".|:"
+    \time 1/4
+    \grace s8 <g' d'>8 <g d'>8
+  \bar ":|."
+
+  \arrow #(- ulen 2) "" ##f
+  
+  \time 2/4
+  \hideNotes
+  <g d'>4. \glissando <g' d'>8
+  
+  \unHideNotes
+  \notinvs
+  
+  \transpose g d {
+    \bar ".|:"
+      \time 1/4
+      \grace s8 <g d'>8 <g d'>8
+    \bar ":|."
+  
+    \arrow #(- ulen 2) "" ##f
+  }
+    \time 2/4
+    \hideNotes
+    <d a'>4. \glissando <d' a'>8
+    \unHideNotes
+    
+
+    \hideNotes
+    
+    %% measure with variable length
+       #(make-music
+        'TimeSignatureMusic
+        'beat-structure
+        '()
+        'denominator
+        8
+        'numerator
+        (+ ulen 4))
+       
+     \grace {s8}
+    
+    <d, a'>8 \glissando \varRestEighth #(+ ulen 2) <d' a'>8
+    
+    \time 4/4
+    <d a'>4 \glissando s2 <d a'>4
+    
+    \notinvs
+    \unHideNotes
+    
+    \time 1/8
+    \grace {\slashI {c,,16 ef c d c d} } 
+    c8-^
+  
+%     \arrow #(- ulen 2) "" ##f
+%     \time 2/4
+%     \hideNotes
+%     \unHideNotes
+  
 }
