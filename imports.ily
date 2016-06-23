@@ -257,19 +257,30 @@ global = {
   
   s2.
   
-  \varRestEighth \ulen
-  \breathe
+  \varRestEighth #(+ ulen 4)
+  \revert Staff.TimeSignature.stencil
+  \time 5/8
+  \grace {s16*6} s4
+  \override Staff.TimeSignature.stencil = ##f
+  s4.
+
+  \varRestEighth #(+ ulen 4)
+  \revert Staff.TimeSignature.stencil
+  \time 5/8
+  \grace {s16*6} s4
+  \override Staff.TimeSignature.stencil = ##f
+  s4.
   
+  \varRestEighth #(+ ulen 4)
+  s1
+  
+  \revert Staff.TimeSignature.stencil
+  \time 1/8
+  \grace {s16*6}
+  s8
+  \bar "|."
 
   
-%\varRest 20
-
-  % \breathe
-%   \grace{s16 s s s s s}
-%   \once \omit Staff.Clef
-  %s8 s % s % s s s s s 
-  % s  s s s s s s s 
-  %\once \set Staff.forceClef = ##t 
 }
 %% %%
 

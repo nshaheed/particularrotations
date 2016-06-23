@@ -284,6 +284,16 @@ violinOne = \new Voice \relative c'' {
     \unHideNotes
     \notinvs
     
+    \transpose g d { \relative c'' {
+       \grace {s16*6}
+        r4
+        \grace { \slashI {g16 bf g a g a } }
+        g4.->
+
+
+       }
+    }
+    
     \time 1/4
     \bar ".|:"
       \appoggiatura d8 
@@ -297,6 +307,16 @@ violinOne = \new Voice \relative c'' {
     <d a'>4. \glissando <d' a'>8
     \unHideNotes
     \notinvs
+    
+    \transpose g a { \relative c'' {
+       \grace {s16*6}
+        r4
+        \grace { \slashI {g16 bf g a g a } }
+        g4.->
+
+
+       }
+    }
     
     \time 1/4
     \bar ".|:"
@@ -608,6 +628,15 @@ violinTwo = \new Voice \relative c'' {
     \unHideNotes
     \notinvs
     
+    \transpose af ef { \relative c'' {
+       \grace {s16*6}
+        r4 r8
+        \grace {af16 cf af bf af bf}
+        af4->
+
+       }
+    }
+    
     \time 1/4
     \bar ".|:"
       \grace s8 <ef bf'>8 <ef bf'>8
@@ -620,6 +649,15 @@ violinTwo = \new Voice \relative c'' {
     <e b'>4. \glissando <e' b'>8
     \unHideNotes
     \notinvs
+    
+    \transpose af bf { \relative c'' {
+       \grace {s16*6}
+        r4 r8
+        \grace {af16 cf af bf af bf}
+        af4->
+
+       }
+    }
     
     \time 1/4
     \bar ".|:"
@@ -983,6 +1021,15 @@ viola = \new Voice \relative c' {
    
    \notinvs
    
+   \transpose c g { \relative c'' {
+      \grace {s16*6}
+      r8
+      \grace {\slashI {c,,16 ef c d c d} } 
+      c8->~ c4.
+      }
+   }
+
+   
    \bar ".|:"
     \time 1/4
     \grace s8 <g d'>8[  <g d'>8]
@@ -995,6 +1042,14 @@ viola = \new Voice \relative c' {
    <g d'>4. \glissando <g' d'>8
    \unHideNotes
    \notinvs
+   
+   \transpose c d' { \relative c'' {
+      \grace {s16*6}
+      r8
+      \grace {\slashI {c,,16 ef c d c d} } 
+      c8->~ c4.
+      }
+   }
    
    \bar ".|:"
     \time 1/4
@@ -1354,6 +1409,12 @@ cello = \new Voice
   \unHideNotes
   \notinvs
   
+  \transpose c g { \relative c, {
+    \grace { \slashI { c16[ ef c d c d] } }
+    c4->~ c4.
+    }
+  }
+  
   \transpose g d {
     \bar ".|:"
       \time 1/4
@@ -1366,9 +1427,16 @@ cello = \new Voice
     \hideNotes
     <d a'>4. \glissando <d' a'>8
     \unHideNotes
+    \notinvs
     
+    \transpose c d' { \relative c, {
+      \grace { \slashI { c16[ ef c d c d] } }
+      c4->~ c4.
+      }
+    }
+    \bar "|"
+  
 
-    \hideNotes
     
     %% measure with variable length
        #(make-music
@@ -1379,8 +1447,13 @@ cello = \new Voice
         8
         'numerator
         (+ ulen 4))
-       
-     \grace {s8}
+
+    \stopStaff
+    \override Staff.StaffSymbol.transparent = ##t
+    \startStaff
+    
+    \hideNotes
+    \grace {s8}
     
     <d, a'>8 \glissando \varRestEighth #(+ ulen 2) <d' a'>8
     
@@ -1393,6 +1466,8 @@ cello = \new Voice
     \time 1/8
     \grace {\slashI {c,,16 ef c d c d} } 
     c8-^
+    
+
   
 %     \arrow #(- ulen 2) "" ##f
 %     \time 2/4
