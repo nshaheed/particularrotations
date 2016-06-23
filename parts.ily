@@ -219,9 +219,50 @@ violinOne = \new Voice \relative c'' {
     r4
     
     <<
-      \new Voice { \voiceOne b4~ b }
-      \new Voice { \voiceTwo \once \hideNotes b4( as4)}
+      \new Voice { \voiceOne b4~ b2 }
+      \new Voice { \voiceTwo \once \hideNotes b4( as2)}
+      { s4 s4. 
+        \afterGrace s8 { \slashI { cs16( e cs ds cs d e d cs d } } }
     >>
+    
+    cs2)\fermata 
+    
+    \bar ".|:-small"
+      \time 1/4
+      \ottava #1
+      <g' df'>8 <g df'>8
+    \bar ":|.-small"
+    
+    \arrow #(- qlen 6) "" ##t
+   
+     \time 2/4
+    g2\fermata 
+    
+    \bar ".|:"
+      \time 1/4
+      \ottava #1
+      <g df'>8 <g df'>8
+    \bar ":|.-small"
+    
+    \arrow #(- rlen 10) "" ##t
+   
+     \time 4/4
+    g1\fermata 
+    
+    \bar ".|:-small"
+      \time 1/4
+      <gs d'!>8 <gs d'>8
+    \bar ":|.-small"
+    
+    \arrow #(- slen 2) "" ##t
+      
+    \bar ".|:-small"
+      \time 1/4
+       <a ef'>8 <a ef'>8
+    \bar ":|.-small"
+    
+    \arrow #(- tlen 2) "" ##t
+    \ottava #0
   }
 
 }
@@ -450,10 +491,49 @@ violinTwo = \new Voice \relative c'' {
     r4
     
     <<
-      \new Voice { \voiceOne b4~ b }
-      \new Voice { \voiceTwo \once \hideNotes b4( as4)}
+      \new Voice { \voiceOne b4~ b2 }
+      \new Voice { \voiceTwo \once \hideNotes b4( as2)}
+      { s4 s4. 
+        \afterGrace s8 { \bar ".|:-small" \slashI { cs16*5/2( e d ds } \bar ":|." } }
     >>
+    
+    cs2)\fermata 
+    
+    \bar ".|:-small"
+      \time 1/4
+      <gs' e'>8 <gs e'>8
+    \bar ":|.-small"
+      
+    \arrow #(- qlen 6) "" ##t
+    
+    \time 2/4
+    gs2\fermata 
+    
+    \bar ".|:"
+      \time 1/4
+      <gs e'>8 <gs e'>8
+    \bar ":|.-small"
+      
+    \arrow #(- rlen 10) "" ##t
+   
+     \time 4/4
+    gs1\fermata
+
+    \bar ".|:-small"
+      \time 1/4
+      <a f'>8 <a f'>8
+    \bar ":|.-small"
+    
+    \arrow #(- slen 2) "" ##t
+    
+    \bar ".|:-small"
+      \time 1/4
+       <as fs'>8 <as fs'>8
+    \bar ":|.-small"
+    
+    \arrow #(- tlen 2) "" ##t
   }
+
 }
 
 
@@ -694,9 +774,83 @@ viola = \new Voice \relative c' {
   
   \new Voice {
     \afterGrace R2 { \slashI { df16( ff df e df ef ff ef df ef } }
-
-  
     df2)
+    
+    \override NoteHead.font-size = #-4
+    \override Accidental.font-size = #-4
+    
+    \bar ".|:-small"
+    << 
+      {
+        \stemUp
+        \slashI {cs16*4/5[\sulp^\markup{ \italic { repeat as many times as possible } }
+               (e cs ds cs d e d cs d)] } 
+      }
+      {
+        s4.
+        \afterGrace s8
+        {\slashI {cs16
+                 (e cs ds cs d e d cs d)] }        
+        }
+      }
+    >>
+    
+    
+    \bar ":|.|:"
+    
+    \slashI {cs16*4/10 (e cs ds cs d e d cs d)] }
+    \slashI {cs16*4/10 (e cs ds cs d e d cs d)] }
+  }
+  
+  \stemNeutral
+  
+  \bar ":|.|:"
+    \time 1/4
+    <af ef'>8 <af ef'>8
+  \bar ":|.-small"
+    
+  \arrow #(- qlen 3) "" ##t
+  
+  \time 1/8
+  \new Voice {
+    \override NoteHead.font-size = #-4
+    \override Accidental.font-size = #-4
+
+    \stemUp
+    \slashI { gs16*1/5[(b gs as gs a b a gs a]) }
+  }
+    
+  \bar ".|:-small"
+    \time 1/4
+    <af ef'>8 <af ef'>8
+  \bar ":|.-small"
+  
+  \arrow #(- rlen 8) "" ##t
+
+  \time 3/4
+  
+  af2 \afterGrace g4 {\slashI { g16( bf g af g af) } }
+
+  \bar ".|:-small"
+    \time 1/4
+    <a! e'!>8 <a e'>8
+  \bar ":|.-small"
+  
+  \arrow #(- slen 2) "" ##t
+  
+  \bar ".|:-small"
+    \time 1/4
+     <bf f'>8 <bf f'>8
+  \bar ":|.-small"
+  
+  \arrow #(- tlen 3) "" ##t
+  
+  \new Voice {
+    \override NoteHead.font-size = #-4
+    \override Accidental.font-size = #-4
+
+    \stemUp
+    \slashI { bf16*1/5([ df bf c bf cf df cf bf cf])}
   }
 }
 
@@ -954,7 +1108,7 @@ cello = \new Voice
     \afterGrace R2 { \slashI { bf16( df bf c bf cf df cf bf cf  } }
 
     <<
-      \new Voice { \voiceOne bf4~ bf4~ bf4. af8~ af8~ af4. }
+      \new Voice { \voiceOne bf4~ bf4~ bf4. af8~ af8~ af4.\fermata }
       { \stemDown \once \hideNotes bf4 a_~ a4.) 
         \hideNotes af8_( s8  
         \unHideNotes g4.) 
@@ -962,5 +1116,59 @@ cello = \new Voice
       }
     >>
     
+  }
+  
+  \bar ".|:-small"
+    \time 1/4
+    <g d'>8 <g d'>8
+  \bar ":|.-small"
+  
+  \arrow #(- qlen 3) "" ##t
+  
+  \time 1/8
+  \new Voice {
+    \override NoteHead.font-size = #-4
+    \override Accidental.font-size = #-4
+
+    \stemUp
+    \slashI { g16*1/3[(bf g a g a]) }
+  }
+  
+  \bar ".|:-small"
+    \time 1/4
+    <g d'>8 <g d'>8
+  \bar ":|.-small"
+  
+  \arrow #(- rlen 8) "" ##t
+
+  \time 3/4
+  
+  <<
+    \new Voice { \voiceOne g8~ g4 \once \hideNotes g8( af4) }
+    \new Voice { \voiceTwo \once \hideNotes g8( fs4) g8~ g4 }
+  >>
+
+  \bar ".|:-small"
+    \time 1/4
+    <gs ds'>8 <gs ds'>8
+  \bar ":|.-small"
+  
+  \arrow #(- slen 2) "" ##t
+ 
+  \bar ".|:-small"
+    \time 1/4
+     <a e'>8 <a e'>8
+  \bar ":|.-small"
+  
+  \arrow #(- tlen 3) "" ##t
+  
+  \time 1/8
+  
+  \new Voice {
+    \override NoteHead.font-size = #-4
+    \override Accidental.font-size = #-4
+
+    \stemUp
+    \slashI { a16*1/5[(c a b a bf c bf a bf]) }
   }
 }

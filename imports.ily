@@ -30,6 +30,10 @@ mlen = 12
 nlen = 12
 olen = 8
 plen = 7
+qlen = 9
+rlen = 14
+slen = 5
+tlen = 9
 
 #(define (beginningArrow n) (- beginningLen (* beginningMult n)))
 
@@ -37,6 +41,8 @@ plen = 7
 \defineBarLine "|-dashedSpan" #'("||" "" "!!")
 \defineBarLine ".|:-end" #'("" ".|:" "")
 \defineBarLine ".|:-small" #'(".|:" "" "")
+% \defineBarLine ".|:-small" #'("|" ".|:" "")
+
 \defineBarLine ":|.-small" #'(":|." "" "")
 \defineBarLine ".|:-mixed" #'(".|:" "" "|")
 \defineBarLine ":|.-mixed" #'(":|." "" "|")
@@ -226,6 +232,19 @@ global = {
   \revert Staff.TimeSignature.stencil
   \bar "||"
   \time 2/4
+  s2 * 5 \breathe
+  
+  \override Staff.TimeSignature.stencil = ##f
+  
+  \varRestEighth \qlen
+  \breathe
+
+  \varRestEighth \rlen
+  \breathe
+  
+  \varRestEighth \slen
+  \breathe
+
   
 %\varRest 20
 
