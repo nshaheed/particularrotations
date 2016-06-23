@@ -244,6 +244,13 @@ global = {
   
   \varRestEighth \slen
   \breathe
+  
+  \varRestEighth \tlen
+  \breathe
+  
+  \revert Staff.TimeSignature.stencil
+  \time 6/8
+  \grace { s16*6 }
 
   
 %\varRest 20

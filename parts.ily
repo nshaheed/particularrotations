@@ -854,6 +854,11 @@ viola = \new Voice \relative c' {
     \stemUp
     \slashI { bf16*1/5([ df bf c bf cf df cf bf cf])}
   }
+  
+  \grace { \stemUp \slashI { b!16_([ d b c b c])} }
+  r4
+  \grace {\slashI {c,,16 ef c d c d} } 
+  c8->~ c4.
 }
 
 
@@ -1173,4 +1178,6 @@ cello = \new Voice
     \stemUp
     \slashI { a16*1/5[(c a b a bf c bf a bf]) }
   }
+  r8 \grace { \slashI { c,,16 ef c d c d } }
+  c4->~ c4.
 }
