@@ -617,6 +617,127 @@ arrowGrace =
   #}
   )
 
+% an arrow function for dealing with notes in smaller divisions than eighth notes
+arrowPost = 
+#(define-music-function
+  (parser location dur str end noteLen denEnd cntEnd)
+  (integer? markup? boolean? integer? integer? integer?)
+  #{
+      % Set up text spanner to display arrow
+      \override TextSpanner.bound-details.left.stencil-align-dir-y = #CENTER
+      \override TextSpanner.style = #'line
+      % put in in the middle of the staff
+      % TODO: get height of staff and use that?
+      \override TextSpanner.extra-offset = #'(0 . -3.1)
+      \override TextSpanner.bound-details.right.text = \markup { 
+        \column {
+        \scale #'( 1 . 1)
+        \arrow #"long" ##f #X #UP #1 #0.0
+        }
+      }
+      \override TextSpanner.thickness = #2   
+       
+      % in order to keep the right hand barline to appear, need to \stopStaff, put a small 
+      % hidden rest, and \startStaff
+      
+      % after that, use invis (it does page breaks with the staff bracket) for the the bulk
+      % of the spacing
+      \stopStaff 
+      
+      \override Staff.Clef.transparent = ##f
+      
+    <<
+      {
+       % sets time signature to dur / 8
+       #(make-music
+        'TimeSignatureMusic
+        'beat-structure
+        '()
+        'denominator
+        8
+        'numerator
+        dur)
+
+
+      % invisible rests of length tail that start text span
+      #(make-music
+        'SequentialMusic
+        'elements
+        (list (make-music
+                'SkipEvent
+                'articulations
+                (list (make-music
+                        'TextSpanEvent
+                        'span-direction
+                        -1)
+                       (make-music
+                        'TextScriptEvent
+                        'direction
+                        1
+                        'text
+                        (markup #:line (#:left-align str))
+                        )                  
+                  )
+                'duration
+                (ly:make-duration 3 0 1)
+                )
+        )
+      )
+      
+      \startStaff
+      
+      \invs
+      \override Staff.BarLine.transparent = ##f
+
+      % invisible rests of length head
+      #(make-music
+        'SkipEvent
+        'duration
+        (ly:make-duration 3 0 (- dur 2)))
+      
+      % extra bit fo rest from -End vars
+      #(make-music
+        'SkipEvent
+        'duration
+        (ly:make-duration noteLen 0 (- cntEnd 1) denEnd ) )
+      %\override Score.BarLine.stencil = ##f 
+      
+      \stopStaff
+      \override Staff.Clef.transparent = ##f
+      \startStaff
+      
+      % invisible rest of length tail that end text spanner
+      #(make-music
+        'SequentialMusic
+        'elements
+        (list (make-music
+                'SkipEvent
+                'articulations
+                (list (make-music
+                        'TextSpanEvent
+                        'span-direction
+                        1)
+                       )
+                'duration
+                (ly:make-duration noteLen 0 1 denEnd)
+              )
+        )
+      )
+      
+      }
+    >>
+      
+      \startstaff #end
+            
+      \revert TextSpanner.bound-details.left.stencil-align-dir-y
+      \revert TextSpanner.style
+      \revert TextSpanner.extra-offset
+      \revert TextSpanner.bound-details.right.text
+      
+      \revert Score.BarLine.stencil       
+  #}
+  )
+
 % display blank space for the given duration
 blank = 
 #(define-music-function

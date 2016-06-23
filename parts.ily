@@ -261,8 +261,10 @@ violinOne = \new Voice \relative c'' {
        <a ef'>8 <a ef'>8
     \bar ":|.-small"
     
-    \arrow #(- tlen 2) "" ##t
+    \arrowPost #(- tlen 2) "" ##t 4 5 10
+    
     \ottava #0
+    
   }
 
 }
@@ -531,7 +533,7 @@ violinTwo = \new Voice \relative c'' {
        <as fs'>8 <as fs'>8
     \bar ":|.-small"
     
-    \arrow #(- tlen 2) "" ##t
+    \arrowPost #(- tlen 2) "" ##t 4 5 10
   }
 
 }
