@@ -48,6 +48,9 @@ ulen = 5
 
 \defineBarLine ":|.-small" #'(":|." "" "")
 \defineBarLine ".|:-mixed" #'(".|:" "" "|")
+\defineBarLine ":|.-smallleft" #'("" ":|." "")
+\defineBarLine ".|:-smallleft" #'("" ".|:" "")
+
 \defineBarLine ":|.-mixed" #'(":|." "" "|")
 \defineBarLine ":|:-split" #'(":|." ".|:" "||")
 \defineBarLine ".|:-left"  #'("" ".|:" "||")
@@ -69,6 +72,15 @@ together = ^\markup { \translate #'(-0.51 . 0)
                       \column { { \beam #2.5 #0 #0.3 } 
                                 {  \vspace #-0.7 {
                                   \beam #2.5 #0 #0.3 } } } }
+crpoco =
+#(make-music 'CrescendoEvent
+             'span-direction START
+             'span-type 'text
+             'span-text "cresc. poco a poco")
+
+intensepoco =
+{ \once \override TextSpanner.bound-details.left.text = \markup{ \italic {
+  incr. intensity poco a poco } } }
 
 % supposed to make a rest of length n, but it doens't work
 % varRest = 
@@ -139,8 +151,10 @@ global = {
   \tempo "Unwavering" 8 = 168
   
   \grace s8
-  \varRestEighth \beginningLen %s8^"T" s8^"T"
-  \varRestEighth \alen
+  \varRestEighth \beginningLen
+  <<
+    { \grace {\varRest 6} \varRestEighth \alen }
+  >>
   %s8^"T" s8^"T" s8^"T"
 %   \varRestEighth \blen
   %{ s8 s8 
@@ -152,7 +166,7 @@ global = {
   \break
   
   \override Score.RehearsalMark.self-alignment-X = #CENTER
-  \once \override Score.RehearsalMark #'break-visibility = #end-of-line-visible
+  \override Score.RehearsalMark #'break-visibility = #begin-of-line-invisible % #end-of-line-visible
   \mark \markup {2 - 4x}
   
   \once \omit Staff.Clef
@@ -160,12 +174,19 @@ global = {
   
   \grace {s16 s s s s s}
   % s8 * 16 
+
+  
   \varRestEighth \blen
   \mark \markup {2 - 4x}
+  \break
   s8 * 3
-  \once \set Staff.forceClef = ##t
   
-  \bar ".|:-small"
+  %\break
+  \override Staff.SpanBar.stencil = ##f
+  \override Staff.SpanBar.allow-span-bar = ##f
+  
+  
+  \bar ".|:-smallleft"
   \grace {s16 s s s s s}
   s8
   \bar ":|.-small"
@@ -472,7 +493,10 @@ arrow =
     \stopStaff 
     
     \override Staff.Clef.transparent = ##f
-    
+    \override Staff.Clef.break-visibility = #all-invisible
+
+    \startStaff
+
     <<
       {
         % sets time signature to dur / 8
@@ -487,6 +511,11 @@ arrow =
 
 
         \once \override TextScript.extra-offset = #'(0 . -3)
+        
+        \invs
+        \stopStaff
+        \override Staff.BarLine.transparent = ##f
+        \startStaff
 
         % invisible rests of length tail that start text span
         #(make-music
@@ -515,10 +544,12 @@ arrow =
             )
           )
       
-        \startStaff
+%         \startStaff
       
-        \invs
-        \override Staff.BarLine.transparent = ##f
+%         \invs
+%         \stopStaff
+%         \override Staff.BarLine.transparent = ##f
+%         \startStaff
 
         % invisible rests of length head
         #(make-music
@@ -561,6 +592,135 @@ arrow =
     \revert TextSpanner.bound-details.right.text
     
     \revert Score.BarLine.stencil       
+    
+    \revert Staff.Clef.break-visibility
+  #}
+  )
+
+arrowSpecial = 
+#(define-music-function
+  (parser location dur str end)
+  (integer? markup? boolean?)
+  #{
+    % Set up text spanner to display arrow
+    \override TextSpanner.bound-details.left.stencil-align-dir-y = #CENTER
+    \override TextSpanner.style = #'line
+    % put in in the middle of the staff
+    % TODO: get height of staff and use that?
+    \override TextSpanner.extra-offset = #'(0 . -3.1)
+    \override TextSpanner.bound-details.right.text = \markup { 
+      \column {
+        \scale #'( 1 . 1)
+        \arrow #"long" ##f #X #UP #1 #0.0
+      }
+    }
+    \override TextSpanner.thickness = #2   
+    
+    % in order to keep the right hand barline to appear, need to \stopStaff, put a small 
+    % hidden rest, and \startStaff
+    
+    % after that, use invis (it does page breaks with the staff bracket) for the the bulk
+    % of the spacing    
+    \override Staff.Clef.transparent = ##f
+    %\override Staff.Clef.break-visibility = #all-invisible
+
+    <<
+      {
+        % sets time signature to dur / 8
+        #(make-music
+          'TimeSignatureMusic
+          'beat-structure
+          '()
+          'denominator
+          8
+          'numerator
+          dur)
+
+
+        \once \override TextScript.extra-offset = #'(0 . -3)
+        
+        \invs
+        %\stopStaff
+        \override Staff.BarLine.transparent = ##f
+        %\startStaff
+
+        % invisible rests of length tail that start text span
+        #(make-music
+          'SequentialMusic
+          'elements
+          (list (make-music
+                 'SkipEvent
+                 'articulations
+                 (list (make-music
+                        'TextSpanEvent
+                        'span-direction
+                        -1)
+                   (make-music
+                    'TextScriptEvent
+                    'direction
+                    1
+                    'text
+                    (markup 
+                     #:line 
+                     (#:left-align str))
+                    )                  
+                   )
+                 'duration
+                 (ly:make-duration 3 0 1)
+                 )
+            )
+          )
+      
+%         \startStaff
+      
+%         \invs
+%         \stopStaff
+%         \override Staff.BarLine.transparent = ##f
+%         \startStaff
+
+        % invisible rests of length head
+        #(make-music
+          'SkipEvent
+          'duration
+          (ly:make-duration 3 0 (- dur 2)))
+      
+        %\override Score.BarLine.stencil = ##f 
+      
+        \stopStaff
+        \override Staff.Clef.transparent = ##f
+        \startStaff
+      
+        % invisible rest of length tail that end text spanner
+        #(make-music
+          'SequentialMusic
+          'elements
+          (list (make-music
+                 'SkipEvent
+                 'articulations
+                 (list (make-music
+                        'TextSpanEvent
+                        'span-direction
+                        1)
+                   )
+                 'duration
+                 (ly:make-duration 3 0 1)
+                 )
+            )
+          )
+      
+      }
+    >>
+    
+    \startstaff #end
+    
+    \revert TextSpanner.bound-details.left.stencil-align-dir-y
+    \revert TextSpanner.style
+    \revert TextSpanner.extra-offset
+    \revert TextSpanner.bound-details.right.text
+    
+    \revert Score.BarLine.stencil       
+    
+    %\revert Staff.Clef.break-visibility
   #}
   )
 
@@ -582,6 +742,7 @@ arrowGrace =
       }
     }
     \override TextSpanner.thickness = #2   
+    \override Staff.Clef.break-visibility = #all-invisible
     
     % in order to keep the right hand barline to appear, need to \stopStaff, put a small 
     % hidden rest, and \startStaff
@@ -673,7 +834,10 @@ arrowGrace =
     \revert TextSpanner.extra-offset
     \revert TextSpanner.bound-details.right.text
     
-    \revert Score.BarLine.stencil       
+    \revert Score.BarLine.stencil    
+    
+    \revert Staff.Clef.break-visibility
+
   #}
   )
 
@@ -705,6 +869,8 @@ arrowPost =
     \stopStaff 
     
     \override Staff.Clef.transparent = ##f
+    \override Staff.Clef.break-visibility = #all-invisible
+
     
     <<
       {
@@ -797,6 +963,8 @@ arrowPost =
     \revert TextSpanner.bound-details.right.text
     
     \revert Score.BarLine.stencil       
+    \revert Staff.Clef.break-visibility
+
   #}
   )
 

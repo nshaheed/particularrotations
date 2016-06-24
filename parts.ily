@@ -17,12 +17,25 @@ violinOne = \new Voice \relative c'' {
   <<
     \asect
     \arrowGrace \alen  6 "" ##f
+    { \grace {s16\crpoco \varRest 5} s8 s8 s8 s8 s8\! }
   >>
 
   \bar ":|.|:"
   
   %% B section
-  \arrowGrace 5 6 "" ##t
+  \arrowGrace 5 6 \markup{ 
+      \override #'(baseline-skip . 1.75	 )
+
+      \vcenter \column { 
+      \concat {1x: " 3\""}
+      { \concat {2x: " 2\""}}
+      { etc.} }
+               \vcenter
+               ": "
+               \vcenter
+      \override #'(baseline-skip . 1.75 )
+      \override #'(line-width . 18)
+      {\justify {wait time after cello plays grace notes (follow viola and cello wait times) } } } ##t
   
   \clef treble
   \time 1/8
@@ -34,7 +47,7 @@ violinOne = \new Voice \relative c'' {
   <g d'>8[  <g d'>8]
   \bar ":|.-small"
   
-  \arrow #(- blen 8) "" ##f
+  \arrow #(- blen 8) ""  ##f
   
   % C Section
   \bar ":|."
@@ -378,6 +391,7 @@ violinTwo = \new Voice \relative c'' {
     \asect
     { \arrowGrace \alen  6 "" ##f 
     }
+    { \grace {s16\crpoco \varRest 5} s8 s8 s8 s8 s8\! }
   >>  
   
   \bar ":|.|:"
@@ -730,11 +744,14 @@ viola = \new Voice \relative c' {
                ": "
                \vcenter
       \override #'(baseline-skip . 1.75 )
-      \override #'(line-width . 20)
+      \override #'(line-width . 19)
       {\justify {wait time after cello plays grace notes } } }
       
       ##t
     }   
+    
+    { \grace {s16\crpoco \varRest 5} s8 s8 s8 s8 s8\! }
+
   >>
   
   
@@ -751,6 +768,7 @@ viola = \new Voice \relative c' {
   
   \bar ".|:-small"
   \time 1/4
+  \appoggiatura c8
   <c g'>8\mp[  <c g'>8]
   \bar ":|.-small"
   
@@ -1164,7 +1182,7 @@ cello = \new Voice
   \bar ":|.-small"
   
   <<    
-    \arrow #(- alen 3) "" ##f
+    \arrowSpecial #(- alen 3) "" ##f
     {s8^\markup{ 
       \override #'(baseline-skip . 1.75	 )
 
@@ -1176,8 +1194,9 @@ cello = \new Voice
                ": "
                \vcenter
       \override #'(baseline-skip . 1.75 )
-      \override #'(line-width . 20)
-      {\justify {wait time after viola plays grace notes } } }} 
+      \override #'(line-width . 19)
+      {\justify {wait time after viola plays grace notes } } } } 
+    { { s8\crpoco s8 s8 s8 s8\! } }
   >>
   \bar ":|."
   
