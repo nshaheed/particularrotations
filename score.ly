@@ -4,6 +4,8 @@
 \include "imports.ily"
 \include "parts.ily"
 
+%% Length: shouldn't be more than 6 minutes
+
 \paper {
   #(set-paper-size scorePaperSize)
   
@@ -11,10 +13,10 @@
   ragged-bottom = ##f
 
   
-  margin = .75\in 
+  margin = .65\in 
   left-margin = \margin
   right-margin = \margin
-  top-margin = .5\in
+  top-margin = .25\in
   bottom-margin = \margin
 }
 
@@ -22,6 +24,7 @@
   title = \ttl
   composer = \cmp
   tagline = \tg
+  subtitle = \sbttl
 }
 
 \score {
@@ -47,6 +50,10 @@
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
     \remove "Forbid_line_break_engraver"
+    \override TextScript.font-size = \txtsize
+    \override TextSpanner.font-size = \txtsize
+    \override HorizontalBracket.font-size = \txtsize
+    %fontSize = #-1
     % \RemoveEmptyStaves
 
   }
