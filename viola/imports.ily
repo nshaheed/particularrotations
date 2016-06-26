@@ -234,7 +234,7 @@ global = {
   
   % \override Staff.BarLine.transparent = ##f 
 
-  \varRestEighth \blen \bar ":|."
+  \varRestEighth \blen \bar ":|]"
   \mark \markup {2 - 4x}
   s8 * 3
   \break
@@ -283,7 +283,6 @@ global = {
   
   \rehmark
   \bar "||"
-  \grace {\varRest 6}
   
   \varRestEighth 5
   
@@ -296,7 +295,6 @@ global = {
   s8 s8
   
   \varRestEighth \glen
-  
   \bar ""
   
   \override BreathingSign.text = \markup {
@@ -318,7 +316,7 @@ global = {
   \varRestEighth \hlen
   \varRestEighth \ilen
   
-  \break
+  
   \once \omit Staff.Clef
 
   \rehmark
@@ -336,7 +334,7 @@ global = {
   
   \rehmark
   \revert Staff.TimeSignature.stencil
-  \bar "||"
+  \bar ""
   s8*5
   \bar "||"
   \override Staff.TimeSignature.stencil = ##f
@@ -1130,6 +1128,6 @@ asect =
 {
   \once \omit Staff.Clef
   \once \override Staff.BarLine.transparent = ##f
-  \bar ".|:-end"
+  \bar "[|:-right"
   \grace {s16 s s s s s}
 }

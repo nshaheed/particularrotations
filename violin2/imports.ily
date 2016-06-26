@@ -268,7 +268,6 @@ global = {
   
   \bar ".|:-right"
   
-  \break
   
   \rehmark
   \grace {s8}
@@ -283,7 +282,6 @@ global = {
   
   \rehmark
   \bar "||"
-  \grace {\varRest 6}
   
   \varRestEighth 5
   
@@ -308,7 +306,7 @@ global = {
   % s8 
   \bar ""
   
-  \break
+  % \break
   
   \once \omit Staff.Clef
 
@@ -353,7 +351,7 @@ global = {
   \bar ":|."
   <<
     \varRestEighth \olen
-    {\varRestEighth #(- olen 4) s8 \tempo "Delicate" 8 = 50}
+    {\varRestEighth #(- olen 4) s8 }
   >>
     
   << {\varRestEighth 5} >>
@@ -383,7 +381,7 @@ global = {
   \once \override Staff.TimeSignature.break-visibility = ##(#f #t #t)
   \time 2/4
   s2 * 4
-  \break
+  % \break
   s2 \breathe
   
   \rehmark
@@ -393,7 +391,7 @@ global = {
   \varRestEighth \qlen
   \breathe
   
-  \break
+  % \break
   
   \rehmark
 

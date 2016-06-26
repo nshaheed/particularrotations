@@ -234,7 +234,7 @@ global = {
   
   % \override Staff.BarLine.transparent = ##f 
 
-  \varRestEighth \blen \bar ":|."
+  \varRestEighth \blen \bar ":|]"
   \mark \markup {2 - 4x}
   s8 * 3
   \break
@@ -318,7 +318,7 @@ global = {
   \varRestEighth \hlen
   \varRestEighth \ilen
   
-  \break
+  % \break
   \once \omit Staff.Clef
 
   \rehmark
@@ -326,7 +326,7 @@ global = {
   
   
   \varRestEighth \ilen
-  \break
+  % \break
   
   \rehmark
   \varRestEighth \klen
@@ -336,7 +336,7 @@ global = {
   
   \rehmark
   \revert Staff.TimeSignature.stencil
-  \bar "||"
+  \bar ""
   s8*5
   \bar "||"
   \override Staff.TimeSignature.stencil = ##f
@@ -353,7 +353,7 @@ global = {
   \bar ":|."
   <<
     \varRestEighth \olen
-    {\varRestEighth #(- olen 4) s8 \tempo "Delicate" 8 = 50}
+    {\varRestEighth #(- olen 4) s8 }
   >>
     
   << {\varRestEighth 5} >>
@@ -408,7 +408,7 @@ global = {
   
   <<
     \varRestEighth \slen
-    {s8\mf\<\separateNone}
+    {s8\mf\<\separate}
   >>
   
   \breathe

@@ -38,7 +38,7 @@ violinOne = \new Voice \relative c'' {
                \vcenter
       \override #'(baseline-skip . 1.75 )
       \override #'(line-width . 18)
-      {\justify {wait this long after cello plays grace notes (follow viola and cello wait times) } } } ##t
+      {\justify {wait time after cello plays grace notes (follow viola and cello wait times) } } } ##t
   
   \clef treble
   \time 1/8
@@ -778,7 +778,7 @@ violinTwo = \new Voice \relative c'' {
         \transparent {
           \filled-box #'(0 . 0) #'(0 . 8) #0
         }
-        
+        t
         } 
       \!
       
@@ -833,6 +833,8 @@ viola = \new Voice \relative c' {
   \revert Staff.DynamicLineSpanner.staff-padding
   
   \arrow #(beginningArrow 2) "40\" – 50\"" ##f
+  
+  \break
 
   %% A Section
   <<
@@ -883,7 +885,7 @@ viola = \new Voice \relative c' {
   
   \arrow #(- alen 8) "" ##f
   
-  \bar ":|.|:"
+  \bar ":|][|:"
  
   %% B Section
 
@@ -946,7 +948,6 @@ viola = \new Voice \relative c' {
   
   \time 5/8
   
-  \grace {\varRest 6}
   r8
   \grace {\slashI {c16 ef c d c d} } 
   <<
@@ -1003,6 +1004,8 @@ viola = \new Voice \relative c' {
   \beginning \mlen "5\" - 10\""
   
   \notinvs
+  
+  \break
 
   \time 5/8
   <<
@@ -1044,12 +1047,15 @@ viola = \new Voice \relative c' {
   
   \time 5/4
   
+  \break
   \grace { \slashI { af'16\pp(\sulp cf af bf af bf af cf a af cf bf cf a cf af a} }
   
   <<
     \new Voice { \voiceOne af4~ \bar "" af1\fermata \voiceNeutralStyle }
     { \voiceTwo \once \hideNotes af4 g1)}
   >>
+  
+  \break
   
   <<
     \new Voice { \voiceOne a!4~ a2.}
@@ -1140,7 +1146,9 @@ viola = \new Voice \relative c' {
       \override Accidental.font-size = #-4
   
       \stemUp
-      \slashI { gs16*1/5\sulp[(b gs as gs a b a gs a]) }
+      \textLengthOn
+      \slashI { gs16*1/5\sulp[(b gs as gs a b a gs a^" "]) }
+      \textLengthOff
     }
     {
       s16*1/5\<
@@ -1188,6 +1196,7 @@ viola = \new Voice \relative c' {
     }
 
     %     \time 6/8
+    \bar "||"
     \grace { \stemUp \slashI { b!16_([ d b c b c\!])} }
     r4
     \grace {\slashI {c,,16\ff ef c d c d} } 
@@ -1212,7 +1221,7 @@ viola = \new Voice \relative c' {
     
     \time 2/4
     \hideNotes
-    <c g'>4.^"10\"" \glissando <c' g'>8
+    <c g'>4._"IV"^"III"^"10\"" \glissando <c' g'>8
     \unHideNotes
    
     \notinvs
@@ -1235,7 +1244,7 @@ viola = \new Voice \relative c' {
    
     \time 2/4
     \hideNotes
-    <g d'>4.^"10\"" \glissando <g' d'>8
+    <g d'>4._"III"^"II"^"10\"" \glissando <g' d'>8
     \unHideNotes
     \notinvs
    
@@ -1259,7 +1268,7 @@ viola = \new Voice \relative c' {
    
     \time 2/4
     \hideNotes
-    <d a'>4.^"10\"" \glissando <d' a'>8
+    <d a'>4._"II"^"I"^"10\"" \glissando <d' a'>8
     \bar ""
     \time 4/4
     <d a'>4^"10\"" \glissando s2 <d a'>4
@@ -1267,8 +1276,10 @@ viola = \new Voice \relative c' {
     \notinvs
    
     \time 1/8
-    \grace {s16 * 6}
-    <c,, g'>8\fff-^
+    \new CueVoice {
+    \grace {\slashI {c,,16^"cello" ef c d c d } }
+    }
+    <c g'>8\fff-^
 
   }
   {
@@ -1357,7 +1368,7 @@ cello = \new Voice
                \vcenter
       \override #'(baseline-skip . 1.75 )
       \override #'(line-width . 19)
-      {\justify {wait this long after viola plays grace notes to repeat } } } } 
+      {\justify {wait time after viola plays grace notes } } } } 
     { { s8\crpoco s8 s8 s8 s8\! } }
   >>
   \bar ":|."
@@ -1570,7 +1581,7 @@ cello = \new Voice
   \override Staff.TimeSignature.stencil = ##f
   \bar ".|:-small"
   \time 1/4
-  <d ef'>8\separateNone\pp <d ef'>8
+  <d ef'>8\separate\pp <d ef'>8
   \bar ":|.-small"
   
   \arrow #(- plen 2) "5\" - 10\"" ##t

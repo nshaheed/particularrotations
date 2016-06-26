@@ -7,59 +7,41 @@
 %% Length: shouldn't be more than 6 minutes
 
 \paper {
-  #(set-paper-size scorePaperSize)
+  #(set-paper-size "a4")
   
-  system-separator-markup = \slashSeparator
+  %system-separator-markup = \slashSeparator
   ragged-bottom = ##f
   
-  max-systems-per-page = #2
+  max-systems-per-page = #7
 
 
   
-  margin = .75\in 
+  margin = .5\in 
   left-margin = \margin
   right-margin = \margin
-  top-margin = .25\in
-  bottom-margin = .25\in
+  top-margin = .5\in
+  bottom-margin = \margin
 }
 
 \header {
   title = \ttl
   composer = \cmp
   tagline = \tg
-  subtitle = \sbttl
+  % subtitle = \sbttl
+  copyright = 2016
+  instrument = "Viola"
   copyright = "2016"
 }
 
-staffsize = -2
-
 \score {
-  \new StaffGroup <<
-    \new Staff \with {
-    fontSize = #staffsize
-    \override StaffSymbol.staff-space = #(magstep staffsize)
-  } << \global \violinOne >>
-    \new Staff \with {
-    fontSize = #staffsize
-    \override StaffSymbol.staff-space = #(magstep staffsize)
-  }<< \global \violinTwo >>
-    \new Staff \with {
-    fontSize = #staffsize
-    \override StaffSymbol.staff-space = #(magstep staffsize)
-  }<< \global \viola >>
-    \new Staff \with {
-      fontSize = #staffsize
-    \override StaffSymbol.staff-space = #(magstep staffsize)
-  }<< \global \cello  >>
-                    
-                  
-  >>
+ 
+  \new Staff << \global \viola  >>              
+
   \layout {
     ragged-right = ##f
     \context {
     \Score
     \remove "Timing_translator"
-    % #(layout-set-staff-size 14)
     % \remove "Default_bar_line_engraver"
     
   }
@@ -72,10 +54,11 @@ staffsize = -2
     \override TextSpanner.font-size = \txtsize
     \override HorizontalBracket.font-size = \txtsize
     
+      \override DynamicLineSpanner.staff-padding = #2
       % \override DynamicTextSpanner.whiteout = ##t
      %\override DynamicTextSpanner.
 
-%     fontSize = #-3
+    %fontSize = #-1
     % \RemoveEmptyStaves
 
   }

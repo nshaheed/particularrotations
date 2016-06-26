@@ -283,7 +283,6 @@ global = {
   
   \rehmark
   \bar "||"
-  \grace {\varRest 6}
   
   \varRestEighth 5
   
@@ -326,7 +325,7 @@ global = {
   
   
   \varRestEighth \ilen
-  \break
+  
   
   \rehmark
   \varRestEighth \klen
@@ -336,7 +335,7 @@ global = {
   
   \rehmark
   \revert Staff.TimeSignature.stencil
-  \bar "||"
+%   \bar "||"
   s8*5
   \bar "||"
   \override Staff.TimeSignature.stencil = ##f
@@ -372,7 +371,7 @@ global = {
   \override Staff.TimeSignature.stencil = ##f
   \varRestEighth \plen
   
-  \break
+  
   
   \breathe
   \revert Staff.TimeSignature.stencil
@@ -383,7 +382,7 @@ global = {
   \once \override Staff.TimeSignature.break-visibility = ##(#f #t #t)
   \time 2/4
   s2 * 4
-  \break
+  
   s2 \breathe
   
   \rehmark
@@ -393,7 +392,7 @@ global = {
   \varRestEighth \qlen
   \breathe
   
-  \break
+  
   
   \rehmark
 

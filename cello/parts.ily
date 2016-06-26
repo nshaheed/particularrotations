@@ -38,7 +38,7 @@ violinOne = \new Voice \relative c'' {
                \vcenter
       \override #'(baseline-skip . 1.75 )
       \override #'(line-width . 18)
-      {\justify {wait this long after cello plays grace notes (follow viola and cello wait times) } } } ##t
+      {\justify {wait time after cello plays grace notes (follow viola and cello wait times) } } } ##t
   
   \clef treble
   \time 1/8
@@ -778,7 +778,7 @@ violinTwo = \new Voice \relative c'' {
         \transparent {
           \filled-box #'(0 . 0) #'(0 . 8) #0
         }
-        
+        t
         } 
       \!
       
@@ -854,7 +854,7 @@ viola = \new Voice \relative c' {
                \vcenter
       \override #'(baseline-skip . 1.75 )
       \override #'(line-width . 19)
-      {\justify {wait this long after cello plays grace notes } } }
+      {\justify {wait time after cello plays grace notes } } }
       
       ##t
     }   
@@ -1324,14 +1324,20 @@ cello = \new Voice
   s4
   \bar ":|]"
   %% 16
-  \arrow #(- (beginningArrow 4) 10) "30\" – 40\"" ##f
+  
+  <<
+    \arrow #(- (beginningArrow 4) 10) "30\" – 40\"" ##f
+    { \textLengthOn 
+      s8^"                                                "
+    }
+  >>
   
   %% A Section
   \undo \omit Staff.Clef
   \notinvs
 
   \break
-  \bar ".|:-end"
+  \bar "[|:-right"
 
   \time 1/8
   \clef bass
@@ -1360,15 +1366,15 @@ cello = \new Voice
       {\justify {wait this long after viola plays grace notes to repeat } } } } 
     { { s8\crpoco s8 s8 s8 s8\! } }
   >>
-  \bar ":|."
+  % \bar ":|."
   
   %% B Section
 
   \undo \omit Staff.Clef
 
- \bar ":|.|:"
+ \bar ":|][|:"
   \time 1/8
-  \grace {\slashI {\notinvs c,16\sf  
+  \grace {\slashI {\notinvs c,16\sf 
                    ef c d c d} } 
   c8->  
    
@@ -1422,7 +1428,7 @@ cello = \new Voice
 
   \time 5/8
   \grace {\slashI {c,16 ef c d c d} } 
-    \override Staff.DynamicLineSpanner.staff-padding = #5.5
+    \override Staff.DynamicLineSpanner.staff-padding = #5
 
   c4.->\<~ 
   <<
@@ -1431,12 +1437,14 @@ cello = \new Voice
   >>
   
   \revert Staff.DynamicLineSpanner.staff-padding
+    \override Staff.DynamicLineSpanner.staff-padding = #5
 
   \bar ".|:"
   \time 1/4
   \grace s8 <d' a'>8\together\ff <d a'>8
   \bar ":|."
-  
+  \revert Staff.DynamicLineSpanner.staff-padding
+
   
   \arrow \glen "10\"" ##f
  
@@ -1444,11 +1452,17 @@ cello = \new Voice
   %s8
 %   \beginning #(+ hlen ilen ilen ialen klen) "25\" - 55\""
   \beginning #(+ hlen ilen) "10\" - 25\"" \bar ""
-  \beginning #(+ ilen ialen) "10\" - 20\"" \bar ""
+    { \beginning #(+ ilen ialen) "10\" - 20\"" \bar "" }
+
 %   \beginning #(+ hlen ilen ialen ilen) "20\" - 45\""
   
   \once \omit Staff.Clef
-  \beginning \klen "5\" - 10\""
+  
+  
+  <<
+    { \beginning \klen "5\" - 10\"" }
+    { s8_\markup{ (vla. enters)} }
+  >>
   
   \notinvs
   
@@ -1476,6 +1490,10 @@ cello = \new Voice
   \bar ":|]-small"
 
   \arrow #(- mlen 9) "5\" - 10\"" ##t
+  
+  \once \override Staff.TimeSignature.break-visibility = ##(#f #t #t)
+
+  \break
   
   \time 5/8 
   <<
@@ -1522,6 +1540,10 @@ cello = \new Voice
   \bar ""
   \time 4/4
   \clef treble
+  \break
+  \override Clef.break-visibility = ##(#f #f #f)
+  
+  \tempo "Delicate" 8 = 50
   \appoggiatura {d'''8*5\pp}
   d2\fermata 
   \bar ".|:-small"
@@ -1549,6 +1571,7 @@ cello = \new Voice
   >>
 
   \clef treble
+  \break
   
   <<
     \new Voice { \voiceOne d''4~ d2. }
@@ -1556,6 +1579,7 @@ cello = \new Voice
     {s4\mp}
   >>
   
+  % \break
   \clef bass
   
   \grace {s16*6}
@@ -1570,7 +1594,7 @@ cello = \new Voice
   \override Staff.TimeSignature.stencil = ##f
   \bar ".|:-small"
   \time 1/4
-  <d ef'>8\separateNone\pp <d ef'>8
+  <d ef'>8\separate\pp <d ef'>8
   \bar ":|.-small"
   
   \arrow #(- plen 2) "5\" - 10\"" ##t
@@ -1611,7 +1635,9 @@ cello = \new Voice
       \override Accidental.font-size = #-4
   
       \stemUp
-      \slashI { g16*1/3\sulp[(bf g a g a]) }
+      \textLengthOn
+      \slashI { g16*1/3\sulp[(bf g a g a^" "]) }
+      \textLengthOff
     }
     {
      s16*1/3\< 
@@ -1635,12 +1661,7 @@ cello = \new Voice
 
   \bar ".|:-small"
   \time 1/4
-  <gs ds'>8^\markup{
-        \transparent {
-          \filled-box #'(0 . 0) #'(0 . 2) #0
-        }
-        }
-        <gs ds'>8
+  <gs ds'>8 <gs ds'>8
   \bar ":|.-small"
   
   \arrow #(- slen 2) "3\"" ##t
@@ -1665,9 +1686,15 @@ cello = \new Voice
       \grace {s16 * 6}
       \slashI { c,,16*1/3[ ef c d c d] }
     }
+    {
+      \new CueVoice {
+        s8
+       \grace { \slashI {b''16^"vla" d b c b c} } 
+      }
+    }
     { s16*1/5\<  s16*1/5*8 s16*1/5\! s8\ff}
   >>
-  c4->~ 
+  c,,4->~ 
   <<
     c4.
     {s8 s4\<}
@@ -1685,7 +1712,7 @@ cello = \new Voice
   
   \time 2/4
   \hideNotes
-  <g d'>4.^"10\"" \glissando <g' d'>8
+  <g d'>4.^"II"_"III"^"10\"" \glissando <g' d'>8
   
   \unHideNotes
   \notinvs
@@ -1706,7 +1733,7 @@ cello = \new Voice
   }
   \time 2/4
   \hideNotes
-  <d a'>4.^"10\"" \glissando <d' a'>8
+  <d a'>4._"II"^"I"^"10\"" \glissando <d' a'>8
   \unHideNotes
   \notinvs
   
@@ -1715,6 +1742,8 @@ cello = \new Voice
     c4->~ c4.
                     }
   }
+  
+  \once \hide Staff.Clef
   \bar "|"
   
 
@@ -1736,7 +1765,7 @@ cello = \new Voice
   \hideNotes
   \grace {s8}
   
-  <d, a'>8_\markup{\hspace #-3 \lower #4 \italic {cresc. poco a poco}}^"13\"" \glissando s8\! \varRestEighth #(+ ulen 1) <d' a'>8\!
+  <d, a'>8_"II"_\markup{\hspace #-3 \lower #4 \italic {cresc. poco a poco}}^"I"^"13\"" \glissando s8\! \varRestEighth #(+ ulen 1) <d' a'>8\!
    \bar ""
   \time 4/4
   <d a'>4^"10\"" \glissando s2 <d a'>4
@@ -1745,6 +1774,8 @@ cello = \new Voice
   \unHideNotes
   
   \time 1/8
+  \forceClef
+  \clef bass
   \grace {\slashI {c,,16 ef c d c d} } 
   c8\fff-^
   

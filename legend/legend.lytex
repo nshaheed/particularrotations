@@ -1,0 +1,222 @@
+% notes for future use:
+% when beginning lilypond, don't have any paper, it will mess with the margins
+% 
+
+% \documentclass[landscape, twocolumn, 12pt]{book}
+\documentclass[landscape, 12pt]{book} 
+
+\usepackage[papersize={8.5in,11in}, margin=0.5in]{geometry}
+% \usepackage{afterpage}
+\usepackage{floatrow}
+% \usepackage[format=plain,singlelinecheck=false,justification=raggedright]{caption}
+\usepackage[compatibility=false]{caption}
+\captionsetup{singlelinecheck=false,justification=raggedleft,margin={0in,.45in}}
+
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{fontspec}
+
+\newfontfamily\headingfont[]{DejaVu Sans ExtraLight}
+
+\titleformat*{\section}{\LARGE\headingfont}
+\titleformat*{\subsection}{\Large\headingfont}
+\titleformat*{\subsubsection}{\large\headingfont}
+\renewcommand{\maketitlehooka}{\headingfont}
+
+\usepackage{amsmath}
+\newcommand{\setmeterb}[2]{\ensuremath{%
+  \vcenter{\offinterlineskip
+      \halign{\hfil##\hfil\cr
+                  $\scriptstyle#1$\cr
+		              \noalign{\vskip1pt}
+			                  $\scriptstyle#2$\cr}
+   }}%
+}
+% * TODO hide time sig
+\floatsetup[figure]{capposition=beside, capbesideposition={right,center},
+					floatwidth=.35\hsize, capbesidewidth=sidefil}
+
+
+%% Use lmodern font 
+
+% \usepackage[T1]{fontenc} 
+% \usepackage{lmodern} 
+% \renewcommand*\familydefault{\sfdefault} 
+
+%% Set font
+% \setmainfont{DejaVu Sans ExtraLight}
+
+%% Change itemize bullets to dashes
+% \def\labelitemi{\textemdash}
+
+%% Suppress page numbering 
+\usepackage{nopageno}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\section*{Particular Rotations}
+\subsection*{Legend}
+
+\begin{figure}[H]
+\hspace{.45in}
+\begin{lilypond}[ragged-right]
+    \include "../imports.ily"
+    {\new Staff
+    	  d''2\separate
+    }
+\end{lilypond}
+\hfill \raggedright
+\caption*{Play independently, avoid lining up rhythmically with other players}
+\end{figure}
+
+\begin{figure}[H]
+\hspace{.45in}
+\begin{lilypond}[ragged-right]
+    \include "../imports.ily"
+    {\new Staff
+    	  d''2\together
+    }
+\end{lilypond}
+\hfill \raggedright
+\caption*{Play together, rhythms are played together as in normal performance}
+\end{figure}
+
+
+\begin{figure}[H]
+\hspace{.45in}
+\begin{lilypond}[ragged-right]
+    \include "../imports.ily"
+    \include "../arrows.ily"
+    {\new Staff
+    	  \hide Staff.TimeSignature
+    	  % \bar ".|:"
+	  \time 1/4
+	  \bar ".|:"
+	  <g' d''>8[ <g' d''>8]
+	  \bar ":|."
+
+	  \arrow 5 "4\"" ##f
+	  \bar ""
+    }
+\end{lilypond}
+\hfill \raggedright
+\caption*{Repeat the figure enclosed within the repeats for the duration specified.  These
+		 seconds indications are approximate and should be interpreted to suit the
+		 pacing of the performance.  If lining up in the next phrase, adjust as needed
+		 at the end of the current phrase.  This includes adding/dropping beats as needed.}
+\end{figure}
+
+\begin{figure}[H]
+\hspace{2in}
+\begin{lilypond}[ragged-right]
+    \include "../imports.ily"
+    \include "../arrows.ily"
+    {\new Staff
+    	  \hide Staff.TimeSignature    
+    	  \clef bass
+	  \time 1/8
+	  \bar "[|:"	
+	  s8
+	  \time 1/4
+	  \bar ".|:"
+	    \time 1/4
+	        <c, g,>8\p\separate <c, g,>8
+          \bar ":|."
+	  \arrow 3 "4\"" ##t
+	% \arrow 3 "tt" ##t
+	% \time 1/8
+	c,8-> \bar ":|]"
+    }
+\end{lilypond}
+\hfill \raggedright
+\caption*{Nested repeats: perform all music inside the outer repeat bars (including inner repeats),
+		 before repeating the entire phrase}
+\end{figure}
+
+
+\begin{figure}[H]
+\hspace{.45in}
+\begin{lilypond}[ragged-right]
+    \include "../imports.ily"
+    \include "../arrows.ily"
+    {\new Staff
+    	  \grace {\slashI { c''16 d'' c'' d'' b' a' c'' } }
+
+    }
+\end{lilypond}
+\hfill \raggedright
+\caption*{Play as fast as possible}
+\end{figure}
+
+\begin{figure}[H]
+\hspace{.45in}
+\begin{lilypond}[ragged-right]
+    \include "../imports.ily"
+    \include "../arrows.ily"
+    {\new Staff
+    	  d''2 \shortPause
+    }
+\end{lilypond}
+\hfill \raggedright
+\caption*{A short, unmetered pause.}
+\end{figure}
+
+\begin{figure}[H]
+\hspace{.45in}
+\begin{lilypond}[ragged-right]
+    \include "../imports.ily"
+    \include "../arrows.ily"
+    {\new Staff
+    	  d''2 \longPause
+    }
+\end{lilypond}
+\hfill \raggedright
+\caption*{A (relatively) long, unmetered pause.}
+\end{figure}
+
+\begin{figure}[H]
+\hspace{.45in}
+\begin{lilypond}[ragged-right]
+    \include "../imports.ily"
+    \include "../arrows.ily"
+    {\new Staff
+    \clef bass
+    	  \hide Staff.TimeSignature    
+	      \time 1/4
+	      \bar ".|:"
+     
+        <g, d>8-> <g, d>8
+	  \bar ":|."
+
+  \arrow 3 "5\"" ##f \bar ""
+
+  \time 2/4
+    \hideNotes
+      <g, d>4.^"II"_"III"^"10\"" \glissando <g d'>8
+      \bar ""
+    }
+
+\end{lilypond}
+\hfill \raggedright
+\caption*{Angled parallel lines indicate moving up in pitch along the indicated strings. In
+		 the indicated time span, go as far up the fretboard on those strings as possible while
+		 still creating pitched sound. Move in half steps and whole steps.  Not every attack
+		 must ascend - staying on pitch or even moving down are acceptable, as long as there is
+		 a general upward motion.
+		 Use the rhythm and the interval from the previous phrase.  In this instance, one would
+		 spend approximately 10 seconds moving in parallel fifths up the fretboard with an eighth-note rhythm.  Lines parallel to the page indicate the above, but while staying on and around one pitch.
+}
+\end{figure}
+
+
+
+% \makebox[8in][s]{ fjeioa f j i e o a }
+
+\subsection*{Notes}
+
+\textit{Particular Rotations} makes heavy use of indeterminate elements.  Lengths of certain phrases, number of repetitions, etc. are loosely defined, and should have an improvisational quality to them - strive to make each performance different.  While the piece is mostly metrically free, there are a few metered sections, which begin with the appearance of a time signature.  Note that metered sections are different from the play together notation above - the notation indicates rhythmic unsion, but the number of repetitions should be decided during the performance (either one player leads, or players move to the next section independently, depending on what the music calls for). 
+
+
+\end{document}
