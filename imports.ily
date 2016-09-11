@@ -63,8 +63,8 @@ ulen = 5
 
 \defineBarLine ".|:-right" #'("" ".|:" ".|:")
 \defineBarLine ".|:-right2" #'("|" ".|:" ".|:")
-
-\defineBarLine ".|:-right-regleft" #'( "||" ".|:" ".|:")
+\defineBarLine ".|:-right-small" #'("" ".|:" "|")
+\defineBarLine ".|:-right-regleft" #'( "||" ".|:" " ")
 
 %% Notation
 sulp	= ^\markup { \italic s.p. }
@@ -96,6 +96,7 @@ togetherNone = ^\markup {  \pad-markup #0
 
 rehmark = {
   \once \override Score.RehearsalMark #'break-visibility = ##(#f #t #t)
+%   \once \override Score.RehearsalMark #'outside-staff-horizontal-padding = #'-2
   \mark \default
 }
 % togetherVar =
@@ -244,11 +245,15 @@ global = {
 %   \override Staff.SpanBar.allow-span-bar = ##f
   
   \rehmark
-  \bar ".|:-right"
+  
+  \override Score.BarLine.allow-span-bar = ##f
+  % \bar ".|:-right"
+  \bar ".|:-right-small"
   \grace {s16 s s s s s}
+  \revert Score.BarLine.allow-span-bar
   s8
   \shortPause
-  \bar ":|."
+  \bar ":|.-small"
   
   \varRestEighth \clen
   
@@ -260,7 +265,12 @@ global = {
   
   \bar ".|:-small"
   \rehmark
-  \grace {s16\separate s s s s s}
+  \grace {s16^\markup{ \pad-markup #0
+                      \translate #'( 0 . 1.8)
+                     \column { { \beam #2.5 #0 #0.15 } 
+                               {  \vspace #-0.7 {
+                                 \translate #'(1.1 . 0) \beam #2.5 #0 #0.15 } } } } 
+          s s s s s}
   s8
   \bar ":|.-small"
   
@@ -525,7 +535,7 @@ beginning =
               #:line
               (#:fontsize
                txtsize
-               (#:hspace 0.7)
+               (#:hspace 0.62)
                #:fontsize
                txtsize
                (#:center-column (#:vspace -1.3 #:halign 20 #:simple str)))
@@ -1133,3 +1143,4 @@ asect =
   \bar ".|:-end"
   \grace {s16 s s s s s}
 }
+

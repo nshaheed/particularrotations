@@ -20,7 +20,7 @@ violinOne = \new Voice \relative c'' {
   <<
     \asect
     \arrowGrace \alen  6 "" ##f
-    { \grace {s16\crpoco \varRest 5} s8 s8 s8 s8 s8\! }
+    { \grace {s16\crpoco \varRest 5} s8 s8 s8 s8 s8 s8 s8\! }
   >>
 
   \bar ":|.|:"
@@ -37,7 +37,7 @@ violinOne = \new Voice \relative c'' {
                ": "
                \vcenter
       \override #'(baseline-skip . 1.75 )
-      \override #'(line-width . 18)
+      \override #'(line-width . 19)
       {\justify {wait this long after cello plays grace notes (follow viola and cello wait times) } } } ##t
   
   \clef treble
@@ -96,17 +96,19 @@ violinOne = \new Voice \relative c'' {
   
   \arrow 3 "3\"" ##t
   
+
   \time 1/4
   \bar ".|:-small"
+  \override Hairpin.Y-offset = #3
   \appoggiatura g8 
-  <g d'>8 <g d'>8
+  <g d'>8\< <g d'>8
   \bar ":|.-small"
   
   \arrow #(- elen 5) "3\"" ##t
   
   \time 1/4
   \appoggiatura g8 
-  <g d'>8 <g d'>8
+  <g d'>8\! <g d'>8
   
   \arrow \flen "7\"" ##t
   
@@ -443,7 +445,7 @@ violinTwo = \new Voice \relative c'' {
     \asect
     { \arrowGrace \alen  6 "" ##f 
     }
-    { \grace {s16\crpoco \varRest 5} s8 s8 s8 s8 s8\! }
+    { \grace {s16\crpoco \varRest 5} s8 s8 s8 s8 s8 s8 s8\! }
   >>  
   
   \bar ":|.|:"
@@ -451,7 +453,7 @@ violinTwo = \new Voice \relative c'' {
   %% B Section
   <<
     { \arrowGrace \blen  6 "" ##f }
-    { \grace {s16 s16\mf s16 s16*3\crpoco } s8 s8 s8 s8 s8 s8 s8\!}
+    { \grace {s16 s16\mf\crpoco s16 s16*3 } s8 s8 s8 s8 s8 s8 s8}
   >>
   
   %\bar ":|."
@@ -483,13 +485,13 @@ violinTwo = \new Voice \relative c'' {
   
   \time 1/4
   \bar ".|:-small"
-  \grace s8 <af ef'>8 <af ef'>8
+  \grace s8 <af ef'>8\< <af ef'>8
   \bar ":|.-small"
   
   \arrow #(- clen 5) "3\"" ##t
 
   \time 1/4
-  \grace s8 <af ef'>8 <af ef'>8
+  \grace s8 <af ef'>8\! <af ef'>8
 
   \arrow \flen "7\"" ##t
 
@@ -841,7 +843,7 @@ viola = \new Voice \relative c' {
       \arrowGrace 5 6
       %\arrow 6 "" ##t
       
-      %r8 r8 r8 r8 r8
+
       \markup{ 
       \override #'(baseline-skip . 1.75	 )
 
@@ -853,35 +855,48 @@ viola = \new Voice \relative c' {
                ": "
                \vcenter
       \override #'(baseline-skip . 1.75 )
-      \override #'(line-width . 19)
+      \override #'(line-width . 18)
       {\justify {wait this long after cello plays grace notes } } }
       
       ##t
     }   
-    
     { \grace {s16\crpoco \varRest 5} s8 s8 s8 s8 s8\! }
-
   >>
   
   
   %% B Section
   
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \override Score.GraceSpacing.spacing-increment = #0.12
+
+
   \bar "|"
   \override Staff.Clef.full-size-change = ##t
   \set Staff.forceClef = ##t 
   
+
   \time 1/8
   \grace {\slashI {c16\sf ef c d c d}}
   %\grace {\slashI {c16\sf ef c d c d} } 
   c8->  
   
+  \override Score.GraceSpacing.spacing-increment = #0.2
+
   \bar ".|:-small"
   \time 1/4
+
   \appoggiatura c8
   <c g'>8\mp[  <c g'>8]
   \bar ":|.-small"
   
-  \arrow #(- alen 8) "" ##f
+  \revert Score.GraceSpacing.spacing-increment
+  \unset Score.proportionalNotationDuration
+  
+  <<
+%     {   \once \textLengthOn
+%         s8^\markup{ \hspace #50 }}
+    { \arrow #(- alen 8) "" ##f}
+  >>
   
   \bar ":|.|:"
  
@@ -908,7 +923,7 @@ viola = \new Voice \relative c' {
   \textLengthOn
   \arrow #(- blen 13) 
   \markup{       \override #'(baseline-skip . 1.75	 )
-                  \override #'(line-width . 18)
+                  \override #'(line-width . 19)
             \justify { wait for violin 1, continue decreasing wait time } }
   ##f
   \textLengthOff
@@ -936,11 +951,14 @@ viola = \new Voice \relative c' {
   \time 1/8
   \grace {\slashI {c16 ef c d c d} } 
   c8->  \breathe
-
-  \arrow \elen "6\"" ##t
+  
+  <<
+    \arrow \elen "6\"" ##t
+    {s8 s8 s8 s8\< }
+  >>
   
   \time 1/4
-  \grace s8 <c g'>8[  <c g'>8]
+  \grace s8 <c g'>8\![  <c g'>8]
   
   \arrow \flen "7\"" ##t
   
@@ -1311,21 +1329,26 @@ cello = \new Voice
   
   \time 1/8
   
-  \arrow 6 "1\" – 5\"" ##t
+  \once \textLengthOn
+  \arrow 6 "1\" – 5\"      " ##t
   
   \bar ".|:"
   \time 1/8
   \grace {\slashI {c,16\sf ef c d c d} } 
+  \override BreathingSign.text = \markup { \musicglyph #"scripts.caesura.straight" " " }
   c8->\breathe
-  \once \override Score.BarLine.stencil = ##f 
-  \bar ":|."
+  % \once \override Score.BarLine.stencil = ##f 
+  % \bar ":|."
   
-  \time 1/4
-  s4
+  % \time 1/4
+  % s4
   \bar ":|]"
   %% 16
-  \arrow #(- (beginningArrow 4) 10) "30\" – 40\"" ##f
+  \once \textLengthOn
+  \arrow #(- (beginningArrow 4) 8) "30\" – 40\"                                                                                          " ##f
   
+  \override BreathingSign.text = \markup { \musicglyph #"scripts.caesura.straight" }
+
   %% A Section
   \undo \omit Staff.Clef
   \notinvs
@@ -1333,6 +1356,9 @@ cello = \new Voice
   \break
   \bar ".|:-end"
 
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  \override Score.GraceSpacing.spacing-increment = #0.12
+  
   \time 1/8
   \clef bass
   \grace {\slashI {c16\sf ef c d c d} } 
@@ -1343,7 +1369,14 @@ cello = \new Voice
   <g' d'>8\mp <g d'>8
   \bar ":|.-small"
   
+  \revert Score.GraceSpacing.spacing-increment
+  \unset Score.proportionalNotationDuration
+
   <<    
+%     { 
+%       \once \textLengthOn
+%       s8^\markup{ \hspace #95 }
+%     }
     \arrowSpecial #(- alen 3) "" ##f
     {s8^\markup{ 
       \override #'(baseline-skip . 1.75	 )
@@ -1356,9 +1389,9 @@ cello = \new Voice
                ": "
                \vcenter
       \override #'(baseline-skip . 1.75 )
-      \override #'(line-width . 19)
+      \override #'(line-width . 14)
       {\justify {wait this long after viola plays grace notes to repeat } } } } 
-    { { s8\crpoco s8 s8 s8 s8\! } }
+    { { s8\crpoco s8 s8 s8\! } }
   >>
   \bar ":|."
   
@@ -1382,8 +1415,11 @@ cello = \new Voice
   \bar ":|."
   
   <<
-    \arrow #(- blen 3) "sim. continue decreasing wait time" ##f
-    {    { s8\crpoco s8 s8 s8 s8 s8 s8\! } }
+    \arrow #(- blen 3) \markup {
+      \override #'(baseline-skip . 1.75	 )
+      \column {{"sim." } {"continue decreasing wait time"}}} 
+    ##f
+    {    { s8\crpoco s8 s8 s8 s8 s8 s8 } }
   >>
   %\bar ":|."
   
@@ -1411,10 +1447,13 @@ cello = \new Voice
   \grace {\slashI {c,16 ef c d c d} } 
   c8-> \breathe 
   
-  \arrow \elen "6\"" ##t
+  <<
+    \arrow \elen "6\"" ##t
+    {s8 s8 s8 s8\<}
+  >>
   
   \time 1/4
-  \grace s8 <g' d'>8 <g d'>8
+  \grace s8 <g' d'>8\! <g d'>8
   
   \arrow \flen "7\"" ##t
   
