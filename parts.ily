@@ -99,28 +99,38 @@ violinOne = \new Voice \relative c'' {
 
   \time 1/4
   \bar ".|:-small"
-  \override Hairpin.Y-offset = #3
+  %\override Hairpin.Y-offset = #3
   \appoggiatura g8 
+  \override Hairpin.self-alignment-Y = #7
   <g d'>8\< <g d'>8
   \bar ":|.-small"
   
+  \revert Hairpin.self-alignment-Y
   \arrow #(- elen 5) "3\"" ##t
   
   \time 1/4
   \appoggiatura g8 
-  <g d'>8\! <g d'>8
+  <g d'>8\together\! <g d'>8
   
   \arrow \flen "7\"" ##t
-  
-  \time 5/8
-  \grace {\varRest 6}
-  r4
+
+  \once \override Staff.TimeSignature #'stencil = ##f
+  \time 7/8
+  <<
+    \grace {\varRest 6}
+    \grace {{s16*6^\markup{ 
+      \hspace #1
+      \override #'(baseline-skip . 1.75 )
+      \override #'(line-width . 28)
+      {\justify {Begin playing grace notes immediately after previous player completes grace notes } } } }}
+  >>
+  s4
   
   \override Staff.DynamicLineSpanner.staff-padding = #5.5
 
   \grace {\slashI {g16 bf g a g a } }
   <<
-    { g4.\<-> }
+    { g4.\<->  r4}
     {s4 s16 s16\!}
   >>
   
@@ -130,11 +140,14 @@ violinOne = \new Voice \relative c'' {
   \bar ".|:"
   \time 1/4
   \appoggiatura d'8\!
+  \once \override DynamicText.Y-offset = #-0.8
   <d a'>8\together\ff <d a'>8
   \bar ":|."
   \revert Staff.DynamicLineSpanner.staff-padding
 
   \arrow \glen "10\"" ##f
+  
+  % \break
   
 %   \time 1/8
 %   s8
@@ -491,19 +504,20 @@ violinTwo = \new Voice \relative c'' {
   \arrow #(- clen 5) "3\"" ##t
 
   \time 1/4
-  \grace s8 <af ef'>8\! <af ef'>8
+  \grace s8 <af ef'>8\together\! <af ef'>8
 
   \arrow \flen "7\"" ##t
 
-  \time 5/8
+  \once \override Staff.TimeSignature #'stencil = ##f
+  \time 7/8
   \grace {\varRest 6}
-  r4 r8
+  s4 s8
   \grace {\slashI {af16 cf af bf af bf } }
   
   \override Staff.DynamicLineSpanner.staff-padding = #5
 
   <<
-    {af4->\<}
+    {af4->\< r4}
     {s8 s16 s16\!}
   >>
   
@@ -590,8 +604,8 @@ violinTwo = \new Voice \relative c'' {
   
   \time 5/8
   <<
-    \new Voice { \voiceOne df4\mp~ df }
-    \new Voice { \voiceTwo \once \hideNotes df4( c4)}
+    % \new Voice { \voiceOne df4\mp~ df }
+    \new Voice {  df4\mp( c4)}
   >>
 
   d8
@@ -958,17 +972,18 @@ viola = \new Voice \relative c' {
   >>
   
   \time 1/4
-  \grace s8 <c g'>8\![  <c g'>8]
+  \grace s8 <c g'>8\together\![  <c g'>8]
   
   \arrow \flen "7\"" ##t
   
-  \time 5/8
+  \once \override Staff.TimeSignature #'stencil = ##f
+  \time 7/8
   
   \grace {\varRest 6}
-  r8
+  s8
   \grace {\slashI {c16 ef c d c d} } 
   <<
-  { c2->\< }
+  { c2->\< r4 }
   { s4. s16 s16\!}
   >>
   
@@ -1453,19 +1468,20 @@ cello = \new Voice
   >>
   
   \time 1/4
-  \grace s8 <g' d'>8\! <g d'>8
+  \grace s8 <g' d'>8^\markup{\vspace #3 " "}\together\! <g d'>8
   
   \arrow \flen "7\"" ##t
   
   %\override Staff.TimeSignature #'stencil = ##t
 
-  \time 5/8
+  \once \override Staff.TimeSignature #'stencil = ##f
+  \time 7/8
   \grace {\slashI {c,16 ef c d c d} } 
     \override Staff.DynamicLineSpanner.staff-padding = #5.5
 
   c4.->\<~ 
   <<
-    { c4 }
+    { c4 r4}
     { s8 s16 s16\! }
   >>
   
@@ -1473,7 +1489,7 @@ cello = \new Voice
 
   \bar ".|:"
   \time 1/4
-  \grace s8 <d' a'>8\together\ff <d a'>8
+  \grace s8 <d' a'>8^" "\togetherNone\ff <d a'>8
   \bar ":|."
   
   

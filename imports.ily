@@ -94,6 +94,7 @@ togetherNone = ^\markup {  \pad-markup #0
                                 {  \vspace #-0.7 {
                                   \beam #2.5 #0 #0.3 } } } }
 
+
 rehmark = {
   \once \override Score.RehearsalMark #'break-visibility = ##(#f #t #t)
 %   \once \override Score.RehearsalMark #'outside-staff-horizontal-padding = #'-2
@@ -215,7 +216,7 @@ global = {
   \grace s8
   \varRestEighth \beginningLen
   
-  \mark \default
+  \mark \default % A
   <<
     { \grace {\varRest 6} \varRestEighth \alen }
   >>
@@ -244,7 +245,7 @@ global = {
 %   \override Staff.SpanBar.stencil = ##f
 %   \override Staff.SpanBar.allow-span-bar = ##f
   
-  \rehmark
+  \rehmark % B
   
   \override Score.BarLine.allow-span-bar = ##f
   % \bar ".|:-right"
@@ -257,14 +258,14 @@ global = {
   
   \varRestEighth \clen
   
-  \rehmark
+  \rehmark % C
   \grace s8
   s8\together s8 
   
   \varRestEighth \dlen 
   
   \bar ".|:-small"
-  \rehmark
+  \rehmark % D
   \grace {s16^\markup{ \pad-markup #0
                       \translate #'( 0 . 1.8)
                      \column { { \beam #2.5 #0 #0.15 } 
@@ -280,9 +281,10 @@ global = {
   
   \break
   
-  \rehmark
+  \rehmark % E
   \grace {s8}
-  s8\together s8
+  s8% \together 
+  s8
   \bar ":|."
   
   \varRestEighth \flen
@@ -291,16 +293,16 @@ global = {
   
   % \break
   
-  \rehmark
+  \rehmark % F
   \bar "||"
   \grace {\varRest 6}
   
   \varRestEighth 5
   
   %\revert BreathingSign.text
-  \longPause
-  
-  \rehmark
+  % \longPause
+  s4\fermata
+  \rehmark % G
   \override Staff.TimeSignature #'stencil = ##f 
   \grace {s8}
   s8 s8
@@ -321,8 +323,7 @@ global = {
   \break
   
   \once \omit Staff.Clef
-
-  \rehmark
+  \rehmark % H
   
   %   \beginning #(+ hlen ilen ialen ilen klen llen) ""
   \varRestEighth \hlen
@@ -331,20 +332,20 @@ global = {
   \break
   \once \omit Staff.Clef
 
-  \rehmark
+  \rehmark % I
   \varRestEighth \ialen
   
   
   \varRestEighth \ilen
   \break
   
-  \rehmark
+  \rehmark % J
   \varRestEighth \klen
   
   %\varRestEighth \llen
   \varRestEighth \mlen
   
-  \rehmark
+  \rehmark % K
   \revert Staff.TimeSignature.stencil
   \bar "||"
   s8*5
@@ -353,7 +354,7 @@ global = {
   
 %   s8
   
-  \rehmark
+  \rehmark % L
   \bar ".|:-right-regleft"
   
   <<
@@ -374,7 +375,7 @@ global = {
   \tempo 4 = 66
   \bar "||"
   
-  \rehmark
+  \rehmark % M
   \time 4/4
   s1\norm
   
@@ -389,14 +390,14 @@ global = {
   % \bar "||"
   \bar ""
   
-  \rehmark
+  \rehmark % N
   \once \override Staff.TimeSignature.break-visibility = ##(#f #t #t)
   \time 2/4
   s2 * 4
   \break
   s2 \breathe
   
-  \rehmark
+  \rehmark % O
   
   \override Staff.TimeSignature.stencil = ##f
   
@@ -405,7 +406,7 @@ global = {
   
   \break
   
-  \rehmark
+  \rehmark % P
 
   <<
     \varRestEighth \rlen
@@ -414,7 +415,7 @@ global = {
   
   \breathe
   
-  \rehmark
+  \rehmark % Q
   
   <<
     \varRestEighth \slen
@@ -425,7 +426,7 @@ global = {
   
   \break
   
-  \rehmark
+  \rehmark % R
   <<
     \varRestEighth \tlen
     \new Voice {s8\f\separate}
@@ -435,14 +436,14 @@ global = {
   
   \revert Staff.TimeSignature.stencil
   \time 6/8
-  \rehmark
+  \rehmark % S
   \grace { s16*6 }
   
   \override Staff.TimeSignature.stencil = ##f
   
   s2. \break
   
-  \rehmark
+  \rehmark % T
   <<
     { \grace s8 \varRestEighth #(+ ulen 4) }
     {\grace s8 s8\together  }
@@ -452,13 +453,13 @@ global = {
 %   \break
   
   \time 5/8
-  \rehmark
-  \grace {s16*6} s4
+  \rehmark % U
+  \grace {s16*6} s4 %^"5 8 here"
   \override Staff.TimeSignature.stencil = ##f
   s4.
   
   \break
-  \rehmark
+  \rehmark % V
   <<
     \grace s8 \varRestEighth #(+ ulen 4)
     {\grace s8 s8\together}
@@ -469,13 +470,13 @@ global = {
   % \breathe
   
   \time 5/8
-  \rehmark
+  \rehmark % W
   \grace {s16*6} s4
   \override Staff.TimeSignature.stencil = ##f
   s4.
   
   \break
-  \rehmark
+  \rehmark % X
   \grace s8 \varRestEighth #(+ ulen 4)
   s1
   
