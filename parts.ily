@@ -308,7 +308,26 @@ violinOne = \new Voice \relative c'' {
   \arrow #(- plen 2) "5\" - 10\"" ##t
   
   \new Voice {
-    \afterGrace R2 { \slashI {c'16\<( ef c d c d } }
+%     #(define afterGraceFraction (cons 255 256))
+
+%     \afterGrace R2 { \slashI {c'16\<( ef c d c d } }
+    << 
+      R2 
+%     \override Score.SpacingSpanner.strict-note-spacing = ##t
+%       \override Score.SpacingSpanner.strict-grace-spacing = ##t
+%     \override Score.GraceSpacing.spacing-increment = #0.2
+
+     { s4.
+         % \grace  
+         {
+           \fakeGrace
+           \slashI {c'16*1/3\<_( ef c d c d } 
+ 
+           \fakeGraceOff
+         } 
+%          \grace {c'16( ef}
+     }
+    >>
     
     c2\p\>)
     
@@ -317,8 +336,11 @@ violinOne = \new Voice \relative c'' {
     <<
       \new Voice { \voiceOne b4~ b2 }
       \new Voice { \voiceTwo \once \hideNotes b4( as2)}
-      { s4\< s4\p s8
-        \afterGrace s8 { \slashI { cs16\sulp\<( e cs ds cs d e d cs d } } }
+      { s4\< s4\p
+        \fakeGrace
+        { \slashI { cs16*4/10\sulp\<( e cs ds cs d e d cs d } } 
+        \fakeGraceOff
+      }
     >>
     
     cs2\mp\>)\fermata 
@@ -730,8 +752,17 @@ violinTwo = \new Voice \relative c'' {
   \new Voice {
     \once \override MultiMeasureRest.staff-position = #0
 
-    \afterGrace R2 { \slashI { c,16\<( ef c df c df } }
+%     \afterGrace R2 { \slashI { c,16\<( ef c df c df } }
     
+    << 
+      R2 
+     { s4. 
+       \fakeGrace
+       \slashI { c,16*1/3\<_( ef c df c df } 
+       \fakeGraceOff
+     }
+    >>
+
     c2\p\>)
     
     r4\!
@@ -739,8 +770,11 @@ violinTwo = \new Voice \relative c'' {
     <<
       \new Voice { \voiceOne b4\<~ b2\p }
       \new Voice { \voiceTwo \once \hideNotes b4( as2)}
-      { s4 s4. 
-        \afterGrace s8 { \bar ".|:-small" \slashI { cs16*5/2\sulp\<( e d ds } \bar ":|." } }
+      { s4 s4 % s16*4/10*6
+        \fakeGrace
+        { \bar ".|:-small" \slashI { cs16\sulp\<( e d ds } \bar ":|."} 
+        \fakeGraceOff
+      }
     >>
     
     cs2\mp\>)\fermata 
@@ -1188,21 +1222,21 @@ viola = \new Voice \relative c' {
     \afterGrace R2 { \slashI { df16\sulp\<( ff df e df ef ff ef df ef } }
     df2\norm\p\>)
     
-    \override NoteHead.font-size = #-4
-    \override Accidental.font-size = #-4
+    \fakeGrace
     
     \bar ".|:-small"
     << 
       {
-        \stemUp
-        \slashI {cs16*4/5[\sulp\pp^\markup{ \italic { repeat as many times as possible } }
+        \slashI {cs16*4/10[\sulp\pp^\markup{ \italic { repeat as many times as possible } }
+                 (e cs ds cs d e d cs d)] } 
+        \slashI {cs16*4/10[
                  (e cs ds cs d e d cs d)] } 
       }
       {
         s4.
         \afterGrace s8
-        {\slashI {cs16
-                  (e cs ds cs d e d cs d)] }        
+        {
+          % \slashI {cs16 (e cs ds cs d e d cs d)] }        
         }
       }
     >>
@@ -1225,7 +1259,8 @@ viola = \new Voice \relative c' {
         } <af ef'>8
   \bar ":|.-small"
   
-  \arrow #(- qlen 3) "7\"" ##t
+  \once \textLengthOn
+  \arrow #(- qlen 3) "7\"                                                                                              " ##t
   
   \time 1/8
   <<
@@ -1529,7 +1564,7 @@ cello = \new Voice
   >>
   
   \time 1/4
-  \grace s8 <g' d'>8^\markup{\vspace #3 " "}\together\! <g d'>8
+  \grace s8 <g' d'>8%{ ^\markup{\vspace #3 " "}%} \together\! <g d'>8
   
   \arrow \flen "7\"" ##t
   

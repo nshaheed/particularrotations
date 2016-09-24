@@ -105,8 +105,8 @@ spacingDensity =
 #(define-music-function (parser location num) (number?)
    #{
      \newSpacingSection
-     \override Score.SpacingSpanner #'common-shortest-duration =
-     #(ly:make-moment num 1024 )
+     \override Score.SpacingSpanner #'common-shortest-duration = #(ly:make-moment num 1024 )
+     
    #})
 
 % togetherVar =
@@ -416,13 +416,26 @@ global = {
   
   \rehmark % N
   \once \override Staff.TimeSignature.break-visibility = ##(#f #t #t)
+  \newSpacingSection
+  
+  \override Score.SpacingSpanner.uniform-stretching = ##t
+  \spacingDensity 256
+  % \spacingDensity 256
+  
   \time 2/4
-  s2 * 4
+  s2 s2 
+  \spacingDensity 32
+  s2 
+  \spacingDensity 512
+  s2
   \break
   s2 \breathe
   
   \rehmark % O
-  
+  \newSpacingSection
+  \revert Score.SpacingSpanner #'common-shortest-duration
+  % \override Score.SpacingSpanner #'common-shortest-duration = #(ly:make-moment 1 8 )
+  \spacingDensity 64
   \override Staff.TimeSignature.stencil = ##f
   
   \varRestEighth \qlen
@@ -431,7 +444,7 @@ global = {
   \break
   
   \rehmark % P
-
+  \newSpacingSection
   <<
     \varRestEighth \rlen
     {s8\mp\separate}
@@ -1260,6 +1273,18 @@ squeezeNotation = {
 
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   \override Staff.AccidentalPlacement #'right-padding = #-0.05
+}
+
+fakeGrace = {
+  \override NoteHead.font-size = #-4
+  \override Accidental.font-size = #-4         
+  \stemUp
+}
+
+fakeGraceOff = {
+  \revert NoteHead.font-size
+  \revert Accidental.font-size
+  \stemNeutral
 }
 
 
