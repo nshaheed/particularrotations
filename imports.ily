@@ -65,6 +65,8 @@ ulen = 5
 \defineBarLine ".|:-right2" #'("|" ".|:" ".|:")
 \defineBarLine ".|:-right-small" #'("" ".|:" "|")
 \defineBarLine ".|:-right-regleft" #'( "||" ".|:" " ")
+\defineBarLine ".|:-right-small-left-double" #'("||" ".|:" "")
+
 
 %% Notation
 sulp	= ^\markup { \italic s.p. }
@@ -365,6 +367,9 @@ global = {
   
   \rehmark % L
   \bar ".|:-right-regleft"
+%   \bar ".|:-right-small-left-double"
+%   \bar ".|:-small"
+
   
   \override Score.SpacingSpanner.uniform-stretching = ##t
   \spacingDensity 256
@@ -380,7 +385,7 @@ global = {
                              } 
               }
   >>
-  \bar ":|."
+  \bar ":|.-small"
   <<
     \varRestEighth \olen
     {\varRestEighth #(- olen 4) s8 \tempo "Delicate" 8 = 50}
@@ -414,6 +419,7 @@ global = {
   % \bar "||"
   \bar ""
   
+  \once \override Score.RehearsalMark.break-align-symbols = #'(clef)
   \rehmark % N
   \once \override Staff.TimeSignature.break-visibility = ##(#f #t #t)
   \newSpacingSection
@@ -447,7 +453,7 @@ global = {
   \newSpacingSection
   <<
     \varRestEighth \rlen
-    {s8\mp\separate}
+    {s8\mp}
   >>
   
   \breathe
@@ -464,11 +470,14 @@ global = {
   \break
   
   \rehmark % R
+  \override Staff.BarLine.allow-span-bar = ##f
+
   <<
     \varRestEighth \tlen
-    \new Voice {s8\f\separate}
+    \new Voice {s8\f\separateNone}
     {s8\!}
   >>
+  \revert Staff.BarLine.allow-span-bar
   \breathe
   
   \revert Staff.TimeSignature.stencil
@@ -519,6 +528,7 @@ global = {
   
   \revert Staff.TimeSignature.stencil
   \time 1/8
+  \bar "||"
   \grace {s16*6}
   s8
   \bar "|."

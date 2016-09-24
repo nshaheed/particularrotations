@@ -253,6 +253,7 @@ violinOne = \new Voice \relative c'' {
   <<
     \new Voice { \voiceOne c'4\mp~ c }
     \new Voice { \voiceTwo \once \hideNotes c4( b4)}
+
   >>
 
   df8
@@ -347,8 +348,8 @@ violinOne = \new Voice \relative c'' {
     
     \bar ".|:-small"
     \time 1/4
-    \ottava #1
-    <g' df'>8\p\separateNone\norm <g df'>8
+%     \ottava #1
+    <g' df'>8\p\norm\separateNone <g df'>8
     \bar ":|.-small"
     
     \arrow #(- qlen 6) "5\"" ##t
@@ -358,9 +359,9 @@ violinOne = \new Voice \relative c'' {
     
     \bar ".|:"
     \time 1/4
-    \ottava #1
+%     \ottava #1
     \bar ".|:-right2"
-    <g df'>8 <g df'>8
+    <g df'>8\separateNone <g df'>8
     \bar ":|."
     
     \arrow #(- rlen 10) "5\"" ##t
@@ -382,7 +383,7 @@ violinOne = \new Voice \relative c'' {
     
     \arrowPost #(- tlen 2) "7\"" ##t 4 5 10
     
-    \ottava #0
+%     \ottava #0
     
     \grace {s16*6}
     r4. 
@@ -781,7 +782,7 @@ violinTwo = \new Voice \relative c'' {
     
     \bar ".|:-small"
     \time 1/4
-    <gs' e'>8\p\separateNone\norm^\markup{
+    <gs' e'>8\p\norm\separateNone^\markup{
         \transparent {
           \filled-box #'(0 . 0) #'(0 . 2) #0
         }
@@ -797,7 +798,7 @@ violinTwo = \new Voice \relative c'' {
     \bar ".|:"
     \time 1/4
     \bar ".|:-right2"
-    <gs e'>8 <gs e'>8
+    <gs e'>8^\markup{ \vspace #1 " "}\separateNone <gs e'>8
     \bar ":|."
     
     \arrow #(- rlen 10) "5\"" ##t
@@ -1252,7 +1253,7 @@ viola = \new Voice \relative c' {
   
   \bar ":|.|:"
   \time 1/4
-  <af ef'>8\p\separateNone\norm^\markup{
+  <af ef'>8\p\norm\separateNone^\markup{
         \transparent {
           \filled-box #'(0 . 0) #'(0 . 2) #0
         }
@@ -1277,7 +1278,7 @@ viola = \new Voice \relative c' {
   >>
   \bar ".|:-right2"
   \time 1/4
-  <af ef'>8\norm <af ef'>8
+  <af ef'>8\norm\separateNone <af ef'>8
   \bar ":|."
   
   \arrow #(- rlen 8) "7\"" ##t
@@ -1774,7 +1775,7 @@ cello = \new Voice
   
   \bar ".|:-right2"
   \time 1/4
-  <g d'>8 <g d'>8
+  <g d'>8\separateNone <g d'>8
   \bar ":|."
   
   \arrow #(- rlen 8) "7\"" ##t
