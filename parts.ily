@@ -8,7 +8,7 @@ violinOne = \new Voice \relative c'' {
   %% Beginning Section
   \bar ".|:"
   \override Staff.DynamicLineSpanner.staff-padding = #5
-  \appoggiatura g,8 <g d'>8\p\separate <g d'>8
+  \appoggiatura g,8 <g d'>8\p^" "\separate <g d'>8
   \bar ":|."
   
   \revert Staff.DynamicLineSpanner.staff-padding
@@ -141,11 +141,23 @@ violinOne = \new Voice \relative c'' {
   \time 1/4
   \appoggiatura d'8\!
   \once \override DynamicText.Y-offset = #-0.8
-  <d a'>8\together\ff <d a'>8
+  <d a'>8^" "\together\ff <d a'>8
   \bar ":|."
   \revert Staff.DynamicLineSpanner.staff-padding
 
-  \arrow \glen "10\"" ##f
+  <<
+    \arrow \glen "10\"" ##f
+    { s8^\markup{ 
+      \column {
+        { \override #'(baseline-skip . 1.75 )
+          \override #'(line-width . 15)
+          {\justify {Release independently } } 
+        } 
+        { \vspace #0.2 " " }        
+      }
+     } 
+    }
+  >>
   
   % \break
   
@@ -200,12 +212,28 @@ violinOne = \new Voice \relative c'' {
   
   \arrow #(- (+ ilen ialen) 2) "10\" - 20\"" ##f \bar ""
   
-  \arrow \klen "5\" - 10\"" ##f \bar ""
-  % \arrow \llen "" ##f
-  
-  \timeSig \mlen
-  \beginning \mlen "5\" - 10\""
-  
+   <<
+    {
+      \arrow \klen "5\" - 10\"" ##f \bar ""
+    
+      % \arrow \llen "" ##f
+    
+      \timeSig \mlen
+      \beginning \mlen "5\" - 10\""
+    }
+    { \varRestEighth #(- klen 6) 
+      s8^\markup{ 
+        \hspace #3.9
+      \column {
+        { 
+          \override #'(baseline-skip . 1.75 )
+          \override #'(line-width . 15)
+          {\justify {Release independently } } 
+        } 
+      }
+     } 
+    }
+   >>
   \notinvs
   \time 5/8
   \forceClef
@@ -246,9 +274,9 @@ violinOne = \new Voice \relative c'' {
   c1*6/4\fermata
   
   <<
-    \new Voice { \voiceOne cs4~ cs2.}
-    { \voiceTwo \once \hideNotes cs4( bs2.) \voiceNeutralStyle}
-    {s4\mp\<}
+    \new Voice { \voiceOne df4~ df2.}
+    { \voiceTwo \once \hideNotes df4( c2.) \voiceNeutralStyle}
+    {s4\p\<}
   >>
   
   \voiceNeutralStyle
@@ -260,7 +288,7 @@ violinOne = \new Voice \relative c'' {
   <<
     \new Voice { \voiceOne c!4\norm~ c2.}
     { \voiceTwo \once \hideNotes c4( b!2.) \voiceNeutralStyle}
-    {s4\mp}
+    {s4\p}
   >>
   
   \voiceNeutralStyle
@@ -274,7 +302,7 @@ violinOne = \new Voice \relative c'' {
   \override Staff.TimeSignature.stencil = ##f
   \bar ".|:-small"
   \time 1/4
-  <f, c'>8\pp\separate\norm <f c'>8
+  <f, c'>8\pp\norm^\markup{\vspace #0.2 " "}\separateNone <f c'>8
   \bar ":|.-small"
   
   \arrow #(- plen 2) "5\" - 10\"" ##t
@@ -448,7 +476,7 @@ violinTwo = \new Voice \relative c'' {
   
   \time 1/4
   \bar ".|:"
-  \grace s8 <af, ef'>8\p\separate <af ef'>8
+  \grace s8 <af, ef'>8\p^" "\separateNone <af ef'>8
   \bar ":|."  
   
   \arrow #(beginningArrow 3) "35\" – 45\"" ##f
@@ -536,19 +564,30 @@ violinTwo = \new Voice \relative c'' {
   
   \undo \omit Staff.Clef
 
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+  
   \bar ".|:-right"
   \notinvs
   \time 1/4
   <ef bf'>8\pp <ef bf'>8
   \bar ":|.-small"
-  
+    
   \arrow #(- hlen 2) "5\" - 10\"" ##f
   
   \bar ""
   
-  \arrow \ilen "5\" - 15\"" ##f
+  <<
+    { \arrow \ilen "5\" - 15\"" ##f }
+    { \varRestEighth #(- ilen 3) s8\> s8 s8\! }
+  >>
+  
   \bar ""
-  \arrow \ialen "5\"" ##t
+%   \arrow \ialen "5\"" ##t
+
+  \beginningOther \ialen "5\"" #-2.7 #-2.3
+  
+  \notinvs
+  
   %   \arrow #(- (+ hlen ilen) -1) "" ##t
   
   \bar "[|:-small"
@@ -556,6 +595,10 @@ violinTwo = \new Voice \relative c'' {
   \time 5/8
   \forceClef
   \clef treble
+  
+  \unset Score.proportionalNotationDuration
+  \set Score.proportionalNotationDuration = #(ly:make-moment 50)
+
   <<
     \new Voice { \voiceOne df'4~ df }
     \new Voice { \voiceTwo \once \hideNotes df4( c4)}
@@ -565,6 +608,9 @@ violinTwo = \new Voice \relative c'' {
   
   \breathe
   
+  \unset Score.proportionalNotationDuration
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/4)
+
   \time 1/8
   \bar ".|:-small"
   d8-. \breathe 
@@ -581,6 +627,8 @@ violinTwo = \new Voice \relative c'' {
   \time 1/4
   <ef, bf'>8 <ef bf'>8
   \bar ":|.-small"
+  
+  \unset Score.proportionalNotationDuration
   
   \arrow #(- klen 2) "5\" - 10\"" ##f \bar ""
   
@@ -628,15 +676,21 @@ violinTwo = \new Voice \relative c'' {
   <<
     \new Voice { \voiceOne c4~ c2.}
     { \voiceTwo \once \hideNotes c4( b2.)}
-    {s4\mp\< s4 s4 s4\!}
+    {s4\p\< s4 s4 s4\!}
   >>
   
   \bar ".|:-small"
   \grace {s16*6}
   \new Voice { 	
+    
+%     \spacingDensity 256
     \override NoteHead.font-size = #-4
     \override Accidental.font-size = #-4
-    \slashI {c16*8/3\sp\sulp^\markup{ \whiteout \pad-markup #0.5 {\italic { repeat as many times as possible } } }
+%     \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1/16)
+%     \override Score.SpacingSpanner.uniform-stretching = ##t
+    \slashI {c16*8/3^\markup 
+             { \translate #'( -3.2 . 1) \italic s.p. }
+             ^\markup{  \translate #'(-3.0 . 0) {\italic { rpt. as many times as}  {\italic possible } } }
              ([ d c df c df]) } 
   }
   \bar ":|.|:"
@@ -664,7 +718,11 @@ violinTwo = \new Voice \relative c'' {
   \bar ":|.|:-small"
   \notinvs
   \time 1/4
-  <b fs'>8\norm\separate <b fs'>8
+%   \newSpacingSection
+%   \revert Score.SpacingSpanner.uniform-stretching
+  <b fs'>8\norm^\markup{\vspace #0.2 " "}\separateNone % ^\markup { \translate #'( -5.6 . 3) \italic norm. }  % \norm 
+  
+  <b fs'>8
   \bar ":|.-small"
   
   \arrow \plen "7\" - 12\"" ##t
@@ -843,7 +901,7 @@ viola = \new Voice \relative c' {
   \override Staff.DynamicLineSpanner.staff-padding = #4
   \time 1/4
   \bar ".|:"
-  \appoggiatura c,8 <c g'>8\p\separate <c g'>8
+  \appoggiatura c,8 <c g'>8\p^" "\separate <c g'>8
   \bar ":|."
   
   \revert Staff.DynamicLineSpanner.staff-padding
@@ -1019,6 +1077,7 @@ viola = \new Voice \relative c' {
   ds-. \breathe 
   \bar ":|.-small"
   
+  
   \arrow 3 "0\" - 3\"" ##f
   
   \bar ":|]-small"
@@ -1043,7 +1102,7 @@ viola = \new Voice \relative c' {
     \new Voice { \voiceOne \once \hideNotes d4( cs') }
   >>
 
-  ds8
+  ds8->
   
 %   \time 1/8
 %   
@@ -1069,16 +1128,18 @@ viola = \new Voice \relative c' {
   >>
   
   <<
-    \beginning 4 "wait until vln. 1 holds" 
+    \beginningOther 4 "wait until vln. 1 holds" #-3 #-2.11
     s8\!
   >>
   \notinvs
-  \bar ""
+  % \bar ""
   
   \time 5/4
-  
+    \override Score.SpacingSpanner.strict-note-spacing = ##t 
+
   \grace { \slashI { af'16\pp(\sulp cf af bf af bf af cf a af cf bf cf a cf af a} }
-  
+    \override Score.SpacingSpanner.strict-note-spacing = ##f
+
   <<
     \new Voice { \voiceOne af4~ \bar "" af1\fermata \voiceNeutralStyle }
     { \voiceTwo \once \hideNotes af4 g1)}
@@ -1086,7 +1147,7 @@ viola = \new Voice \relative c' {
   
   <<
     \new Voice { \voiceOne a!4~ a2.}
-    { \voiceTwo \once \hideNotes a4\mp\<( gs2.)}
+    { \voiceTwo \once \hideNotes a4\p\<( gs2.)}
   >>
   
   <<
@@ -1097,7 +1158,7 @@ viola = \new Voice \relative c' {
   
   <<
     \new Voice { \voiceOne af4~ af2.}
-    { \voiceTwo \once \hideNotes af4\mp( g!2.)}
+    { \voiceTwo \once \hideNotes af4\p( g!2.)}
   >>
   
   \grace {s16*6}
@@ -1489,7 +1550,10 @@ cello = \new Voice
 
   \bar ".|:"
   \time 1/4
-  \grace s8 <d' a'>8^" "\togetherNone\ff <d a'>8
+  
+  \grace s8 
+  \once \override DynamicText.Y-offset = #-3
+  <d' a'>8^" "\togetherNone\ff <d a'>8
   \bar ":|."
   
   
@@ -1538,7 +1602,7 @@ cello = \new Voice
     \new Voice { \voiceOne \once \hideNotes d4( cs') }
     {s4\mp}
   >>
-  ds,8
+  ds,8->
   
  %  \time 1/8
 %   
@@ -1592,7 +1656,7 @@ cello = \new Voice
   <<
     \new Voice { \voiceOne ef4~ ef2. }
     \new Voice { \voiceTwo \once \hideNotes ef4( d2.) }
-    {s4\mp\<}
+    {s4\p\<}
   >>
   
   \clef bass
@@ -1608,7 +1672,7 @@ cello = \new Voice
   <<
     \new Voice { \voiceOne d''4~ d2. }
     \new Voice { \voiceTwo \once \hideNotes d4( cs2.) }
-    {s4\mp}
+    {s4\p}
   >>
   
   \clef bass

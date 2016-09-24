@@ -68,7 +68,7 @@ ulen = 5
 
 %% Notation
 sulp	= ^\markup { \italic s.p. }
-norm	= ^\markup { \italic norm }
+norm	= ^\markup { \italic norm. }
 
 separate = ^\markup{ \pad-markup #1
                       \translate #'( -1.1 . 0)
@@ -100,6 +100,15 @@ rehmark = {
 %   \once \override Score.RehearsalMark #'outside-staff-horizontal-padding = #'-2
   \mark \default
 }
+
+spacingDensity =
+#(define-music-function (parser location num) (number?)
+   #{
+     \newSpacingSection
+     \override Score.SpacingSpanner #'common-shortest-duration =
+     #(ly:make-moment num 1024 )
+   #})
+
 % togetherVar =
 % #(define-music-function
 %   (parser location num)
@@ -357,9 +366,19 @@ global = {
   \rehmark % L
   \bar ".|:-right-regleft"
   
+  \override Score.SpacingSpanner.uniform-stretching = ##t
+  \spacingDensity 256
+
   <<
     \varRestEighth 5
-    s8\separate
+    s8^\markup{ \pad-markup #0
+                      \translate #'( -0.3 . 0)
+                     \column { { \beam #2.5 #0 #0.15 } 
+                               {  \vspace #-0.7 {
+                                 \translate #'(1.1 . 0) \beam #2.5 #0 #0.15 } } 
+                                \vspace #0.2
+                             } 
+              }
   >>
   \bar ":|."
   <<
@@ -379,7 +398,12 @@ global = {
   \time 4/4
   s1\norm
   
-  s1 s1 s1
+  s1 s1 s2.
+  \newSpacingSection
+  \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1/8)
+
+  \revert Score.SpacingSpanner.uniform-stretching
+  s4
   \override Staff.TimeSignature.stencil = ##f
   \varRestEighth \plen
   
@@ -578,6 +602,92 @@ beginning =
   #}
   )
 
+
+beginningOther = 
+#(define-music-function
+  (parser location dur str txt ferm)
+  (integer? string? number? number?)
+  #{
+    <<
+      %% Generates a full measure rest so the fermata/text can be placed in the center
+      {
+        \once \hide MultiMeasureRest
+        \once \override MultiMeasureRestText #'extra-offset = #'(0 . -2.4)
+        \once \override HorizontalBracket.shorten-pair = #'(-3 . 0)
+       
+        % sets time signature to dur / 8
+        #(make-music
+          'TimeSignatureMusic
+          'beat-structure
+          '()
+          'denominator
+          8
+          'numerator
+          dur)
+       
+        % generates full measure rest that have a fermatamarkup and str above it
+        #(make-music
+          'MultiMeasureRestMusic
+          'duration
+          (ly:make-duration 3 0 dur)
+          'articulations
+          (list (make-music
+                 'MultiMeasureTextEvent
+                 'tweaks
+                 (list (cons (quote outside-staff-priority) 40)
+                   (cons (quote outside-staff-padding) 0))
+                 'text
+                 (markup (#:hspace ferm) #:fermata))
+            (make-music
+             'MultiMeasureTextEvent
+             'direction
+             1
+             'text
+             (markup
+              #:line
+              (#:fontsize
+               txtsize
+               (#:hspace txt)
+               #:fontsize
+               txtsize
+               (#:center-column (#:vspace -1.3 #:halign 20 #:simple str)))
+              )
+             )
+            )
+          )
+      }
+      %% generates rests needed to make a group (hoizontal bracket)
+      {
+        \once \hide Rest
+        
+        %% Makes the \startGroup rests
+        #(make-music
+          'RestEvent
+          'articulations
+          (list (make-music
+                 'NoteGroupingEvent
+                 'span-direction
+                 -1))
+          'duration
+          (ly:make-duration 3 0 (- dur 1)))
+       
+        \once \hide Rest
+        %% Makes the \stopGroup rest
+        #(make-music
+          'RestEvent
+          'articulations
+          (list (make-music
+                 'NoteGroupingEvent
+                 'span-direction
+                 1))
+          'duration
+          (ly:make-duration 3 0 1))
+       
+        % \override NoteHead.transparent = ##f
+      }
+    >>
+  #}
+  )
 
 % \stopStaff and \startStaff are for changing staff properties, not turning the staff off,
 % The StaffSymbol and Barline Transparencies are for that
@@ -1144,4 +1254,12 @@ asect =
   \bar ".|:-end"
   \grace {s16 s s s s s}
 }
+
+squeezeNotation = {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+
+  \override Score.SpacingSpanner.strict-note-spacing = ##t
+  \override Staff.AccidentalPlacement #'right-padding = #-0.05
+}
+
 
