@@ -4,8 +4,23 @@
 scorePaperSize = "a4landscape"
 
 % header
-ttl = "Particular Rotations"
-sbttl = "for String Quartet"
+% ttl = "Particular Rotations"
+ttl = \markup{ 
+%   \override = #(font-name . #"DejaVu Sans ExtraLight" )
+%   \override #'(font-name . "DejaVu Sans ExtraLight")
+  \override #'(font-name . "Century Schoolbook Regular")
+
+  \override #'(font-size . 11)
+  { "Particular Rotations"}
+  
+}
+
+sbttl = \markup {
+  \override #'(font-name . "Century Schoolbook Regular")
+  \override #'(font-size . 5)
+
+  {\column {\vspace #2 } {"For String Quartet" } }
+}
 cmp = "Nicholas Shaheed"
 tg  = ##f
 
@@ -64,8 +79,11 @@ ulen = 5
 \defineBarLine ".|:-right" #'("" ".|:" ".|:")
 \defineBarLine ".|:-right2" #'("|" ".|:" ".|:")
 \defineBarLine ".|:-right-small" #'("" ".|:" "|")
-\defineBarLine ".|:-right-regleft" #'( "||" ".|:" " ")
+\defineBarLine ".|:-right-regleft" #'( "||" ".|:" "")
+\defineBarLine ".|:-right-regleft-straight" #'( "|" ".|:" "")
 \defineBarLine ".|:-right-small-left-double" #'("||" ".|:" "")
+\defineBarLine ".|:-right-double" #'("||" ".|:" "")
+
 
 
 %% Notation
@@ -357,16 +375,18 @@ global = {
   \varRestEighth \mlen
   
   \rehmark % K
+
   \revert Staff.TimeSignature.stencil
   \bar "||"
   s8*5
-  \bar "||"
+  \once \override Score.BarLine.allow-span-bar = ##f
+
   \override Staff.TimeSignature.stencil = ##f
   
 %   s8
   
   \rehmark % L
-  \bar ".|:-right-regleft"
+  \bar ".|:-right-regleft-straight"
 %   \bar ".|:-right-small-left-double"
 %   \bar ".|:-small"
 
@@ -403,7 +423,7 @@ global = {
   \time 4/4
   s1\norm
   
-  s1 s1 s2.
+  s1 s1 s2. 
   \newSpacingSection
   \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1/8)
 
@@ -450,16 +470,31 @@ global = {
   \break
   
   \rehmark % P
+  \once \override Score.BarLine.allow-span-bar = ##f
+  % \bar ".|:-small-right-regleft-straight"
+  \bar ".|:-right-regleft-straight"
+
   \newSpacingSection
+  \revert Score.SpacingSpanner.common-shortest-duration
+  \revert Score.SpacingSpanner.strict-note-spacing
+%   \spacingDensity 512
   <<
     \varRestEighth \rlen
-    {s8\mp}
+    {
+      s8\mp s8
+    \newSpacingSection
+    \revert Score.SpacingSpanner.common-shortest-duration
+%     \spacingDensity 2048
+    }
   >>
   
   \breathe
   
   \rehmark % Q
-  
+  \newSpacingSection
+  \revert Score.SpacingSpanner.common-shortest-duration
+  \spacingDensity 128
+
   <<
     \varRestEighth \slen
     {s8\mf\<\separateNone}
@@ -481,15 +516,27 @@ global = {
   \breathe
   
   \revert Staff.TimeSignature.stencil
+  \override Staff.TimeSignature #'stencil = ##f
+  \bar "||"
   \time 6/8
   \rehmark % S
+  
   \grace { s16*6 }
   
-  \override Staff.TimeSignature.stencil = ##f
+%   \hide Staff.TimeSignature
   
   s2. \break
   
+  \bar ".|:-right-regleft-straight"
+  % \bar ".|:-right-double"
   \rehmark % T
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+  \revert Score.SpacingSpanner.shortest-duration-space
+  \revert Score.SpacingSpanner.common-shortest-duration
+  \revert Score.SpacingSpanner.base-shortest-duration
+  \revert Score.SpacingSpanner.average-spacing-wishes
+  
   <<
     { \grace s8 \varRestEighth #(+ ulen 4) }
     {\grace s8 s8\together  }
@@ -498,14 +545,17 @@ global = {
   
 %   \break
   
+  \bar "||"
+  \once \override Staff.TimeSignature #'stencil = ##f
   \time 5/8
   \rehmark % U
   \grace {s16*6} s4 %^"5 8 here"
   \override Staff.TimeSignature.stencil = ##f
   s4.
-  
+  \bar ".|:-right-double"
   \break
   \rehmark % V
+
   <<
     \grace s8 \varRestEighth #(+ ulen 4)
     {\grace s8 s8\together}
@@ -515,12 +565,16 @@ global = {
   
   % \breathe
   
+  \once \override Staff.TimeSignature #'stencil = ##f
+  \bar "||"
+  
   \time 5/8
   \rehmark % W
-  \grace {s16*6} s4
+  \grace {s16*6^" "^\markup{\italic sim.}} s4
   \override Staff.TimeSignature.stencil = ##f
   s4.
   
+  \bar ".|:-right-double"
   \break
   \rehmark % X
   \grace s8 \varRestEighth #(+ ulen 4)

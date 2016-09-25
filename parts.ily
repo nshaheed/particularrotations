@@ -119,10 +119,18 @@ violinOne = \new Voice \relative c'' {
   <<
     \grace {\varRest 6}
     \grace {{s16*6^\markup{ 
-      \hspace #1
-      \override #'(baseline-skip . 1.75 )
-      \override #'(line-width . 28)
-      {\justify {Begin playing grace notes immediately after previous player completes grace notes } } } }}
+          {
+            \hspace #1
+            \override #'(baseline-skip . 1.75 )
+            \override #'(line-width . 28)
+            {\justify {Begin playing grace notes immediately after previous 
+                       player completes grace notes "                                                                                                    "
+                      } 
+            } 
+          } 
+      }
+    }
+    }
   >>
   s4
   
@@ -303,7 +311,7 @@ violinOne = \new Voice \relative c'' {
   \override Staff.TimeSignature.stencil = ##f
   \bar ".|:-small"
   \time 1/4
-  <f, c'>8\pp\norm^\markup{\vspace #0.2 " "}\separateNone <f c'>8
+  <f, c'>8\pp\norm^\markup{\vspace #0.2 " "}\separateNone^\markup{\vspace #0.2 " "} <f c'>8
   \bar ":|.-small"
   
   \arrow #(- plen 2) "5\" - 10\"" ##t
@@ -357,13 +365,14 @@ violinOne = \new Voice \relative c'' {
     \time 2/4
     g2\pp\fermata 
     
-    \bar ".|:"
+%     \bar ".|:"
     \time 1/4
 %     \ottava #1
-    \bar ".|:-right2"
     <g df'>8\separateNone <g df'>8
-    \bar ":|."
+    \bar ":|.-small"
     
+    \once \textLengthOn
+%     \arrow #(- rlen 10) "5\"                                                                     " ##t
     \arrow #(- rlen 10) "5\"" ##t
    
     \time 4/4
@@ -374,7 +383,8 @@ violinOne = \new Voice \relative c'' {
     <gs d'!>8 <gs d'>8
     \bar ":|.-small"
     
-    \arrow #(- slen 2) "3\"" ##t
+%     \once \textLengthOn
+    \arrow #(- slen 2) "3\"                              " ##t
     
     \bar ".|:-right"
     \time 1/4
@@ -385,8 +395,18 @@ violinOne = \new Voice \relative c'' {
     
 %     \ottava #0
     
-    \grace {s16*6}
-    r4. 
+    <<
+      \grace {s16*6}
+      \grace {{s16*6^\markup{ 
+%       \hspace #1
+      \override #'(baseline-skip . 1.75 )
+      \override #'(line-width . 28)
+      {\justify {Begin playing grace notes immediately after previous 
+                 player completes grace notes
+                 "                                                                                                    " } } } }}
+    >>
+    
+    s4. 
     
 
     \grace { \slashI {g,,,16\ff bf g a g a } }
@@ -398,7 +418,7 @@ violinOne = \new Voice \relative c'' {
     >>
 
     \time 1/4
-    \bar ".|:"
+%     \bar ".|:"
 
     \appoggiatura g8\!
     \override Staff.DynamicLineSpanner.staff-padding = #7
@@ -412,13 +432,13 @@ violinOne = \new Voice \relative c'' {
     
     \time 2/4
     \hideNotes
-    <g d'>4.^"10\"" \glissando <g' d'>8
+    <g d'>4.^"5\"" \glissando <g' d'>8
     \unHideNotes
     \notinvs
     
     \transpose g d { \relative c'' {
-      \grace {s16*6}
-      r4
+      \grace {s16*6^" "^\markup{ \italic "sim."}}
+      s4
       \grace { \slashI {g16 bf g a g a } }
       g4.->
 
@@ -436,13 +456,13 @@ violinOne = \new Voice \relative c'' {
     
     \time 2/4
     \hideNotes
-    <d a'>4.^"10\"" \glissando <d' a'>8
+    <d a'>4.^"5\"" \glissando <d' a'>8
     \unHideNotes
     \notinvs
     
     \transpose g a { \relative c'' {
       \grace {s16*6}
-      r4
+      s4
       \grace { \slashI {g16 bf g a g a } }
       g4.->
 
@@ -773,7 +793,9 @@ violinTwo = \new Voice \relative c'' {
       \new Voice { \voiceTwo \once \hideNotes b4( as2)}
       { s4 s4 % s16*4/10*6
         \fakeGrace
-        { \bar ".|:-small" \slashI { cs16\sulp\<( e d ds } \bar ":|."} 
+        { \bar ".|:-small" \slashI { cs16^\markup{\translate #'( -3.2 . 0.8) \italic s.p.}
+                                     ^\markup{  \italic "rpt. many times" }
+                                     \<( e d ds } \bar ":|."} 
         \fakeGraceOff
       }
     >>
@@ -795,11 +817,10 @@ violinTwo = \new Voice \relative c'' {
     \time 2/4
     gs2\pp\fermata 
     
-    \bar ".|:"
+%     \bar ".|:"
     \time 1/4
-    \bar ".|:-right2"
     <gs e'>8^\markup{ \vspace #1 " "}\separateNone <gs e'>8
-    \bar ":|."
+    \bar ":|.-small"
     
     \arrow #(- rlen 10) "5\"" ##t
    
@@ -821,12 +842,12 @@ violinTwo = \new Voice \relative c'' {
     \arrowPost #(- tlen 2) "7\"" ##t 4 5 10
     
     \grace {s16 * 6}
-    r4. r8
+    s4. s8
     \grace {af,,16\ff cf af bf af bf}
     af4->\<
     
     \time 1/4
-    \bar ".|:"
+%     \bar ".|:"
     \grace s8\!
 
     \override Staff.DynamicLineSpanner.staff-padding = #5.5
@@ -842,13 +863,13 @@ violinTwo = \new Voice \relative c'' {
     
     \time 2/4
     \hideNotes
-    <a e'>4.^"10\"" \glissando <a' e'>8
+    <a e'>4.^"5\"" \glissando <a' e'>8
     \unHideNotes
     \notinvs
     
     \transpose af ef { \relative c'' {
       \grace {s16*6}
-      r4 r8
+      s4 s8
       \grace {af16 cf af bf af bf}
       af4->
 
@@ -865,13 +886,13 @@ violinTwo = \new Voice \relative c'' {
     
     \time 2/4
     \hideNotes
-    <e b'>4.^"10\"" \glissando <e' b'>8
+    <e b'>4.^"5\"" \glissando <e' b'>8
     \unHideNotes
     \notinvs
     
     \transpose af bf { \relative c'' {
       \grace {s16*6}
-      r4 r8
+      s4 s8
       \grace {af16 cf af bf af bf}
       af4->
 
@@ -882,7 +903,7 @@ violinTwo = \new Voice \relative c'' {
     \bar ".|:"
     \grace s8 <bf f'>8
       _\markup{\hspace #-3 \lower #4 \italic {cresc. poco a poco}}
-      \together->
+      ->\together
       ^\markup{
         \transparent {
           \filled-box #'(0 . 0) #'(0 . 8) #0
@@ -1228,7 +1249,8 @@ viola = \new Voice \relative c' {
     \bar ".|:-small"
     << 
       {
-        \slashI {cs16*4/10[\sulp\pp^\markup{ \italic { repeat as many times as possible } }
+        \slashI {cs16*4/10[^\markup{\translate #'( -3.2 . 1) \italic s.p.}
+                 \pp^\markup{ \italic { rpt. as many times as possible } }
                  (e cs ds cs d e d cs d)] } 
         \slashI {cs16*4/10[
                  (e cs ds cs d e d cs d)] } 
@@ -1270,22 +1292,30 @@ viola = \new Voice \relative c' {
       \override Accidental.font-size = #-4
   
       \stemUp
-      \slashI { gs16*1/5\sulp[(b gs as gs a b a gs a]) }
+      \slashI { gs16*2/11\sulp[(b gs as gs a b a gs a]) s }
     }
     {
       s16*1/5\<
     }
   >>
-  \bar ".|:-right2"
   \time 1/4
-  <af ef'>8\norm\separateNone <af ef'>8
-  \bar ":|."
+  <af ef'>8^\markup{ \pad-markup #0.4 \italic norm.}\separateNone <af ef'>8
+  \bar ":|.-small"
   
-  \arrow #(- rlen 8) "7\"" ##t
+  \once \textLengthOn
+  \arrow #(- rlen 8) "7\"                                                                    " ##t
 
   \time 3/4
   
-  af2\p\< \afterGrace g4 {\slashI { g16( bf g af g af) } }
+  <<
+    { af2\p\< g4 } 
+    {
+      s2 s8
+      \fakeGrace
+      \slashI { g16*1/3( bf g af g af) } 
+      \fakeGraceOff
+    }
+  >>
 
   \bar ".|:-small"
   \time 1/4
@@ -1319,7 +1349,7 @@ viola = \new Voice \relative c' {
 
     %     \time 6/8
     \grace { \stemUp \slashI { b!16_([ d b c b c\!])} }
-    r4
+    s4
     \grace {\slashI {c,,16\ff ef c d c d} } 
     c8->~ 
     <<
@@ -1327,7 +1357,7 @@ viola = \new Voice \relative c' {
       {s8 s4\<}
     >>
     
-    \bar ".|:"
+%     \bar ".|:"
     \time 1/4
     \grace s8\! <c g'>8->\ff
     ^\markup{
@@ -1342,14 +1372,14 @@ viola = \new Voice \relative c' {
     
     \time 2/4
     \hideNotes
-    <c g'>4.^"10\"" \glissando <c' g'>8
+    <c g'>4.^"5\"" \glissando <c' g'>8
     \unHideNotes
    
     \notinvs
    
     \transpose c g { \relative c'' {
       \grace {s16*6}
-      r8
+      s8
       \grace {\slashI {c,,16 ef c d c d} } 
       c8->~ c4.
                      }
@@ -1365,13 +1395,13 @@ viola = \new Voice \relative c' {
    
     \time 2/4
     \hideNotes
-    <g d'>4.^"10\"" \glissando <g' d'>8
+    <g d'>4.^"5\"" \glissando <g' d'>8
     \unHideNotes
     \notinvs
    
     \transpose c d' { \relative c'' {
       \grace {s16*6}
-      r8
+      s8
       \grace {\slashI {c,,16 ef c d c d} } 
       c8->~ c4.
                       }
@@ -1773,10 +1803,9 @@ cello = \new Voice
     }
   >>
   
-  \bar ".|:-right2"
   \time 1/4
-  <g d'>8\separateNone <g d'>8
-  \bar ":|."
+  <g d'>8^" "\separateNone <g d'>8
+  \bar ":|.-small"
   
   \arrow #(- rlen 8) "7\"" ##t
 
@@ -1828,7 +1857,7 @@ cello = \new Voice
     {s8 s4\<}
   >>
   
-  \bar ".|:"
+%   \bar ".|:"
   \time 1/4
   \grace s8\!
   
@@ -1840,7 +1869,7 @@ cello = \new Voice
   
   \time 2/4
   \hideNotes
-  <g d'>4.^"10\"" \glissando <g' d'>8
+  <g d'>4.^"5\"" \glissando <g' d'>8
   
   \unHideNotes
   \notinvs
@@ -1861,7 +1890,7 @@ cello = \new Voice
   }
   \time 2/4
   \hideNotes
-  <d a'>4.^"10\"" \glissando <d' a'>8
+  <d a'>4.^"5\"" \glissando <d' a'>8
   \unHideNotes
   \notinvs
   
@@ -1890,8 +1919,11 @@ cello = \new Voice
   
   \hideNotes
   \grace {s8}
+  % \romanStringNumbers
+
   
-  <d, a'>8_\markup{\hspace #-3 \lower #4 \italic {cresc. poco a poco}}^"13\"" \glissando s8\! \varRestEighth #(+ ulen 1) <d' a'>8\!
+  <d, a'>8_\markup{\hspace #-3 \lower #4 \italic {cresc. poco a poco}}^"13\""^"I,II" \glissando 
+  s8\! \varRestEighth #(+ ulen 1) <d' a'>8\!
    \bar ""
   \time 4/4
   <d a'>4^"10\"" \glissando s2 <d a'>4
