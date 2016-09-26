@@ -25,7 +25,7 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass{book}
-\usepackage[a4paper, margin=1in,landscape]{geometry}
+\usepackage[paperheight=17in,paperwidth=11in, margin=1.1in]{geometry}
 \usepackage{fontspec}
 \usepackage{anyfontsize}
 \usepackage{afterpage}
@@ -40,26 +40,31 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
+
 \newcommand*{\titleTH}{\begingroup % Create the command for including the title page in the document
 \raggedleft % Right-align all text
 \vspace*{\baselineskip} % Whitespace at the top of the page
 
-{\Large Nicholas Shaheed}\\[0.167\textheight] % Composer
+{\huge Nicholas Shaheed}\\[0.167\textheight] % Composer
 %% {\Large BMI Student Composer Awards}\\[0.167\textheight] % Composer
 
 %% %% {\LARGE\bfseries The Big Book of}\\[\baselineskip] % First part of the title, if it is unimportant consider making the font size smaller to accentuate the main title
 
-\vfill % Space between composer and title block
+\vspace {2in}%% \vfill % Space between composer and title block
 
-{\fontsize{55}{115}\selectfont Particular Rotations}\\[\baselineskip] % Main title which draws the focus of the reader
+%% \settowidth{7in}
+{\fontsize{115}{115}\selectfont Particular }\\[\baselineskip] % Main title which draws the focus of the reader
 
-{\Large For String Quartet}\par % Tagline or further description
+\addfontfeature{LetterSpace=3.58}{
+  {\fontsize{115}{115}\selectfont Rotations}\\[\baselineskip] % Main title which draws the focus of the reader
+  }
+{\huge For String Quartet}\par % Tagline or further description
 %% \vspace{10pt}
 %% {\Large Cello}\par 
 
 \vfill % Whitespace between the title block and the publisher
 
-{\large \yr}\par % Publisher and logo
+{\huge \yr}\par % Publisher and logo
 
 \vspace*{3\baselineskip} % Whitespace at the bottom of the page
 \endgroup}
@@ -77,5 +82,10 @@
 
 %% blank page following title
 %% \afterpage{\null\newpage}
+
+%% \addfontfeature{LetterSpace=0.0}
+%% USE TRACKING FOR DISPLAY CAPS TEXT \\
+%% \addfontfeature{LetterSpace=2.0}
+%% USE TRACKING FOR DISPLAY CAPS TEXT
 
 \end{document}
