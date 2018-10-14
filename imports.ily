@@ -1,7 +1,8 @@
 %% Header, Footer, and Various Formatting Values
 
 % paper
-scorePaperSize = "a4landscape"
+% scorePaperSize = "a4landscape"
+scorePaperSize = "tabloid"
 
 % header
 % ttl = "Particular Rotations"
@@ -310,6 +311,7 @@ global = {
   
   \break
   
+  \tag #'violinPart {\pageBreak}
   \rehmark % E
   \grace {s8}
   s8% \together 
@@ -368,6 +370,8 @@ global = {
   \varRestEighth \ilen
   \break
   
+  \tag #'notViolinPart {\pageBreak}
+
   \rehmark % J
   \varRestEighth \klen
   
@@ -384,6 +388,9 @@ global = {
   \override Staff.TimeSignature.stencil = ##f
   
 %   s8
+  
+  \tag #'violinPart {\pageBreak}
+  \tag #'notViolinPart {\break}
   
   \rehmark % L
   \bar ".|:-right-regleft-straight"
@@ -455,6 +462,7 @@ global = {
   \spacingDensity 512
   s2
   \break
+
   s2 \breathe
   
   \rehmark % O
@@ -468,7 +476,9 @@ global = {
   \breathe
   
   \break
-  
+  \tag #'violinPart {\pageBreak}
+  \tag #'notViolinPart {\pageBreak}
+
   \rehmark % P
   \once \override Score.BarLine.allow-span-bar = ##f
   % \bar ".|:-small-right-regleft-straight"
@@ -554,6 +564,7 @@ global = {
   s4.
   \bar ".|:-right-double"
   \break
+
   \rehmark % V
 
   <<
