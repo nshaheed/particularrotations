@@ -1,55 +1,43 @@
-# RULES FOR COMPILATION
-# TO BUILD TITLE: USE LINUX
-# TO BUILD LEGEND: USE LINUX
-# TO BUILD SCORE: USE WINDOWS
-# YES IT'S FUCKING STUPID
-
 LILY_CMD = "/cygdrive/c/Program Files (x86)/LilyPond/usr/bin/lilypond.exe" -ddelete-intermediate-files -dno-point-and-click -drelative-includes
 
 LILY_CMD_LINUX = lilypond -ddelete-intermediate-files -dno-point-and-click -drelative-includes
 
-all: a combine combinea va v
+LILY_CMD_LINUX_DEBUG = lilypond -ddelete-intermediate-files -drelative-includes
 
-allLinux: aLinux legLinux ttlLinux combineLinux 
+# all: a combine combinea va v
+.PHONY: all score legend title debug
+all: title legend score combine
 
-comp:
-	$(LILY_CMD) *.ly
-	# xelatex.exe title.tex
+debug: title legend score_debug combine
 
-compLinux:
-	$(LILY_CMD_LINUX) *.ly
-	xelatex title.tex
+# allLinux: aLinux legLinux ttlLinux combineLinux
 
-v: comp
-	sumatrapdf.exe *.pdf
+score:
+	echo "---------COMPILING SCORE---------"
+	$(LILY_CMD_LINUX) score.ly
 
-vLinux: comp
-	xdg-open title.pdf
-	xdg-open legend.pdf
-	xdg-open score.pdf
+score_debug:
+	echo "---------COMPILING SCORE (DEBUG)---------"
+	$(LILY_CMD_LINUX_DEBUG) score.ly
 
-b: comp
-	sumatrapdf.exe *.pdf &
+legend:
+	echo "---------COMPILING LEGEND---------"
+	$(MAKE) -C legendTabloid
 
-a: comp
-	cd violin1; make 
-	cd violin2; make 
-	cd viola;   make 
-	cd cello;   make
+title:
+	echo "---------COMPILING TITLE---------"
+	$(MAKE) -C title/
 
-aLinux: compLinux
-	cd violin1; make compLinux
-	cd violin2; make compLinux
-	cd viola;   make compLinux
-	cd cello;   make compLinux
+combine: title legend score
+	pdfunite title/title_tabloid_score.pdf legendTabloid/dir/legend.pdf score-viola_cello.pdf Shaheed-Particular_Rotations.pdf
+	pdfunite title/title_tabloid_violin.pdf legendTabloid/dir/legend.pdf score-violins.pdf Shaheed-Particular_Rotations-Violin.pdf
+	pdfunite title/title_tabloid_viola_cello.pdf legendTabloid/dir/legend.pdf score-viola_cello.pdf Shaheed-Particular_Rotations-Viola-Cello.pdf
 
-va: comp
-	cd violin1; make
-	cd violin2; make
-	cd viola;   make
-	cd cello;   make
-	sumatrapdf.exe *.pdf &
-	sumatrapdf.exe */*.pdf &
+clean:
+	- $(MAKE) clean -C title
+	- $(MAKE) clean -C legendTabloid
+	- rm score-violins.pdf
+	- rm score-viola_cello.pdf
 
 leg:
 	# /cygdrive/c/Python27/python.exe "/cygdrive/c/Program\ Files\ \(x86\)/LilyPond/usr/bin/lilypond-book.py" --pdf --output=dir legend.lytex
@@ -58,27 +46,5 @@ leg:
 	# xelatex.exe -include-directory=DIR dir/legend.tex
 
 legLinux:
-	# lilypond-book --pdf --output=dir legend.lytex --left-padding=30
 	lilypond-book --pdf --output=dir legend.lytex
-	# cd dir; pdflatex legend.tex
 	cd dir; xelatex legend.tex
-
-ttlLinux:
-	pdflatex title.tex
-
-
-combineLinux:
-	pdfunite title.pdf dir/legend.pdf score.pdf ThreeLanguages.pdf
-	pdfunite title.pdf dir/legend.pdf violin1/violin1.pdf ThreeLanguages-violin1.pdf
-	pdfunite title.pdf dir/legend.pdf violin2/violin2.pdf ThreeLanguages-violin2.pdf
-	pdfunite title.pdf dir/legend.pdf viola/viola.pdf ThreeLanguages-viola.pdf
-	pdfunite title.pdf dir/legend.pdf cello/cello.pdf ThreeLanguages-cello.pdf
-
-combine:
-	pdftk.exe title.pdf dir/legend.pdf score.pdf cat output ThreeLanguages.pdf
-
-combinea:
-	cd violin1; make combine
-	cd violin2; make combine
-	cd viola;   make combine
-	cd cello;   make combine

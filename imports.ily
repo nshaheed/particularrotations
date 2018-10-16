@@ -6,15 +6,15 @@ scorePaperSize = "tabloid"
 
 % header
 % ttl = "Particular Rotations"
-ttl = \markup{ 
+ttl = \markup{
 %   \override = #(font-name . #"DejaVu Sans ExtraLight" )
 %   \override #'(font-name . "DejaVu Sans ExtraLight")
   \override #'(font-name . "Century Schoolbook Regular")
 
   \override #'(font-size . 11)
   { "Particular Rotations"}
-  
-}
+  }
+
 
 sbttl = \markup {
   \override #'(font-name . "Century Schoolbook Regular")
@@ -93,25 +93,25 @@ norm	= ^\markup { \italic norm. }
 
 separate = ^\markup{ \pad-markup #1
                       \translate #'( -1.1 . 0)
-                     \column { { \beam #2.5 #0 #0.15 } 
+                     \column { { \beam #2.5 #0 #0.15 }
                                {  \vspace #-0.7 {
                                  \translate #'(1.1 . 0) \beam #2.5 #0 #0.15 } } } }
 
 separateNone = ^\markup{ \pad-markup #0
                       \translate #'( -1.1 . 0)
-                     \column { { \beam #2.5 #0 #0.15 } 
+                     \column { { \beam #2.5 #0 #0.15 }
                                {  \vspace #-0.7 {
                                  \translate #'(1.1 . 0) \beam #2.5 #0 #0.15 } } } }
 
 together = ^\markup {  \pad-markup #1
                       \translate #'(-0.51 . 0)
-                      \column { { \beam #2.5 #0 #0.3 } 
+                      \column { { \beam #2.5 #0 #0.3 }
                                 {  \vspace #-0.7 {
                                   \beam #2.5 #0 #0.3 } } } }
 
 togetherNone = ^\markup {  \pad-markup #0
                       \translate #'(-0.51 . 0)
-                      \column { { \beam #2.5 #0 #0.3 } 
+                      \column { { \beam #2.5 #0 #0.3 }
                                 {  \vspace #-0.7 {
                                   \beam #2.5 #0 #0.3 } } } }
 
@@ -127,7 +127,7 @@ spacingDensity =
    #{
      \newSpacingSection
      \override Score.SpacingSpanner #'common-shortest-duration = #(ly:make-moment num 1024 )
-     
+
    #})
 
 % togetherVar =
@@ -137,9 +137,9 @@ spacingDensity =
 %   #{
 %       ^\markup {  \pad-markup #1
 %                             \translate #'(-0.51 . 0)
-%                             \column { { \beam #2.5 #0 #0.3 } 
+%                             \column { { \beam #2.5 #0 #0.3 }
 %                                       {  \vspace #-0.7 {
-%                                         \beam #2.5 #0 #0.3 } } } }    
+%                                         \beam #2.5 #0 #0.3 } } } }
 %   #}
 %  )
 
@@ -148,7 +148,7 @@ spacingDensity =
 %   (interpret-markup layout props
 %     #{\markup {  \pad-markup #1
 %                             \translate #'(-0.51 . 0)
-%                             \column { { \beam #2.5 #0 #0.3 } 
+%                             \column { { \beam #2.5 #0 #0.3 }
 %                                       {  \vspace #-0.7 {
 %                                         \beam #2.5 #0 #0.3 } } } }))
 
@@ -162,8 +162,8 @@ intensepoco =
 { \once \override TextSpanner.bound-details.left.text = \markup{ \italic {
   incr. intensity poco a poco } } }
 
-shortPause = 
-{ \override BreathingSign.text = \markup { \musicglyph #"scripts.rvarcomma" } 
+shortPause =
+{ \override BreathingSign.text = \markup { \musicglyph #"scripts.rvarcomma" }
   \breathe }
 
 longPause = {
@@ -173,10 +173,10 @@ longPause = {
   \breathe
 }
 
-forceClef =   \once \set Staff.forceClef = ##t 
+forceClef =   \once \set Staff.forceClef = ##t
 
 % supposed to make a rest of length n, but it doens't work
-% varRest = 
+% varRest =
 % #(define-music-function
 %   (parser location n)
 %   (integer?)
@@ -186,18 +186,18 @@ forceClef =   \once \set Staff.forceClef = ##t
 %       (ly:make-duration 3 0 n)
 %   )
 
-varRest = 
+varRest =
 #(define-music-function
   (parser location counter)
   (integer?)
   (if (> counter 0)
-    
+
       #{
         s16 % ^\markup { #(number->string counter) }
         \varRest #(- counter 1)
       #}
       #{ #}
-    
+
       )
   )
 
@@ -206,13 +206,13 @@ varRestEighth =
   (parser location counter)
   (integer?)
   (if (> counter 0)
-    
+
       #{
         s8 % ^\markup { #(number->string counter) }
         \varRestEighth #(- counter 1)
       #}
       #{ #}
-    
+
       )
   )
 
@@ -236,35 +236,35 @@ global = {
   \numericTimeSignature
   \set Score.markFormatter = #format-mark-box-alphabet
   \override Staff.Clef.full-size-change = ##t
-  
+
   \override BreathingSign.text = \markup {
     \musicglyph #"scripts.caesura.straight"
   }
-  
+
   \tempo "Unwavering" 8 = 168
-  
+
   \grace s8
   \varRestEighth \beginningLen
-  
+
   \mark \default % A
   <<
     { \grace {\varRest 6} \varRestEighth \alen }
   >>
-  
+
   \break
-    
+
   \override Score.RehearsalMark.self-alignment-X = #CENTER
   \override Score.RehearsalMark #'break-visibility = #begin-of-line-invisible % #end-of-line-visible
   \mark \markup {2 - 4x}
-  
-  \once \omit Staff.Clef
-  
-  
-  \grace {s16 s s s s s}
-  % s8 * 16 
 
-  
-  % \override Staff.BarLine.transparent = ##f 
+  \once \omit Staff.Clef
+
+
+  \grace {s16 s s s s s}
+  % s8 * 16
+
+
+  % \override Staff.BarLine.transparent = ##f
 
   \varRestEighth \blen \bar ":|."
   \mark \markup {2 - 4x}
@@ -274,9 +274,9 @@ global = {
   %\break
 %   \override Staff.SpanBar.stencil = ##f
 %   \override Staff.SpanBar.allow-span-bar = ##f
-  
+
   \rehmark % B
-  
+
   \override Score.BarLine.allow-span-bar = ##f
   % \bar ".|:-right"
   \bar ".|:-right-small"
@@ -285,99 +285,99 @@ global = {
   s8
   \shortPause
   \bar ":|.-small"
-  
+
   \varRestEighth \clen
-  
+
   \rehmark % C
   \grace s8
-  s8\together s8 
-  
-  \varRestEighth \dlen 
-  
+  s8\together s8
+
+  \varRestEighth \dlen
+
   \bar ".|:-small"
   \rehmark % D
   \grace {s16^\markup{ \pad-markup #0
                       \translate #'( 0 . 1.8)
-                     \column { { \beam #2.5 #0 #0.15 } 
+                     \column { { \beam #2.5 #0 #0.15 }
                                {  \vspace #-0.7 {
-                                 \translate #'(1.1 . 0) \beam #2.5 #0 #0.15 } } } } 
+                                 \translate #'(1.1 . 0) \beam #2.5 #0 #0.15 } } } }
           s s s s s}
   s8
   \bar ":|.-small"
-  
+
   \varRestEighth \elen
-  
+
   \bar ".|:-right"
-  
+
   \break
-  
+
   \tag #'violinPart {\pageBreak}
   \rehmark % E
   \grace {s8}
-  s8% \together 
+  s8% \together
   s8
   \bar ":|."
-  
+
   \varRestEighth \flen
-  
+
   \revert Staff.TimeSignature.stencil
-  
+
   % \break
-  
+
   \rehmark % F
   \bar "||"
   \grace {\varRest 6}
-  
+
   \varRestEighth 5
-  
+
   %\revert BreathingSign.text
   % \longPause
   s4\fermata
   \rehmark % G
-  \override Staff.TimeSignature #'stencil = ##f 
+  \override Staff.TimeSignature #'stencil = ##f
   \grace {s8}
   s8 s8
-  
+
   \varRestEighth \glen
-  
+
   \bar ""
-  
+
   \override BreathingSign.text = \markup {
     \musicglyph #"scripts.caesura.straight"
   }
-  
+
   \breathe
-  
-  % s8 
+
+  % s8
   \bar ""
-  
+
   \break
-  
+
   \once \omit Staff.Clef
   \rehmark % H
-  
+
   %   \beginning #(+ hlen ilen ialen ilen klen llen) ""
   \varRestEighth \hlen
   \varRestEighth \ilen
-  
+
   \break
   \once \omit Staff.Clef
 
   \rehmark % I
   \varRestEighth \ialen
-  
-  
+
+
   \varRestEighth \ilen
   \break
-  
+
   \tag #'notViolinPart {\pageBreak}
 
   \rehmark % J
   \varRestEighth \klen
-  
+
   %\varRestEighth \llen
   \varRestEighth \mlen
-  
+
   \rehmark % K
 
   \revert Staff.TimeSignature.stencil
@@ -386,18 +386,18 @@ global = {
   \once \override Score.BarLine.allow-span-bar = ##f
 
   \override Staff.TimeSignature.stencil = ##f
-  
+
 %   s8
-  
+
   \tag #'violinPart {\pageBreak}
   \tag #'notViolinPart {\break}
-  
+
   \rehmark % L
   \bar ".|:-right-regleft-straight"
 %   \bar ".|:-right-small-left-double"
 %   \bar ".|:-small"
 
-  
+
   \override Score.SpacingSpanner.uniform-stretching = ##t
   \spacingDensity 256
 
@@ -405,11 +405,11 @@ global = {
     \varRestEighth 5
     s8^\markup{ \pad-markup #0
                       \translate #'( -0.3 . 0)
-                     \column { { \beam #2.5 #0 #0.15 } 
+                     \column { { \beam #2.5 #0 #0.15 }
                                {  \vspace #-0.7 {
-                                 \translate #'(1.1 . 0) \beam #2.5 #0 #0.15 } } 
+                                 \translate #'(1.1 . 0) \beam #2.5 #0 #0.15 } }
                                 \vspace #0.2
-                             } 
+                             }
               }
   >>
   \bar ":|.-small"
@@ -417,20 +417,20 @@ global = {
     \varRestEighth \olen
     {\varRestEighth #(- olen 4) s8 \tempo "Delicate" 8 = 50}
   >>
-    
+
   << {\varRestEighth 5} >>
   \varRestEighth 8 \longPause
-  
+
   \revert Staff.TimeSignature.stencil
-  
+
   \tempo 4 = 66
   \bar "||"
-  
+
   \rehmark % M
   \time 4/4
   s1\norm
-  
-  s1 s1 s2. 
+
+  s1 s1 s2.
   \newSpacingSection
   \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1/8)
 
@@ -438,43 +438,43 @@ global = {
   s4
   \override Staff.TimeSignature.stencil = ##f
   \varRestEighth \plen
-  
+
   \break
-  
+
   \breathe
   \revert Staff.TimeSignature.stencil
   % \bar "||"
   \bar ""
-  
+
   \once \override Score.RehearsalMark.break-align-symbols = #'(clef)
   \rehmark % N
   \once \override Staff.TimeSignature.break-visibility = ##(#f #t #t)
   \newSpacingSection
-  
+
   \override Score.SpacingSpanner.uniform-stretching = ##t
   \spacingDensity 256
   % \spacingDensity 256
-  
+
   \time 2/4
-  s2 s2 
+  s2 s2
   \spacingDensity 32
-  s2 
+  s2
   \spacingDensity 512
   s2
   \break
 
   s2 \breathe
-  
+
   \rehmark % O
   \newSpacingSection
   \revert Score.SpacingSpanner #'common-shortest-duration
   % \override Score.SpacingSpanner #'common-shortest-duration = #(ly:make-moment 1 8 )
   \spacingDensity 64
   \override Staff.TimeSignature.stencil = ##f
-  
+
   \varRestEighth \qlen
   \breathe
-  
+
   \break
   \tag #'violinPart {\pageBreak}
   \tag #'notViolinPart {\pageBreak}
@@ -497,9 +497,9 @@ global = {
 %     \spacingDensity 2048
     }
   >>
-  
+
   \breathe
-  
+
   \rehmark % Q
   \newSpacingSection
   \revert Score.SpacingSpanner.common-shortest-duration
@@ -509,11 +509,11 @@ global = {
     \varRestEighth \slen
     {s8\mf\<\separateNone}
   >>
-  
+
   \breathe
-  
+
   \break
-  
+
   \rehmark % R
   \override Staff.BarLine.allow-span-bar = ##f
 
@@ -524,19 +524,19 @@ global = {
   >>
   \revert Staff.BarLine.allow-span-bar
   \breathe
-  
+
   \revert Staff.TimeSignature.stencil
   \override Staff.TimeSignature #'stencil = ##f
   \bar "||"
   \time 6/8
   \rehmark % S
-  
+
   \grace { s16*6 }
-  
+
 %   \hide Staff.TimeSignature
-  
+
   s2. \break
-  
+
   \bar ".|:-right-regleft-straight"
   % \bar ".|:-right-double"
   \rehmark % T
@@ -546,20 +546,20 @@ global = {
   \revert Score.SpacingSpanner.common-shortest-duration
   \revert Score.SpacingSpanner.base-shortest-duration
   \revert Score.SpacingSpanner.average-spacing-wishes
-  
+
   <<
     { \grace s8 \varRestEighth #(+ ulen 4) }
     {\grace s8 s8\together  }
   >>
   \revert Staff.TimeSignature.stencil
-  
+
 %   \break
-  
+
   \bar "||"
   \once \override Staff.TimeSignature #'stencil = ##f
   \time 5/8
   \rehmark % U
-  \grace {s16*6} s4 %^"5 8 here"
+  \grace {s16^\markup{\italic sim.} s16*5} s4 %^"5 8 here"
   \override Staff.TimeSignature.stencil = ##f
   s4.
   \bar ".|:-right-double"
@@ -571,26 +571,26 @@ global = {
     \grace s8 \varRestEighth #(+ ulen 4)
     {\grace s8 s8\together}
   >>
-  
+
   \revert Staff.TimeSignature.stencil
-  
+
   % \breathe
-  
+
   \once \override Staff.TimeSignature #'stencil = ##f
   \bar "||"
-  
+
   \time 5/8
   \rehmark % W
   \grace {s16*6^" "^\markup{\italic sim.}} s4
   \override Staff.TimeSignature.stencil = ##f
   s4.
-  
+
   \bar ".|:-right-double"
   \break
   \rehmark % X
   \grace s8 \varRestEighth #(+ ulen 4)
   s1
-  
+
   \revert Staff.TimeSignature.stencil
   \time 1/8
   \bar "||"
@@ -598,13 +598,13 @@ global = {
   s8
   \bar "|."
 
-  
+
 }
 %% %%
 
-%% In-Score Functions %% 
+%% In-Score Functions %%
 
-beginning = 
+beginning =
 #(define-music-function
   (parser location dur str)
   (integer? string?)
@@ -615,7 +615,7 @@ beginning =
         \once \hide MultiMeasureRest
         \once \override MultiMeasureRestText #'extra-offset = #'(0 . -2.4)
         \once \override HorizontalBracket.shorten-pair = #'(-3 . 0)
-       
+
         % sets time signature to dur / 8
         #(make-music
           'TimeSignatureMusic
@@ -625,7 +625,7 @@ beginning =
           8
           'numerator
           dur)
-       
+
         % generates full measure rest that have a fermatamarkup and str above it
         #(make-music
           'MultiMeasureRestMusic
@@ -660,7 +660,7 @@ beginning =
       %% generates rests needed to make a group (hoizontal bracket)
       {
         \once \hide Rest
-        
+
         %% Makes the \startGroup rests
         #(make-music
           'RestEvent
@@ -671,7 +671,7 @@ beginning =
                  -1))
           'duration
           (ly:make-duration 3 0 (- dur 1)))
-       
+
         \once \hide Rest
         %% Makes the \stopGroup rest
         #(make-music
@@ -683,7 +683,7 @@ beginning =
                  1))
           'duration
           (ly:make-duration 3 0 1))
-       
+
         % \override NoteHead.transparent = ##f
       }
     >>
@@ -691,7 +691,7 @@ beginning =
   )
 
 
-beginningOther = 
+beginningOther =
 #(define-music-function
   (parser location dur str txt ferm)
   (integer? string? number? number?)
@@ -702,7 +702,7 @@ beginningOther =
         \once \hide MultiMeasureRest
         \once \override MultiMeasureRestText #'extra-offset = #'(0 . -2.4)
         \once \override HorizontalBracket.shorten-pair = #'(-3 . 0)
-       
+
         % sets time signature to dur / 8
         #(make-music
           'TimeSignatureMusic
@@ -712,7 +712,7 @@ beginningOther =
           8
           'numerator
           dur)
-       
+
         % generates full measure rest that have a fermatamarkup and str above it
         #(make-music
           'MultiMeasureRestMusic
@@ -747,7 +747,7 @@ beginningOther =
       %% generates rests needed to make a group (hoizontal bracket)
       {
         \once \hide Rest
-        
+
         %% Makes the \startGroup rests
         #(make-music
           'RestEvent
@@ -758,7 +758,7 @@ beginningOther =
                  -1))
           'duration
           (ly:make-duration 3 0 (- dur 1)))
-       
+
         \once \hide Rest
         %% Makes the \stopGroup rest
         #(make-music
@@ -770,7 +770,7 @@ beginningOther =
                  1))
           'duration
           (ly:make-duration 3 0 1))
-       
+
         % \override NoteHead.transparent = ##f
       }
     >>
@@ -779,40 +779,40 @@ beginningOther =
 
 % \stopStaff and \startStaff are for changing staff properties, not turning the staff off,
 % The StaffSymbol and Barline Transparencies are for that
-invs = 
+invs =
 #(define-music-function
   (parser location)
   ()
   #{
     \stopStaff
     \override Staff.StaffSymbol.transparent = ##t
-    \override Staff.BarLine.transparent = ##t 
+    \override Staff.BarLine.transparent = ##t
     %       \override Staff.Clef.transparent = ##t
-    
+
     \startStaff
 
   #}
-  
+
   )
 
 % make the barline and staffsymbol visible again
-notinvs = 
+notinvs =
 #(define-music-function
   (parser location)
   ()
   #{
     \stopStaff
     \override Staff.StaffSymbol.transparent = ##f
-    \override Staff.BarLine.transparent = ##f 
+    \override Staff.BarLine.transparent = ##f
     \startStaff
   #}
-  
+
   )
 
 
 
 % turns transparencies off if needed
-startstaff = 
+startstaff =
 #(define-music-function
   (parser location end)
   (boolean?)
@@ -821,14 +821,14 @@ startstaff =
         \notinvs
       #}
       #{
-      
+
       #}
       )
   )
 
 % hides bar line and makes an arrow
 % arrow :: length -> timeStr -> endofstaff?
-arrow = 
+arrow =
 #(define-music-function
   (parser location dur str end)
   (integer? markup? boolean?)
@@ -839,21 +839,21 @@ arrow =
     % put in in the middle of the staff
     % TODO: get height of staff and use that?
     \override TextSpanner.extra-offset = #'(0 . -3.1)
-    \override TextSpanner.bound-details.right.text = \markup { 
+    \override TextSpanner.bound-details.right.text = \markup {
       \column {
         \scale #'( 1 . 1)
         \arrow #"long" ##f #X #UP #1 #0.0
       }
     }
-    \override TextSpanner.thickness = #2   
-    
-    % in order to keep the right hand barline to appear, need to \stopStaff, put a small 
+    \override TextSpanner.thickness = #2
+
+    % in order to keep the right hand barline to appear, need to \stopStaff, put a small
     % hidden rest, and \startStaff
-    
+
     % after that, use invis (it does page breaks with the staff bracket) for the the bulk
     % of the spacing
-    \stopStaff 
-    
+    \stopStaff
+
     \override Staff.Clef.transparent = ##f
     \override Staff.Clef.break-visibility = #all-invisible
 
@@ -873,7 +873,7 @@ arrow =
 
 
         \once \override TextScript.extra-offset = #'(0 . -3)
-        
+
         \invs
         \stopStaff
         \override Staff.BarLine.transparent = ##f
@@ -895,19 +895,19 @@ arrow =
                     'direction
                     1
                     'text
-                    (markup 
-                     #:line 
+                    (markup
+                     #:line
                      (#:left-align str))
-                    )                  
+                    )
                    )
                  'duration
                  (ly:make-duration 3 0 1)
                  )
             )
           )
-      
+
 %         \startStaff
-      
+
 %         \invs
 %         \stopStaff
 %         \override Staff.BarLine.transparent = ##f
@@ -918,13 +918,13 @@ arrow =
           'SkipEvent
           'duration
           (ly:make-duration 3 0 (- dur 2)))
-      
-        %\override Score.BarLine.stencil = ##f 
-      
+
+        %\override Score.BarLine.stencil = ##f
+
         \stopStaff
         \override Staff.Clef.transparent = ##f
         \startStaff
-      
+
         % invisible rest of length tail that end text spanner
         #(make-music
           'SequentialMusic
@@ -942,24 +942,24 @@ arrow =
                  )
             )
           )
-      
+
       }
     >>
-    
+
     \startstaff #end
-    
+
     \revert TextSpanner.bound-details.left.stencil-align-dir-y
     \revert TextSpanner.style
     \revert TextSpanner.extra-offset
     \revert TextSpanner.bound-details.right.text
-    
-    \revert Score.BarLine.stencil       
-    
+
+    \revert Score.BarLine.stencil
+
     \revert Staff.Clef.break-visibility
   #}
   )
 
-arrowSpecial = 
+arrowSpecial =
 #(define-music-function
   (parser location dur str end)
   (integer? markup? boolean?)
@@ -970,23 +970,23 @@ arrowSpecial =
       % put in in the middle of the staff
       % TODO: get height of staff and use that?
       \override TextSpanner.extra-offset = #'(0 . -3.1)
-      \override TextSpanner.bound-details.right.text = \markup { 
+      \override TextSpanner.bound-details.right.text = \markup {
         \column {
         \scale #'( 1 . 1)
         \arrow #"long" ##f #X #UP #1 #0.0
         }
       }
-      \override TextSpanner.thickness = #2   
-       
-      % in order to keep the right hand barline to appear, need to \stopStaff, put a small 
+      \override TextSpanner.thickness = #2
+
+      % in order to keep the right hand barline to appear, need to \stopStaff, put a small
       % hidden rest, and \startStaff
-      
+
       % after that, use invis (it does page breaks with the staff bracket) for the the bulk
       % of the spacing
-      \stopStaff 
-      
+      \stopStaff
+
       \override Staff.Clef.transparent = ##f
-      
+
     <<
       {
        % sets time signature to dur / 8
@@ -1015,16 +1015,16 @@ arrowSpecial =
                         1
                         'text
                         (markup #:line (#:left-align str))
-                        )                  
+                        )
                   )
                 'duration
                 (ly:make-duration 3 0 1)
                 )
         )
       )
-      
+
       \startStaff
-      
+
       \invs
       \override Staff.BarLine.transparent = ##f
       % invisible rests of length head
@@ -1032,13 +1032,13 @@ arrowSpecial =
         'SkipEvent
         'duration
         (ly:make-duration 3 0 (- dur 2)))
-      
-      %\override Score.BarLine.stencil = ##f 
-      
+
+      %\override Score.BarLine.stencil = ##f
+
       \stopStaff
       \override Staff.Clef.transparent = ##f
       \startStaff
-      
+
       % invisible rest of length tail that end text spanner
       #(make-music
         'SequentialMusic
@@ -1056,22 +1056,22 @@ arrowSpecial =
               )
         )
       )
-      
+
       }
     >>
-      
+
       \startstaff #end
-            
+
       \revert TextSpanner.bound-details.left.stencil-align-dir-y
       \revert TextSpanner.style
       \revert TextSpanner.extra-offset
       \revert TextSpanner.bound-details.right.text
-      
-      \revert Score.BarLine.stencil       
+
+      \revert Score.BarLine.stencil
   #}
   )
 
-arrowGrace = 
+arrowGrace =
 #(define-music-function
   (parser location dur grc str end)
   (integer? integer? markup? boolean?)
@@ -1082,23 +1082,23 @@ arrowGrace =
     % put in in the middle of the staff
     % TODO: get height of staff and use that?
     \override TextSpanner.extra-offset = #'(0 . -3.1)
-    \override TextSpanner.bound-details.right.text = \markup { 
+    \override TextSpanner.bound-details.right.text = \markup {
       \column {
         \scale #'( 1 . 1)
         \arrow #"long" ##f #X #UP #1 #0.0
       }
     }
-    \override TextSpanner.thickness = #2   
+    \override TextSpanner.thickness = #2
     \override Staff.Clef.break-visibility = #all-invisible
-    
-    % in order to keep the right hand barline to appear, need to \stopStaff, put a small 
+
+    % in order to keep the right hand barline to appear, need to \stopStaff, put a small
     % hidden rest, and \startStaff
-    
+
     % after that, use invis (it does page breaks with the staff bracket) for the the bulk
     % of the spacing
-    
+
     \override Staff.Clef.transparent = ##f
-    
+
     <<
       {
         % sets time signature to dur / 8
@@ -1114,7 +1114,7 @@ arrowGrace =
         \once \override TextScript.extra-offset = #'(0 . -3)
 
         % crappy hack that puts the \startTextSpanner in the grace notes
-        \grace { 
+        \grace {
           #(make-music
             'SequentialMusic
             'elements
@@ -1131,7 +1131,7 @@ arrowGrace =
                       1
                       'text
                       (markup #:line (#:left-align str))
-                      )                  
+                      )
                      )
                    'duration
                    (ly:make-duration 4 0 1)
@@ -1146,13 +1146,13 @@ arrowGrace =
           'SkipEvent
           'duration
           (ly:make-duration 3 0 (- dur 1)))
-      
-        %\override Score.BarLine.stencil = ##f 
-      
+
+        %\override Score.BarLine.stencil = ##f
+
         \stopStaff
         \override Staff.Clef.transparent = ##f
         \startStaff
-      
+
         % invisible rest of length tail that end text spanner
         #(make-music
           'SequentialMusic
@@ -1170,26 +1170,26 @@ arrowGrace =
                  )
             )
           )
-      
+
       }
     >>
-    
+
     \startstaff #end
-    
+
     \revert TextSpanner.bound-details.left.stencil-align-dir-y
     \revert TextSpanner.style
     \revert TextSpanner.extra-offset
     \revert TextSpanner.bound-details.right.text
-    
-    \revert Score.BarLine.stencil    
-    
+
+    \revert Score.BarLine.stencil
+
     \revert Staff.Clef.break-visibility
 
   #}
   )
 
 % an arrow function for dealing with notes in smaller divisions than eighth notes
-arrowPost = 
+arrowPost =
 #(define-music-function
   (parser location dur str end noteLen denEnd cntEnd)
   (integer? markup? boolean? integer? integer? integer?)
@@ -1200,25 +1200,25 @@ arrowPost =
     % put in in the middle of the staff
     % TODO: get height of staff and use that?
     \override TextSpanner.extra-offset = #'(0 . -3.1)
-    \override TextSpanner.bound-details.right.text = \markup { 
+    \override TextSpanner.bound-details.right.text = \markup {
       \column {
         \scale #'( 1 . 1)
         \arrow #"long" ##f #X #UP #1 #0.0
       }
     }
-    \override TextSpanner.thickness = #2   
-    
-    % in order to keep the right hand barline to appear, need to \stopStaff, put a small 
+    \override TextSpanner.thickness = #2
+
+    % in order to keep the right hand barline to appear, need to \stopStaff, put a small
     % hidden rest, and \startStaff
-    
+
     % after that, use invis (it does page breaks with the staff bracket) for the the bulk
     % of the spacing
-    \stopStaff 
-    
+    \stopStaff
+
     \override Staff.Clef.transparent = ##f
     \override Staff.Clef.break-visibility = #all-invisible
 
-    
+
     <<
       {
         % sets time signature to dur / 8
@@ -1251,16 +1251,16 @@ arrowPost =
                     1
                     'text
                     (markup #:line (#:left-align str))
-                    )                  
+                    )
                    )
                  'duration
                  (ly:make-duration 3 0 1)
                  )
             )
           )
-      
+
         \startStaff
-      
+
         \invs
         \override Staff.BarLine.transparent = ##f
 
@@ -1269,18 +1269,18 @@ arrowPost =
           'SkipEvent
           'duration
           (ly:make-duration 3 0 (- dur 2)))
-      
+
         % extra bit fo rest from -End vars
         #(make-music
           'SkipEvent
           'duration
           (ly:make-duration noteLen 0 (- cntEnd 1) denEnd ) )
-        %\override Score.BarLine.stencil = ##f 
-      
+        %\override Score.BarLine.stencil = ##f
+
         \stopStaff
         \override Staff.Clef.transparent = ##f
         \startStaff
-      
+
         % invisible rest of length tail that end text spanner
         #(make-music
           'SequentialMusic
@@ -1298,40 +1298,40 @@ arrowPost =
                  )
             )
           )
-      
+
       }
     >>
-    
+
     \startstaff #end
-    
+
     \revert TextSpanner.bound-details.left.stencil-align-dir-y
     \revert TextSpanner.style
     \revert TextSpanner.extra-offset
     \revert TextSpanner.bound-details.right.text
-    
-    \revert Score.BarLine.stencil       
+
+    \revert Score.BarLine.stencil
     \revert Staff.Clef.break-visibility
 
   #}
   )
 
 % display blank space for the given duration
-blank = 
+blank =
 #(define-music-function
   (parser location dur)
   (ly:duration?)
   #{
     \stopStaff
-    \override Score.BarLine.stencil = ##f 
-    
+    \override Score.BarLine.stencil = ##f
+
     #(make-music
       'SkipEvent
       'duration
       dur
-      )      
-    
-    \startStaff     
-    \revert Score.BarLine.stencil       
+      )
+
+    \startStaff
+    \revert Score.BarLine.stencil
   #}
   )
 
@@ -1352,7 +1352,7 @@ squeezeNotation = {
 
 fakeGrace = {
   \override NoteHead.font-size = #-4
-  \override Accidental.font-size = #-4         
+  \override Accidental.font-size = #-4
   \stemUp
 }
 
@@ -1361,5 +1361,3 @@ fakeGraceOff = {
   \revert Accidental.font-size
   \stemNeutral
 }
-
-
