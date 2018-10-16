@@ -63,7 +63,7 @@
   composer = \cmp
   tagline = \tg
   subtitle = \sbttl
-  copyright = "2016"
+  copyright = "2016, Creative Commons AB-NC 4.0"
 }
 
 % staffsize = -2
