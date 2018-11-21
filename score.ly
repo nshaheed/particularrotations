@@ -7,11 +7,11 @@
 %% Length: shouldn't be more than 6 minutes
 
 %% Things to change between versions -
-% - keep with tag: violinPart, notViolinPart
-% - page size: a4 for score, tabloid for others
-% - change even/odd header markup for parts
-% - change top/bottom margins to either marginScore or marginParts
-% - in score: staffsize = -2, in parts: staffsize = -4
+				% - keep with tag: violinPart, notViolinPart
+				% - page size: a4 for score, tabloid for others
+				% - change even/odd header markup for parts
+				% - change top/bottom margins to either marginScore or marginParts
+				% - in score: staffsize = -2, in parts: staffsize = -4
 
 \paper {
   #(set-paper-size scorePaperSize)
@@ -19,8 +19,8 @@
   system-separator-markup = \slashSeparator
   ragged-bottom = ##f
 
-%   max-systems-per-page = #2
-%   min-systems-per-page = #4
+				%   max-systems-per-page = #2
+				%   min-systems-per-page = #4
 
 
   marginScore = .75\in
@@ -28,42 +28,42 @@
 
   left-margin = \marginScore
   right-margin = \marginScore
-%   top-margin = .25\in
-%   bottom-margin = .25\in
+				%   top-margin = .25\in
+				%   bottom-margin = .25\in
   top-margin = .5\in
   bottom-margin = .5\in
 
-    evenHeaderMarkup = \markup {
-        \column {
-          \fill-line {
-            \line { }
-            \line {
-              \on-the-fly #print-page-number-check-first
-              \fromproperty #'page:page-number-string
-            }
-          }
-        }
+  evenHeaderMarkup = \markup {
+    \column {
+      \fill-line {
+	\line { }
+	\line {
+	  \on-the-fly #print-page-number-check-first
+	  \fromproperty #'page:page-number-string
+	}
       }
-
-      oddHeaderMarkup = \markup {
-        \column {
-          \fill-line {
-            \line {
-              \on-the-fly #print-page-number-check-first
-              \fromproperty #'page:page-number-string
-            }
-            \line { }
-          }
-        }
-      }
+    }
   }
+
+  oddHeaderMarkup = \markup {
+    \column {
+      \fill-line {
+	\line {
+	  \on-the-fly #print-page-number-check-first
+	  \fromproperty #'page:page-number-string
+	}
+	\line { }
+      }
+    }
+  }
+}
 
 \header {
   title = \ttl
   composer = \cmp
   tagline = \tg
   subtitle = \sbttl
-  copyright = "2016, Creative Commons AB-NC 4.0"
+  copyright = "2016, Creative Commons BY-NC 4.0"
 }
 
 % staffsize = -2
