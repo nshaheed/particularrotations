@@ -610,6 +610,7 @@ violinTwo = \new Voice \relative c'' {
   \bar ".|:-right"
   \notinvs
   \time 1/4
+  \clef "treble"
   <ef bf'>8\pp <ef bf'>8
   \bar ":|.-small"
 
@@ -1539,8 +1540,9 @@ cello = \new Voice
 
   %% B Section
 
-  \undo \omit Staff.Clef
-
+  %% \undo \omit Staff.Clef
+  \forceClef
+  \clef bass
   \bar ":|.|:" %% This one
   \time 1/8
   \grace {

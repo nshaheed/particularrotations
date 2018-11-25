@@ -15,23 +15,49 @@
 
 \paper {
   #(set-paper-size scorePaperSize)
+  two-sided = ##t
 
-  system-separator-markup = \slashSeparator
-  ragged-bottom = ##f
+  %% system-separator-markup = \slashSeparator
+  %% ragged-bottom = ##f
 
-				%   max-systems-per-page = #2
-				%   min-systems-per-page = #4
+  max-systems-per-page = #2
+  %% min-systems-per-page = #2
 
 
   marginScore = .75\in
   marginParts = .5\in
 
-  left-margin = \marginScore
-  right-margin = \marginScore
+  outer-margin = \marginScore
+  inner-margin = \marginScore
+  binding-offset = 0\mm
 				%   top-margin = .25\in
 				%   bottom-margin = .25\in
-  top-margin = .5\in
-  bottom-margin = .5\in
+  %% top-margin = .5\in
+  %% bottom-margin = .5\in
+
+  %% https://github.com/noteflakes/lilypond-cookbook/wiki/Consistent-staff-levels
+  %% distance of top of header from page's top edge
+  top-margin = 10\mm
+  %% distance of top line of top staff from page's top edge
+  top-staff-margin = 24.5\mm
+
+  bottom-margin = 10\mm
+  bottom-staff-margin = 18.5\mm
+
+  %% set the basic distance of the top staff from the top margin
+  %% this formula takes into account the above settings, the current staff size, and adds
+  %% 2 staff spaces, since the reference position of the staff is its center line
+  top-system-spacing.basic-distance = #(+ (/ (- top-staff-margin top-margin) staff-space) 2)
+  last-bottom-spacing.basic-distance = #(+ (/ (- bottom-staff-margin bottom-margin) staff-space) 2)
+
+  top-system-spacing.minimum-distance = 0
+  last-bottom-spacing.minimum-distance = 0
+  %% set large negative padding in order to ignore the skyline
+  top-system-spacing.padding = -50
+  las-bottom-spacing.padding = -50
+  %% do not stretch the distance
+  top-system-spacing.stretchability = 0
+  last-bottom-spacing.stretchability = 0
 
   evenHeaderMarkup = \markup {
     \column {
@@ -63,11 +89,12 @@
   composer = \cmp
   tagline = \tg
   subtitle = \sbttl
-  copyright = "2016, Creative Commons BY-NC 4.0"
+  copyright = "2016 | Creative Commons BY-NC 4.0"
 }
 
-% staffsize = -2
+%% staffsize = -2
 staffsize = -4
+%% staffsize = 0
 
 \book {
   \bookOutputName "score"

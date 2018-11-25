@@ -2,7 +2,9 @@
 
 % paper
 % scorePaperSize = "a4landscape"
-scorePaperSize = "tabloid"
+%% scorePaperSize = "tabloid"
+scorePaperSize = "letterlandscape"
+
 
 % header
 % ttl = "Particular Rotations"
@@ -370,7 +372,7 @@ global = {
   \varRestEighth \ilen
   \break
 
-  \tag #'notViolinPart {\pageBreak}
+  %% \tag #'notViolinPart {\pageBreak}
 
   \rehmark % J
   \varRestEighth \klen
@@ -477,7 +479,7 @@ global = {
 
   \break
   \tag #'violinPart {\pageBreak}
-  \tag #'notViolinPart {\pageBreak}
+  %% \tag #'notViolinPart {\pageBreak}
 
   \rehmark % P
   \once \override Score.BarLine.allow-span-bar = ##f
