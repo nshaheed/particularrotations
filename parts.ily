@@ -1177,7 +1177,7 @@ viola = \new Voice \relative c' {
   \shortPause
 
   <<
-    { \arrow #(- olen 1) "10\" - 15\"" ##f \bar "" }
+    { \arrowAdj #(- olen 1) "10\" - 15\"" ##f #-5.5 \bar "" }
     { s8\> }
   >>
 
@@ -1522,27 +1522,48 @@ cello = \new Voice
       \override #'(baseline-skip . 1.75 )
       \override #'(line-width . 14)
       {\justify {wait this long after viola plays grace notes to repeat } } } }
-    { { s8\crpoco s8 s8 s8\! s8 s8 s8 s8 s8^\markup {
-      \with-dimensions-from \null {
-	\translate #'(1.99 . -2.3) {
-	  \override #'(thickness . 1.8)
-	  \draw-line #'(0 . 12)
-	  \translate #'(0.1 . 0) {
-	    \override #'(thickness . 6)
-	    \draw-line #'(0 . 12)
+    { { s8\crpoco s8 s8 s8\! s8 s8 s8 s8
+	\tag #'(score violinPart) {
+	  s8^\markup {
+	    \with-dimensions #'(0 . 0) #'(0 . 0)
+	    {
+	      \translate #'(3.88 . -2.3)
+	      {
+		\override #'(thickness . 1.8)
+		\draw-line #'(0 . 12)
+		\translate #'(0.1 . 0) {
+		  \override #'(thickness . 6)
+		  \draw-line #'(0 . 12)
+		}
+	      }
+	    }
 	  }
 	}
-      }
-    }
+	\tag #'celloViola {
+	  s8^\markup {
+	    \with-dimensions #'(0 . 0) #'(0 . 0)
+	    {
+	      \translate #'(4.23 . -2.3)
+	      {
+		\override #'(thickness . 1.8)
+		\draw-line #'(0 . 12)
+		\translate #'(0.1 . 0) {
+		  \override #'(thickness . 6)
+		  \draw-line #'(0 . 12)
+		}
+	      }
+	    }
+	  }
+	}
       } }
   >>
   \bar ":|."
 
   %% B Section
 
-  %% \undo \omit Staff.Clef
-  \forceClef
-  \clef bass
+  \undo \omit Staff.Clef
+  %% \forceClef
+  %% \clef bass
   \bar ":|.|:" %% This one
   \time 1/8
   \grace {
@@ -1681,7 +1702,7 @@ cello = \new Voice
 
   <<
     {
-      \arrow \olen "15\"" ##f \bar "" \override Staff.BarLine.transparent = ##t
+      \arrowAdj \olen "15\"" ##f #-5.7 \bar "" \override Staff.BarLine.transparent = ##t
     }
     s8\>
   >>
@@ -1886,15 +1907,24 @@ cello = \new Voice
       <<
 	c4.
 	{
-	  s4 s8 ^\markup {
-	    \with-dimensions-from \null {
-	      \translate #'(3.23 . -2.3) {
-		\override #'(thickness . 1.8)
-		\draw-line #'(0 . 12)
-		% \translate #'(0.1 . 0) {
-		%   \override #'(thickness . 6)
-		%   \draw-line #'(0 . 12)
-		% }
+	  s4
+	  \tag #'(score violinPart) {
+	    s8 ^\markup {
+	      \with-dimensions #'(0 . 0) #'(0 . 0) {
+		\translate #'(3.03 . -2.3) {
+		  \override #'(thickness . 1.8)
+		  \draw-line #'(0 . 12)
+		}
+	      }
+	    }
+	  }
+	  \tag #'celloViola {
+	    s8 ^\markup {
+	      \with-dimensions #'(0 . 0) #'(0 . 0) {
+		\translate #'(3.22 . -2.3) {
+		  \override #'(thickness . 1.8)
+		  \draw-line #'(0 . 12)
+		}
 	      }
 	    }
 	  }

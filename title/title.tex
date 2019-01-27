@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Minimalist Book Title Page 
+% Minimalist Book Title Page
 % LaTeX Template
 % Version 1.0 (27/12/12)
 %
@@ -11,10 +11,10 @@
 %
 % License:
 % CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-% 
+%
 % Instructions for using this template:
-% This title page compiles as is. If you wish to include this title page in 
-% another document, you will need to copy everything before 
+% This title page compiles as is. If you wish to include this title page in
+% another document, you will need to copy everything before
 % \begin{document} into the preamble of your document. The title page is
 % then included using \titleTH within your document.
 %
@@ -26,6 +26,12 @@
 
 \documentclass{book}
 %% \usepackage[a4paper, margin=1in,landscape]{geometry}
+\usepackage[paperheight=8.5in, paperwidth=11in,
+  top=0.75in,
+  bottom=-.2in,
+  left=0.75in,
+  right=0.75in
+]{geometry}
 \usepackage{fontspec}
 \usepackage{anyfontsize}
 \usepackage{afterpage}
@@ -33,6 +39,7 @@
 %% \setmainfont{DejaVu Sans ExtraLight}
 %% \setmainfont{Century Schoolbook L}
 %% \setmainfont{Century Schoolbook L}
+\addtolength{\topmargin}{-.45in}
 \setmainfont{TeX Gyre Schola}
 \newcommand*{\yr}{\fbox{2016}} % Year
 
@@ -44,23 +51,23 @@
 \raggedleft % Right-align all text
 \vspace*{\baselineskip} % Whitespace at the top of the page
 
-{\Large Nicholas Shaheed}\\[0.167\textheight] % Composer
+{\fontsize{20}{115}\selectfont Nicholas Shaheed}\\[0.167\textheight] % Composer
 %% {\Large BMI Student Composer Awards}\\[0.167\textheight] % Composer
 
 %% %% {\LARGE\bfseries The Big Book of}\\[\baselineskip] % First part of the title, if it is unimportant consider making the font size smaller to accentuate the main title
 
 \vfill % Space between composer and title block
 
-{\fontsize{55}{115}\selectfont Particular Rotations}\\[\baselineskip] % Main title which draws the focus of the reader
+{\fontsize{65}{115}\selectfont Particular Rotations}\\[\baselineskip] % Main title which draws the focus of the reader
 
-{\Large For String Quartet}\par % Tagline or further description
+{\fontsize{25}{115}\selectfont For String Quartet}\par % Tagline or further description
 %% {\Large Viola/Cello Part}\par % Tagline or further description
 %% \vspace{10pt}
-%% {\Large Cello}\par 
+%% {\Large Cello}\par
 
 \vfill % Whitespace between the title block and the publisher
 
-{\large \yr}\par % Publisher and logo
+{\fontsize{20}{115}\selectfont \yr}\par % Publisher and logo
 
 \vspace*{3\baselineskip} % Whitespace at the bottom of the page
 \endgroup}
@@ -69,7 +76,7 @@
 %	BLANK DOCUMENT
 %----------------------------------------------------------------------------------------
 
-\begin{document} 
+\begin{document}
 
 \pagestyle{empty} % Removes page numbers
 
@@ -77,6 +84,6 @@
 \titleTH % This command includes the title page
 
 %% blank page following title
-%% \afterpage{\null\newpage}
+\afterpage{\null\newpage}
 
 \end{document}

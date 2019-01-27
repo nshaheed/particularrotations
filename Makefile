@@ -1,6 +1,7 @@
 LILY_CMD = "/cygdrive/c/Program Files (x86)/LilyPond/usr/bin/lilypond.exe" -ddelete-intermediate-files -dno-point-and-click -drelative-includes
 
-LILY_CMD_LINUX = lilypond -ddelete-intermediate-files -dno-point-and-click -drelative-includes
+# LILY_CMD_LINUX = lilypond -ddelete-intermediate-files -dno-point-and-click -drelative-includes
+LILY_CMD_LINUX = ~/lilypond_2_18_2/usr/bin/lilypond -ddelete-intermediate-files -dno-point-and-click -drelative-includes
 
 LILY_CMD_LINUX_DEBUG = lilypond -ddelete-intermediate-files -drelative-includes
 
@@ -22,6 +23,7 @@ score_debug:
 
 legend:
 	echo "---------COMPILING LEGEND---------"
+	$(MAKE) -C legendLandscape
 	$(MAKE) -C legendTabloid
 
 title:
@@ -29,7 +31,7 @@ title:
 	$(MAKE) -C title/
 
 combine: title legend score
-	pdfunite title/title_tabloid_score.pdf legendTabloid/dir/legend.pdf score-viola_cello.pdf Shaheed-Particular_Rotations.pdf
+	pdfunite title/title.pdf legendLandscape/dir/legend.pdf score-score.pdf Shaheed-Particular_Rotations.pdf
 	pdfunite title/title_tabloid_violin.pdf legendTabloid/dir/legend.pdf score-violins.pdf Shaheed-Particular_Rotations-Violin.pdf
 	pdfunite title/title_tabloid_viola_cello.pdf legendTabloid/dir/legend.pdf score-viola_cello.pdf Shaheed-Particular_Rotations-Viola-Cello.pdf
 
@@ -46,5 +48,5 @@ leg:
 	# xelatex.exe -include-directory=DIR dir/legend.tex
 
 legLinux:
-	lilypond-book --pdf --output=dir legend.lytex
+	cd legendLandscape; lilypond-book --pdf --output=dir legend.lytex
 	cd dir; xelatex legend.tex
