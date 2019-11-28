@@ -155,13 +155,15 @@ violinOne = \new Voice \relative c'' {
 
   <<
     \arrow \glen "10\"" ##f
-    { s8^\markup{
+    {
+      %% \once \override Staff.TextScript.Y-offset = #-2
+      s8^\markup{
       \column {
         { \override #'(baseline-skip . 1.75 )
           \override #'(line-width . 15)
           {\justify {Release independently } }
         }
-        { \vspace #0.2 " " }
+        { \vspace #-0.6 " " }
       }
     }
     }
@@ -356,8 +358,12 @@ violinOne = \new Voice \relative c'' {
 
     \bar ".|:-small"
     \time 1/4
-				%     \ottava #1
-    <g' df'>8\p\norm\separateNone <g df'>8
+
+    %% \once \override Staff.TextScript.X-offset = #-2
+    <g' df'>8\p
+    ^\markup { \translate #'( -1.3 . 0) \italic norm. }
+    \separateNone
+    <g df'>8
     \bar ":|.-small"
 
     \arrow #(- qlen 6) "5\"" ##t
@@ -438,7 +444,7 @@ violinOne = \new Voice \relative c'' {
 
     \transpose g d {
       \relative c'' {
-	\grace {s16*6}
+	\grace {s16*6^\markup{\italic sim.}}
 	s4
 	\grace { \slashI {g16 bf g a g a } }
 	g4.->
@@ -461,7 +467,7 @@ violinOne = \new Voice \relative c'' {
 
     \transpose g a {
       \relative c'' {
-	\grace {s16*6}
+	\grace {s16*6^\markup{\italic sim.}}
 	s4
 	\grace { \slashI {g16 bf g a g a } }
 	g4.->
@@ -471,7 +477,7 @@ violinOne = \new Voice \relative c'' {
     \time 1/4
     \bar ".|:"
     \appoggiatura a8
-    <a e'>8->_\markup{\hspace #-3 \lower #4 \italic {cresc. poco a poco}}\together <a e'>8\!
+    <a e'>8->_\markup{\hspace #-3 \lower #2 \italic {cresc. poco a poco}}\together <a e'>8\!
     \bar ":|."
 
     \arrow #(- ulen 2) "3\"" ##f \bar ""
@@ -792,8 +798,8 @@ violinTwo = \new Voice \relative c'' {
       \new Voice { \voiceTwo \once \hideNotes b4( as2)}
       { s4 s4 % s16*4/10*6
         \fakeGrace
-        { \bar ".|:-small" \slashI { cs16^\markup{\translate #'( -3.2 . 0.8) \italic s.p.}
-                                     ^\markup{  \italic "rpt. many times" }
+        { \bar ".|:-small" \slashI { cs16^\markup{\translate #'( -1 . 2) \italic s.p.}
+                                     ^\markup{  \translate #'( -1 . 3.5) { \italic "rpt. many times" } }
                                      \<( e d ds } \bar ":|."}
         \fakeGraceOff
       }
@@ -803,7 +809,9 @@ violinTwo = \new Voice \relative c'' {
 
     \bar ".|:-small"
     \time 1/4
-    <gs' e'>8\p\norm\separateNone^\markup{
+    <gs' e'>8\p
+    ^\markup { \translate #'( -1.3 . 0) \italic norm. }
+    \separateNone^\markup{
       \transparent {
 	\filled-box #'(0 . 0) #'(0 . 2) #0
       }
@@ -867,7 +875,7 @@ violinTwo = \new Voice \relative c'' {
     \notinvs
 
     \transpose af ef { \relative c'' {
-      \grace {s16*6}
+      \grace {s16*6^\markup{\italic sim.}}
       s4 s8
       \grace {af16 cf af bf af bf}
       af4->
@@ -890,7 +898,7 @@ violinTwo = \new Voice \relative c'' {
     \notinvs
 
     \transpose af bf { \relative c'' {
-      \grace {s16*6}
+      \grace {s16*6^\markup{\italic sim.}}
       s4 s8
       \grace { af16 cf af bf af bf }
       af4->
@@ -900,7 +908,7 @@ violinTwo = \new Voice \relative c'' {
     \time 1/4
     \bar ".|:"
     \grace s8 <bf f'>8
-    _\markup{\hspace #-3 \lower #4 \italic {cresc. poco a poco}}
+    _\markup{\hspace #-3 \lower #2 \italic {cresc. poco a poco}}
     ->\together
     ^\markup{
       \transparent {
@@ -1247,8 +1255,8 @@ viola = \new Voice \relative c' {
     \bar ".|:-small"
     <<
       {
-        \slashI {cs16*4/10[^\markup{\translate #'( -3.2 . 1) \italic s.p.}
-			   \pp^\markup{ \italic { rpt. as many times as possible } }
+        \slashI {cs16*4/10[^\markup{\translate #'( -1 . 4) \italic s.p.}
+			   \pp^\markup{ \translate #'( -1 . 5.1) \italic { rpt. as many times as possible } }
 			   (e cs ds cs d e d cs d)] }
         \slashI {cs16*4/10[
 	  (e cs ds cs d e d cs d)] }
@@ -1273,7 +1281,9 @@ viola = \new Voice \relative c' {
 
   \bar ":|.|:"
   \time 1/4
-  <af ef'>8\p\norm\separateNone^\markup{
+  <af ef'>8\p
+  ^\markup { \translate #'( -1.3 . 0) \italic norm. }
+  \separateNone^\markup{
     \transparent {
       \filled-box #'(0 . 0) #'(0 . 2) #0
     }
@@ -1297,7 +1307,10 @@ viola = \new Voice \relative c' {
     }
   >>
   \time 1/4
-  <af ef'>8^\markup{ \pad-markup #0.4 \italic norm.}\separateNone <af ef'>8
+  <af ef'>8
+  ^\markup { \translate #'( -1.3 . 0) \italic norm. }
+  \separateNone
+  <af ef'>8
   \bar ":|.-small"
 
   \once \textLengthOn
@@ -1375,7 +1388,7 @@ viola = \new Voice \relative c' {
 
       \transpose c g {
 	\relative c'' {
-	  \grace {s16*6}
+	  \grace {s16*6^\markup{\italic sim.}}
 	  s8
 	  \grace {\slashI {c,,16 ef c d c d} }
 	  c8->~ c4.
@@ -1397,7 +1410,7 @@ viola = \new Voice \relative c' {
 
       \transpose c d' {
 	\relative c'' {
-	  \grace {s16*6}
+	  \grace {s16*6^\markup{\italic sim.}}
 	  s8
 	  \grace {\slashI {c,,16 ef c d c d} }
 	  c8->~ c4.
@@ -1406,7 +1419,7 @@ viola = \new Voice \relative c' {
 
       \bar ".|:"
       \time 1/4
-      \grace s8 <d a'>8_\markup{\hspace #-3 \lower #4 \italic {cresc. poco a poco}}\together->[  <d a'>8]
+      \grace s8 <d a'>8_\markup{\hspace #-3 \lower #2 \italic {cresc. poco a poco}}\together->[  <d a'>8]
       \bar ":|."
 
       <<
@@ -1509,19 +1522,21 @@ cello = \new Voice
 
   <<
     \arrowSpecial #(- alen 3) "" ##f
-    {s8^\markup{
-      \override #'(baseline-skip . 1.75	 )
-
-      \vcenter \column {
-	\concat {1x: " 5\""}
-	{ \concat {2x: " 4\""}}
-	{ etc.} }
-      \vcenter
-      ": "
-      \vcenter
-      \override #'(baseline-skip . 1.75 )
-      \override #'(line-width . 14)
-      {\justify {wait this long after viola plays grace notes to repeat } } } }
+    {
+      s8^\markup{
+	\override #'(baseline-skip . 1.75	 )
+	\vcenter \column {
+	  \concat {1x: " 5\""}
+	  { \concat {2x: " 4\""}}
+	  { etc.} }
+	\vcenter
+	": "
+	\vcenter
+	\override #'(baseline-skip . 1.75 )
+	\override #'(line-width . 14)
+	{\justify {wait this long after viola plays grace notes to repeat } }
+      }
+    }
     { { s8\crpoco s8 s8 s8\! s8 s8 s8 s8
 	\tag #'(score violinPart) {
 	  s8^\markup {
@@ -1810,7 +1825,9 @@ cello = \new Voice
   >>
 
   \time 1/4
-  <g d'>8^" "\separateNone <g d'>8
+  <g d'>8
+  ^\markup { \translate #'( -1.3 . 0) \italic norm. }
+  ^" "\separateNone <g d'>8
   \bar ":|.-small"
 
   \arrow #(- rlen 8) "7\"" ##t
@@ -1881,7 +1898,7 @@ cello = \new Voice
 
   \transpose c g {
     \relative c, {
-      \grace { \slashI { c16[ ef c d c d] } }
+      \grace { \slashI { c16^\markup{\translate #'(0 . 2) \italic sim.}[ ef c d c d] } }
       c4->~ c4.
     }
   }
@@ -1902,7 +1919,7 @@ cello = \new Voice
 
   \transpose c d' {
     \relative c, {
-      \grace { \slashI { c16[ ef c d c d] } }
+      \grace { \slashI { c16^\markup{\translate #'(0 . 3) \italic sim.}[ ef c d c d] } }
       c4->~
       <<
 	c4.
@@ -1954,7 +1971,7 @@ cello = \new Voice
   \grace {s8}
 
 
-  <d, a'>8_\markup{\hspace #-3 \lower #4 \italic {cresc. poco a poco}}^"13\""^"I,II" \glissando
+  <d, a'>8_\markup{\hspace #-3 \italic {cresc. poco a poco}}^"13\""^"I,II" \glissando
   s8\! \varRestEighth #(+ ulen 1) <d' a'>8\!
   \bar ""
   \time 4/4

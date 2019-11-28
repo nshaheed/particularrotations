@@ -93,7 +93,7 @@ ulen = 5
 
 
 %% Notation
-sulp	= ^\markup { \italic s.p. }
+sulp	= ^\markup { \translate #'(-1 . 0) { \italic s.p. } }
 norm	= ^\markup { \italic norm. }
 
 separate = ^\markup{ \pad-markup #1
@@ -565,7 +565,8 @@ global = {
   \once \override Staff.TimeSignature #'stencil = ##f
   \time 5/8
   \rehmark % U
-  \grace {s16^\markup{\italic sim.} s16*5} s4 %^"5 8 here"
+  \grace {s16%% ^\markup{\translate #'(0 . 2) \italic sim.}
+	  s16*5} s4
   \override Staff.TimeSignature.stencil = ##f
   s4.
   \bar ".|:-right-double"
@@ -587,7 +588,7 @@ global = {
 
   \time 5/8
   \rehmark % W
-  \grace {s16*6^" "^\markup{\italic sim.}} s4
+  \grace {s16*6} s4
   \override Staff.TimeSignature.stencil = ##f
   s4.
 

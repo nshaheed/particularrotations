@@ -3,7 +3,7 @@ LILY_CMD = "/cygdrive/c/Program Files (x86)/LilyPond/usr/bin/lilypond.exe" -ddel
 # LILY_CMD_LINUX = lilypond -ddelete-intermediate-files -dno-point-and-click -drelative-includes
 LILY_CMD_LINUX = ~/lilypond_2_18_2/usr/bin/lilypond -ddelete-intermediate-files -dno-point-and-click -drelative-includes
 
-LILY_CMD_LINUX_DEBUG = lilypond -ddelete-intermediate-files -drelative-includes
+LILY_CMD_LINUX_DEBUG = ~/lilypond_2_18_2/usr/bin/lilypond -ddelete-intermediate-files -drelative-includes
 
 # all: a combine combinea va v
 .PHONY: all score legend title debug

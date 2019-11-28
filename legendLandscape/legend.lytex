@@ -89,7 +89,7 @@
     }
 \end{lilypond}
 \hfill \raggedright
-\caption*{Play together, rhythms are played together as in normal performance}
+\caption*{Play together, rhythms are played together, as in a normal performance}
 \end{figure}
 
 
@@ -212,12 +212,12 @@
 \end{lilypond}
 \hfill \raggedright
 \caption*{Angled parallel lines indicate moving up in pitch along the indicated strings. In
-		 the indicated time span, go as far up the fretboard on those strings as possible while
+		 the indicated time span, go as far up the fingerboard on those strings as possible while
 		 still creating pitched sound. Move in half steps and whole steps.  Not every attack
 		 must ascend - staying on pitch or even moving down are acceptable, as long as there is
 		 a general upward motion.
 		 Use the rhythm and the interval from the previous phrase.  In this instance, one would
-		 spend approximately 10 seconds moving in parallel fifths up the fretboard with an eighth-note rhythm.  Lines parallel to the page indicate the above, but while staying on and around one pitch.
+		 spend approximately 10 seconds moving in parallel fifths up the fingerboard with an eighth-note rhythm.  Lines parallel to the page indicate the above, but while staying on and around one pitch.
 }
 \end{figure}
 
@@ -227,6 +227,6 @@
 
 \subsection*{Notes}
 
-\textit{Particular Rotations} makes heavy use of indeterminate elements.  Lengths of certain phrases, number of repetitions, etc. are loosely defined, and should have an improvisational quality to them - strive to make each performance different.  While the piece is mostly metrically free, there are a few metered sections, which begin with the appearance of a time signature.  Note that metered sections are different from the play together notation above - the notation indicates rhythmic unsion, but the number of repetitions should be decided during the performance (either one player leads, or players move to the next section independently, depending on what the music calls for).
+\textit{Particular Rotations} makes heavy use of indeterminate elements.  Lengths of certain phrases, number of repetitions, etc. are loosely defined, and should have an improvisational quality to them.  While the piece is mostly metrically-free, there are a few metered sections, which begin with the appearance of a time signature.  Note that metered sections are different from the play together notation above - the notation indicates rhythmic unsion, but the number of repetitions should be decided during the performance (either one player leads, or players move to the next section independently, depending on what the music calls for).
 
 \end{document}
